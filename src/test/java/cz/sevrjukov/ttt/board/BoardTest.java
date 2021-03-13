@@ -21,8 +21,8 @@ public class BoardTest {
 
 		var board = new Board();
 
-		board.move(2, 1);
-		board.move(3, 2);
+		board.makeMove(2, 1);
+		board.makeMove(3, 2);
 
 		board.printBoard();
 

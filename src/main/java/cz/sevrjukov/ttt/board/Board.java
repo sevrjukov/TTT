@@ -28,11 +28,14 @@ public class Board {
 		movesHistory.clear();
 	}
 
-	public int [] getPosition() {
+	public int[] getPosition() {
 		return position;
 	}
 
-	public void move(int squareNum, int side) {
+	public void makeMove(int squareNum, int side) {
+		if (position[squareNum] != EMPTY) {
+			throw new IllegalArgumentException("Cannot execute move " + squareNum + " " + side);
+		}
 		movesHistory.push(new Move(squareNum, side));
 		position[squareNum] = side;
 	}
