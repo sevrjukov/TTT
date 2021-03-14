@@ -13,6 +13,7 @@ import static cz.sevrjukov.ttt.board.Board.W;
 public class MoveGenerator {
 
 	final Map<Long, int[]> cache = new ConcurrentHashMap<>(100_000);
+	long cacheHits = 0;
 
 	public int[] generateMoves(Board board) {
 
@@ -20,6 +21,7 @@ public class MoveGenerator {
 
 		var cachedResult = cache.get(cacheKey);
 		if (cachedResult != null) {
+			cacheHits++;
 			return cachedResult;
 		}
 
