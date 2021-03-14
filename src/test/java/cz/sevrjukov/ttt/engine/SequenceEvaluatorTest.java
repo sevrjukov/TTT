@@ -28,6 +28,9 @@ public class SequenceEvaluatorTest {
 		System.out.println(result);
 	}
 
+
+
+
 	private List<Integer> parseLine(String line) {
 		List<Integer> result = new ArrayList<>();
 		for (char c: line.toUpperCase(Locale.ROOT).toCharArray()) {

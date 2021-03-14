@@ -16,7 +16,7 @@ public class MoveSearchTest {
 				+ "-------------xx---xoox-ooxx------o---xxo-x-----");
 		board.printBoard();
 		MoveSearch moveSearch = new MoveSearch();
-		int nextMove = moveSearch.findNextMove(board, 4);
+		int nextMove = moveSearch.findNextMove(board, 5);
 
 		board.makeMove(nextMove, COMPUTER);
 		board.printBoard();
@@ -26,10 +26,15 @@ public class MoveSearchTest {
 	@Test
 	public void simpleCase() {
 		var board = new Board();
-		board.parseBoard("-----------------"
-				+ "---------ooo------x");
+		board.parseBoard(
+				"-----------"
+			+	"-o---------"
+			+	"-o---------"
+			+	"-o---------"
+			+	"-----------"
+			);
 		MoveSearch moveSearch = new MoveSearch();
-		int nextMove = moveSearch.findNextMove(board, 2);
+		int nextMove = moveSearch.findNextMove(board, 4);
 		board.makeMove(nextMove, COMPUTER);
 		board.printBoard();
 	}

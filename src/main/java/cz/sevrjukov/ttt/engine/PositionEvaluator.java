@@ -13,6 +13,9 @@ import static cz.sevrjukov.ttt.board.Board.W;
 
 public class PositionEvaluator {
 
+	public static final int VICTORY = Integer.MAX_VALUE;
+	public static final int DEFEAT = Integer.MIN_VALUE;
+
 	final Map<Long, Integer> cache = new ConcurrentHashMap<>(100_000);
 	private long cacheHits = 0;
 
@@ -35,7 +38,7 @@ public class PositionEvaluator {
 			int value = Integer.MIN_VALUE;
 			int[] moves = moveGenerator.generateMoves(board);
 			for (int moveSquare : moves) {
-				board.makeMove(moveSquare, HUMAN);
+				board.makeMove(moveSquare, COMPUTER);
 				value = Math.max(value, alphabeta(board, depth - 1, alpha, beta, false));
 				alpha = Math.max(alpha, value);
 				board.undoLastMove();
@@ -48,7 +51,7 @@ public class PositionEvaluator {
 			int value = Integer.MAX_VALUE;
 			int[] moves = moveGenerator.generateMoves(board);
 			for (int moveSquare : moves) {
-				board.makeMove(moveSquare, COMPUTER);
+				board.makeMove(moveSquare, HUMAN);
 				value = Math.min(value, alphabeta(board, depth - 1, alpha, beta, true));
 				beta = Math.min(beta, value);
 				board.undoLastMove();
@@ -78,7 +81,7 @@ public class PositionEvaluator {
 	/**
 	 * Actual evaluation
 	 */
-	private int evaluatePosition(Board board) {
+	protected int evaluatePosition(Board board) {
 
 		int[] position = board.getPosition();
 		// evaluation points for Cross and Zero players:
@@ -98,7 +101,7 @@ public class PositionEvaluator {
 					// feed it
 					evaluatorForComputer.feedNextSquare(position[index]);
 					evaluatorForHuman.feedNextSquare(position[index]);
-					index += H;
+					index += W;
 				}
 				computerEvaluation += evaluatorForComputer.getEvaluation();
 				humanEvaluation += evaluatorForHuman.getEvaluation();
@@ -163,9 +166,9 @@ public class PositionEvaluator {
 			return computerEvaluation - humanEvaluation;
 		} catch (VictoryFound e) {
 			if (e.getPlayer() == COMPUTER) {
-				return Integer.MAX_VALUE;
+				return VICTORY;
 			} else {
-				return Integer.MIN_VALUE;
+				return DEFEAT;
 			}
 		}
 	}

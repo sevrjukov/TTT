@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static cz.sevrjukov.ttt.board.Board.COMPUTER;
+import static cz.sevrjukov.ttt.engine.PositionEvaluator.VICTORY;
 
 public class MoveSearch {
 
@@ -25,10 +26,13 @@ public class MoveSearch {
 		for (int moveSquare : moves) {
 			board.makeMove(moveSquare, COMPUTER);
 			// evaluating this position:
-			var evaluation = positionEvaluator.alphabeta(board, searchDepth, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
+			var evaluation = positionEvaluator.alphabeta(board, searchDepth, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
 			evaluatedMoves.put(evaluation, moveSquare);
 			System.out.println("Move " + moveSquare + " was evaluated " + evaluation);
 			board.undoLastMove();
+			if (evaluation == VICTORY) {
+				break;
+			}
 		}
 
 		// sort and take the best found move
