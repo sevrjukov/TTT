@@ -4,15 +4,16 @@ import cz.sevrjukov.ttt.board.Board;
 import cz.sevrjukov.ttt.gui.SimpleVisualBoard;
 import org.junit.Test;
 
-import static cz.sevrjukov.ttt.board.Board.COMP;
+import static cz.sevrjukov.ttt.board.Board.COMPUTER;
 
-public class EvaluatorTest {
+public class PositionEvaluatorTest {
 
 
 	@Test
-	public void testSpeed() {
+	public void testEvaluationn() {
 
 		var board = new Board();
+		board.setDebug(true);
 
 		board.parseBoard("----------------"
 				+ "-------------------"
@@ -21,27 +22,21 @@ public class EvaluatorTest {
 //		board.printBoard();
 
 		var simpleDisplay = new SimpleVisualBoard();
-
 		simpleDisplay.start();
-		MoveGenerator moveGenerator = new MoveGenerator();
-		Evaluator evaluator = new Evaluator(moveGenerator);
+
+		var moveGenerator = new MoveGenerator();
+
+		var positionEvaluator = new PositionEvaluator(moveGenerator);
 		var moves = moveGenerator.generateMoves(board);
 
 		for (int moveSquare: moves) {
-			board.makeMove(moveSquare, COMP);
-
+			board.makeMove(moveSquare, COMPUTER);
 			// evaluating this position:
-			var evaluation = evaluator.alphabeta(board, 2, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
+			var evaluation = positionEvaluator.alphabeta(board, 2, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
 			System.out.println("value " + evaluation);
 			board.undoLastMove();
 
-			break;
 		}
-
-
-
-		//alphabeta(origin, depth, −∞, +∞, TRUE)
-
 
 	}
 

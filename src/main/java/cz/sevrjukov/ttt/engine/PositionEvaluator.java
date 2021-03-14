@@ -2,25 +2,27 @@ package cz.sevrjukov.ttt.engine;
 
 import cz.sevrjukov.ttt.board.Board;
 
-import java.util.Random;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-import static cz.sevrjukov.ttt.board.Board.COMP;
+import static cz.sevrjukov.ttt.board.Board.COMPUTER;
 import static cz.sevrjukov.ttt.board.Board.HUMAN;
 
-public class Evaluator {
+public class PositionEvaluator {
+
+	final Map<Long, Integer> cache = new ConcurrentHashMap<>(100_000);
 
 	private MoveGenerator moveGenerator;
 
-	public Evaluator(MoveGenerator moveGenerator) {
+	public PositionEvaluator(MoveGenerator moveGenerator) {
 		this.moveGenerator = moveGenerator;
-
 	}
 
 	public int alphabeta(Board board, int depth, int alpha, int beta, boolean maximizingPlayer) {
 
 		board.saveToFile();
 		if (depth == 0 || isFinalPosition(board)) {
-			return evaluatePosition(board);
+			return evaluatePositionOrGetCached(board);
 		}
 
 		if (maximizingPlayer) {
@@ -30,61 +32,53 @@ public class Evaluator {
 				board.makeMove(moveSquare, HUMAN);
 				value = Math.max(value, alphabeta(board, depth - 1, alpha, beta, false));
 				alpha = Math.max(alpha, value);
+				board.undoLastMove();
 				if (alpha >= beta) {
-					board.undoLastMove();
 					break;
 				}
-				board.undoLastMove();
 			}
 			return value;
 		} else {
 			int value = Integer.MAX_VALUE;
 			int[] moves = moveGenerator.generateMoves(board);
 			for (int moveSquare : moves) {
-				board.makeMove(moveSquare, COMP);
+				board.makeMove(moveSquare, COMPUTER);
 				value = Math.min(value, alphabeta(board, depth - 1, alpha, beta, true));
 				beta = Math.min(beta, value);
+				board.undoLastMove();
 				if (beta <= alpha) {
-					board.undoLastMove();
 					break;
 				}
-				board.undoLastMove();
 			}
 			return value;
 		}
 	}
 
-
-
-	/*
-	function alphabeta(node, depth, α, β, maximizingPlayer) is
-    if depth = 0 or node is a terminal node then
-        return the heuristic value of node
-    if maximizingPlayer then
-        value := −∞
-        for each child of node do
-            value := max(value, alphabeta(child, depth − 1, α, β, FALSE))
-            α := max(α, value)
-            if α ≥ β then
-                break (* β cutoff *)
-        return value
-    else
-        value := +∞
-        for each child of node do
-            value := min(value, alphabeta(child, depth − 1, α, β, TRUE))
-            β := min(β, value)
-            if β ≤ α then
-                break (* α cutoff *)
-        return value
+	/**
+	 * Evaluation is always performed from the computer point of view.
 	 */
-
-	private int evaluatePosition(Board board) {
-		var r = new Random();
-		return r.nextInt(500);
+	private int evaluatePositionOrGetCached(Board board) {
+		var cachedValue = cache.get(board.getPositionHash());
+		if (cachedValue != null) {
+			return cachedValue;
+		}
+		// do actual search
+		int result = evaluatePosition(board);
+		cache.put(board.getPositionHash(), result);
+		return result;
 	}
 
+	/**
+	 * Actual evaluation
+	 */
+	private int evaluatePosition(Board board) {
+		return 0;
+	}
+
+
 	private boolean isFinalPosition(Board board) {
-		return false;
+		// no more free squares to make next move (all squares occupied)
+		return (board.getPosition().length == board.getMovesHistory().size());
 	}
 
 }

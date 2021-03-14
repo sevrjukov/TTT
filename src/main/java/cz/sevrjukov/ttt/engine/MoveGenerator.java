@@ -16,9 +16,9 @@ public class MoveGenerator {
 
 	public int[] generateMoves(Board board) {
 
-		var hash = board.getPositionHashShallow();
+		var cacheKey = board.getPositionHashShallow();
 
-		var cachedResult = cache.get(hash);
+		var cachedResult = cache.get(cacheKey);
 		if (cachedResult != null) {
 			return cachedResult;
 		}
@@ -84,7 +84,7 @@ public class MoveGenerator {
 			}
 		}
 
-		cache.put(hash, result);
+		cache.put(cacheKey, result);
 		return result;
 	}
 

@@ -62,7 +62,7 @@ public class MoveGeneratorTest {
 	private void testWithSquare(int... testSquares) {
 		var board = new Board();
 		for (int testSquare : testSquares) {
-			board.makeMove(testSquare, Board.COMP);
+			board.makeMove(testSquare, Board.COMPUTER);
 		}
 
 		var moveGenerator = new MoveGenerator();

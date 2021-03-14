@@ -13,16 +13,22 @@ public class Board {
 	public static int SIZE = W * H;
 
 	public static int EMPTY = 0;
-	public static int COMP = 1;
+	public static int COMPUTER = 1;
 	public static int HUMAN = 2;
+	public static int UNDEFINED = -1;
 
 	private int[] position;
 
 	private Stack<Move> movesHistory = new Stack<>();
 
+	private boolean debug = false;
 
 	public Board() {
 		clearBoard();
+	}
+
+	public void setDebug(boolean debug) {
+		this.debug = debug;
 	}
 
 	public void clearBoard() {
@@ -66,6 +72,10 @@ public class Board {
 		position[lastMove.squareNum] = EMPTY;
 	}
 
+	public Stack<Move> getMovesHistory() {
+		return movesHistory;
+	}
+
 	public void parseBoard(String boardNotation) {
 		boardNotation = boardNotation.toLowerCase().trim().replaceAll("\\s+", "");
 		if (boardNotation.length() > SIZE) {
@@ -74,7 +84,7 @@ public class Board {
 		int i = 0;
 		for (char c : boardNotation.toCharArray()) {
 			if (c == 'x') {
-				position[i] = COMP;
+				position[i] = COMPUTER;
 			}
 			if (c == 'o') {
 				position[i] = HUMAN;
@@ -89,6 +99,9 @@ public class Board {
 	}
 
 	public void saveToFile() {
+		if (!debug) {
+			throw  new IllegalArgumentException("Board will not save to file, not in debug mode!");
+		}
 		try {
 			Files.writeString(Paths.get("/tmp", "board.txt"), toString(), StandardOpenOption.TRUNCATE_EXISTING);
 		} catch (IOException e) {
@@ -106,7 +119,7 @@ public class Board {
 			if (square == EMPTY) {
 				builder.append(" . ");
 			}
-			if (square == COMP) {
+			if (square == COMPUTER) {
 				builder.append(" X ");
 			}
 			if (square == HUMAN) {
