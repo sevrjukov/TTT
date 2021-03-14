@@ -1,5 +1,8 @@
+Next steps:
 
-MoveGenerator: rozsirit na druhou vrstvu
-Cache: - na vyhodnoceni pozice
-Cache: - poladit jejich inicialni kapacity
-- iterative deepening
+- MoveGenerator: rozsirit na druhou vrstvu
+
+
+Evaluation function:
+- predpocitat diagonaly, horizontaly, vertikaly (aby se nemusel pokazdy znovu vypocitavat index)
+- nepocitat prazdne lajny
