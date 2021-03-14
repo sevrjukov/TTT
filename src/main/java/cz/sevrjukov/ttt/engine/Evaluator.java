@@ -18,16 +18,16 @@ public class Evaluator {
 
 	public int alphabeta(Board board, int depth, int alpha, int beta, boolean maximizingPlayer) {
 
+		board.saveToFile();
 		if (depth == 0 || isFinalPosition(board)) {
 			return evaluatePosition(board);
 		}
 
 		if (maximizingPlayer) {
 			int value = Integer.MIN_VALUE;
-			int [] moves = moveGenerator.generateMoves(board);
-			for (int moveSquare: moves) {
+			int[] moves = moveGenerator.generateMoves(board);
+			for (int moveSquare : moves) {
 				board.makeMove(moveSquare, HUMAN);
-
 				value = Math.max(value, alphabeta(board, depth - 1, alpha, beta, false));
 				alpha = Math.max(alpha, value);
 				if (alpha >= beta) {
@@ -39,10 +39,9 @@ public class Evaluator {
 			return value;
 		} else {
 			int value = Integer.MAX_VALUE;
-			int [] moves = moveGenerator.generateMoves(board);
-			for (int moveSquare: moves) {
+			int[] moves = moveGenerator.generateMoves(board);
+			for (int moveSquare : moves) {
 				board.makeMove(moveSquare, COMP);
-
 				value = Math.min(value, alphabeta(board, depth - 1, alpha, beta, true));
 				beta = Math.min(beta, value);
 				if (beta <= alpha) {
@@ -80,11 +79,6 @@ public class Evaluator {
 	 */
 
 	private int evaluatePosition(Board board) {
-		try {
-			Thread.sleep(10);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		var r = new Random();
 		return r.nextInt(500);
 	}

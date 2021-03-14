@@ -1,20 +1,25 @@
 package cz.sevrjukov.ttt.gui;
 
-import cz.sevrjukov.ttt.board.Board;
-
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 import java.awt.Font;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
-public class SimpleVisualBoard implements BoardDisplay {
+public class SimpleVisualBoard {
 
 
-	JTextArea textArea;
+	private JTextArea textArea;
 
 	public static void main(String[] args) {
 		SimpleVisualBoard o = new SimpleVisualBoard();
 		o.start();
-
 	}
 
 	private void createAndShowGUI() {
@@ -26,27 +31,52 @@ public class SimpleVisualBoard implements BoardDisplay {
 		//Add the ubiquitous "Hello World" label.
 		textArea = new JTextArea(30, 60);
 		textArea.setLineWrap(true);
-		textArea.setText("The quick brown fox jumps over the lazy dog.");
 
 		// Sets JTextArea font and color.
 		Font font = new Font(Font.MONOSPACED, Font.PLAIN, 15);
 		textArea.setFont(font);
-		frame.getContentPane().add(textArea);
 
+		JButton btnDraw = new JButton("refresh");
+		btnDraw.addActionListener(event -> drawPosition());
+
+		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		frame.getContentPane().add(textArea);
+		frame.getContentPane().add(btnDraw);
 		//Display the window.
 		frame.pack();
 		frame.setVisible(true);
 	}
 
 	public void start() {
-		//Schedule a job for the event-dispatching thread:
-		//creating and showing this application's GUI.
+		// Here, we can safely update the GUI
+		// because we'll be called from the
+		// event dispatch thread
+		SwingUtilities.invokeLater(this::createAndShowGUI);
 
-				createAndShowGUI();
+		var scheduler = Executors.newScheduledThreadPool(1);
+		scheduler.scheduleAtFixedRate(this::drawPosition, 0, 2, TimeUnit.SECONDS);
+
+
 	}
 
-	@Override
-	public void drawPosition(Board board) {
-		textArea.setText(board.toString());
+	public void drawPosition() {
+		try {
+			var lines = Files.readAllLines(Paths.get("/tmp", "board.txt"));
+			var content = String.join("\n", lines);
+			updateTextarea(content);
+		} catch (IOException e) {
+			e.printStackTrace();
+			updateTextarea("error");
+		}
+
+	}
+
+	private void updateTextarea(String string) {
+		SwingUtilities.invokeLater(() -> {
+			// Here, we can safely update the GUI
+			// because we'll be called from the
+			// event dispatch thread
+			textArea.setText(string);
+		});
 	}
 }

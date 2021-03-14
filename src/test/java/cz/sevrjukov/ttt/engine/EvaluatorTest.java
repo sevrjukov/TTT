@@ -21,20 +21,21 @@ public class EvaluatorTest {
 //		board.printBoard();
 
 		var simpleDisplay = new SimpleVisualBoard();
-		board.setDisplay(simpleDisplay);
+
 		simpleDisplay.start();
 		MoveGenerator moveGenerator = new MoveGenerator();
-		Evaluator ev = new Evaluator(moveGenerator);
+		Evaluator evaluator = new Evaluator(moveGenerator);
 		var moves = moveGenerator.generateMoves(board);
 
 		for (int moveSquare: moves) {
 			board.makeMove(moveSquare, COMP);
 
 			// evaluating this position:
-			board.drawBoard();
-			var evaluation = ev.alphabeta(board, 2, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
+			var evaluation = evaluator.alphabeta(board, 2, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
 			System.out.println("value " + evaluation);
 			board.undoLastMove();
+
+			break;
 		}
 
 

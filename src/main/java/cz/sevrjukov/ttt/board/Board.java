@@ -1,7 +1,9 @@
 package cz.sevrjukov.ttt.board;
 
-import cz.sevrjukov.ttt.gui.BoardDisplay;
-
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Stack;
 
 public class Board {
@@ -18,7 +20,6 @@ public class Board {
 
 	private Stack<Move> movesHistory = new Stack<>();
 
-	private BoardDisplay display;
 
 	public Board() {
 		clearBoard();
@@ -82,10 +83,17 @@ public class Board {
 		}
 	}
 
-
 	public void printBoard() {
 		System.out.println();
 		System.out.println(toString());
+	}
+
+	public void saveToFile() {
+		try {
+			Files.writeString(Paths.get("/tmp", "board.txt"), toString(), StandardOpenOption.TRUNCATE_EXISTING);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -109,16 +117,6 @@ public class Board {
 			}
 		}
 		return builder.toString();
-	}
-
-	public void setDisplay(BoardDisplay display) {
-		this.display = display;
-	}
-
-	public void drawBoard() {
-		if (this.display != null) {
-			display.drawPosition(this);
-		}
 	}
 
 }
