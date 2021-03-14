@@ -1,6 +1,5 @@
 
-
-Cache:
-- na generovani moves
-- na vyhodnoceni pozice
-- poladit jejich inicialni kapacity
+MoveGenerator: rozsirit na druhou vrstvu
+Cache: - na vyhodnoceni pozice
+Cache: - poladit jejich inicialni kapacity
+- iterative deepening

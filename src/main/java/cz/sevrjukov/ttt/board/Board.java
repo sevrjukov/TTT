@@ -1,5 +1,7 @@
 package cz.sevrjukov.ttt.board;
 
+import cz.sevrjukov.ttt.gui.BoardDisplay;
+
 import java.util.Stack;
 
 public class Board {
@@ -15,6 +17,8 @@ public class Board {
 	private int[] position;
 
 	private Stack<Move> movesHistory = new Stack<>();
+
+	private BoardDisplay display;
 
 	public Board() {
 		clearBoard();
@@ -81,21 +85,39 @@ public class Board {
 
 	public void printBoard() {
 		System.out.println();
+		System.out.println(toString());
+	}
+
+	@Override
+	public String toString() {
+		var builder = new StringBuilder();
+
 		int i = 0;
 		for (int square : position) {
 			i++;
 			if (square == EMPTY) {
-				System.out.print(" . ");
+				builder.append(" . ");
 			}
 			if (square == COMP) {
-				System.out.print(" X ");
+				builder.append(" X ");
 			}
 			if (square == HUMAN) {
-				System.out.print(" O ");
+				builder.append(" O ");
 			}
 			if (i % W == 0) {
-				System.out.println();
+				builder.append("\n");
 			}
+		}
+		return builder.toString();
+	}
+
+	public void setDisplay(BoardDisplay display) {
+		this.display = display;
+	}
+
+	public void drawBoard() {
+		if (this.display != null) {
+			display.drawPosition(this);
 		}
 	}
 
