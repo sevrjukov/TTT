@@ -1,0 +1,6 @@
+
+
+Cache:
+- na generovani moves
+- na vyhodnoceni pozice
+- poladit jejich inicialni kapacity

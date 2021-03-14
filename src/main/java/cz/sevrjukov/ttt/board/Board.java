@@ -9,8 +9,8 @@ public class Board {
 	public static int SIZE = W * H;
 
 	public static int EMPTY = 0;
-	public static int X = 1;
-	public static int O = 2;
+	public static int COMP = 1;
+	public static int HUMAN = 2;
 
 	private int[] position;
 
@@ -30,6 +30,22 @@ public class Board {
 
 	public int[] getPosition() {
 		return position;
+	}
+
+	public long getPositionHash() {
+		long result = 1;
+		for (int element : position) {
+			result = 31 * result + element;
+		}
+		return result;
+	}
+
+	public long getPositionHashShallow() {
+		long result = 1;
+		for (int element : position) {
+			result = 31 * result + (element > 0 ? 1 : 0);
+		}
+		return result;
 	}
 
 	public void makeMove(int squareNum, int side) {
@@ -53,10 +69,10 @@ public class Board {
 		int i = 0;
 		for (char c : boardNotation.toCharArray()) {
 			if (c == 'x') {
-				position[i] = X;
+				position[i] = COMP;
 			}
 			if (c == 'o') {
-				position[i] = O;
+				position[i] = HUMAN;
 			}
 			i++;
 		}
@@ -64,21 +80,21 @@ public class Board {
 
 
 	public void printBoard() {
-		System.out.println("");
+		System.out.println();
 		int i = 0;
 		for (int square : position) {
 			i++;
 			if (square == EMPTY) {
 				System.out.print(" . ");
 			}
-			if (square == X) {
+			if (square == COMP) {
 				System.out.print(" X ");
 			}
-			if (square == O) {
+			if (square == HUMAN) {
 				System.out.print(" O ");
 			}
 			if (i % W == 0) {
-				System.out.println("");
+				System.out.println();
 			}
 		}
 	}
