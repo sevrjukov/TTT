@@ -29,6 +29,7 @@ public class PositionEvaluator {
 		this.moveGenerator = moveGenerator;
 	}
 
+	//TODO funkce bude vracet object "MinimaxMove" misto int hodnoceni
 	public int alphabeta(Board board, int depth, int alpha, int beta, boolean maximizingPlayer) {
 
 		//	board.saveToFile();
@@ -221,6 +222,9 @@ public class PositionEvaluator {
 	private boolean isFinalPosition(Board board) {
 		// no more free squares to make next move (all squares occupied)
 		return (board.getPosition().length == board.getMovesHistory().size());
+
+		//TODO check if there is a win
+		// BIG HINT - we only need to check the 4 lines for the last move!
 	}
 
 

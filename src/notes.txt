@@ -4,9 +4,14 @@ Next steps:
 - Evaluation function
     - predpocitane diagonaly
     - mit seznam, ktere diagonaly jsou aktivovany
+    - stavova masina misto SequenceEvaluatoru
 - MoveGenerator: rozsirit na druhou vrstvu
 
 
 Evaluation function:
 - predpocitat diagonaly, horizontaly, vertikaly (aby se nemusel pokazdy znovu vypocitavat index)
 - nepocitat prazdne lajny
+
+
+Search alg
+https://www.baeldung.com/java-minimax-algorithm

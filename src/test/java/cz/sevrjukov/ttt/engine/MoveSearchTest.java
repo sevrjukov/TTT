@@ -20,7 +20,24 @@ public class MoveSearchTest {
 
 		board.makeMove(nextMove, COMPUTER);
 		board.printBoard();
+	}
 
+	@Test
+	public void moveSearchTestMidsizePosxition() {
+
+		var board = new Board();
+		board.parseBoard(
+				"-----------------" +
+						"-----------------"
+						+ "----------xoox-----"
+						+ "--------ooxx-o--------"
+						+ "------xoo-o-----");
+		board.printBoard();
+		MoveSearch moveSearch = new MoveSearch();
+		int nextMove = moveSearch.findNextMove(board, 6);
+
+		board.makeMove(nextMove, COMPUTER);
+		board.printBoard();
 	}
 
 	@Test
@@ -28,11 +45,11 @@ public class MoveSearchTest {
 		var board = new Board();
 		board.parseBoard(
 				"-------------------"
-			+	"-o-----------------"
-			+	"-o-----------------"
-			+	"-o-----------------"
-			+	"-------------------"
-			);
+						+ "-o-----------------"
+						+ "-o-----------------"
+						+ "-o-----------------"
+						+ "-------------------"
+		);
 		MoveSearch moveSearch = new MoveSearch();
 		int nextMove = moveSearch.findNextMove(board, 4);
 		board.makeMove(nextMove, COMPUTER);
