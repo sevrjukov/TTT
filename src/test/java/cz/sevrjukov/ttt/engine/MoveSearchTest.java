@@ -13,7 +13,7 @@ public class MoveSearchTest {
 
 		var board = new Board();
 		board.parseBoard("-----------------"
-				+ "-------------xx---xoox-ooxx------o---xxo-x-----");
+				+ "----------xoox-ooxx------o---xxo-x-----");
 		board.printBoard();
 		MoveSearch moveSearch = new MoveSearch();
 		int nextMove = moveSearch.findNextMove(board, 5);

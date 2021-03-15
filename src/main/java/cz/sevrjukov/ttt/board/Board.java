@@ -84,10 +84,10 @@ public class Board {
 		int i = 0;
 		for (char c : boardNotation.toCharArray()) {
 			if (c == 'x') {
-				position[i] = COMPUTER;
+				makeMove(i, COMPUTER);
 			}
 			if (c == 'o') {
-				position[i] = HUMAN;
+				makeMove(i, HUMAN);
 			}
 			i++;
 		}

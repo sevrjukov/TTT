@@ -86,5 +86,40 @@ public class PositionEvaluatorTest {
 	}
 
 
+	@Test
+	public void performanceTest() {
+		var board = new Board();
+		board.parseBoard(
+				"-------------------"
+						+ "----o--------------"
+						+ "---o-x-------------"
+						+ "--oxx--x------------"
+						+ "-o-----------------"
+						+ "---x----------------"
+		);
+		board.printBoard();
+
+		var moveGenerator = new MoveGenerator();
+		var positionEvaluator = new PositionEvaluator(moveGenerator);
+		int numRepetitions = 1_000_000;
+
+		long start1 = System.currentTimeMillis();
+		for (int i = 0; i < numRepetitions; i++) {
+			positionEvaluator.evaluatePositionOld(board);
+
+		}
+		long end1 = System.currentTimeMillis();
+
+		long start2 = System.currentTimeMillis();
+		for (int i = 0; i < numRepetitions; i++) {
+			positionEvaluator.evaluatePosition(board);
+		}
+		long end2 = System.currentTimeMillis();
+
+		System.out.println("Old way [ms] " + (end1 - start1));
+		System.out.println("New way [ms] " + (end2 - start2));
+
+	}
+
 
 }

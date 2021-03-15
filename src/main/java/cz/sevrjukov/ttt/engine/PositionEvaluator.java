@@ -1,8 +1,11 @@
 package cz.sevrjukov.ttt.engine;
 
 import cz.sevrjukov.ttt.board.Board;
+import cz.sevrjukov.ttt.engine.BoardSequences.Line;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static cz.sevrjukov.ttt.board.Board.COMPUTER;
@@ -78,10 +81,50 @@ public class PositionEvaluator {
 		return result;
 	}
 
+	protected int evaluatePosition(Board board) {
+		// only evaluate lines that contain something
+		int [] position = board.getPosition();
+		final Set<Line> evaluatedLines = new HashSet<>();
+		// TODO possible optimization here - putting stuff into set means calculating hashcode
+
+		// possible remedy - board keeps info itself and can return "list of activated lines"
+		board.getMovesHistory().forEach(
+				move -> {
+					var lines = BoardSequences.ASSOCIATIVE_INDEXES.get(move.squareNum);
+					evaluatedLines.addAll(lines);
+				});
+
+
+		int computerEvaluation = 0;
+		int humanEvaluation = 0;
+		var it = evaluatedLines.stream().iterator();
+		try {
+			while (it.hasNext()) {
+				var line = it.next();
+				evaluatorForComputer.newSequence();
+				evaluatorForHuman.newSequence();
+				for (int sqNum : line.getSquares()) {
+					//TODO min search bound, max search bound
+					evaluatorForComputer.feedNextSquare(position[sqNum]);
+					evaluatorForHuman.feedNextSquare(position[sqNum]);
+				}
+				computerEvaluation += evaluatorForComputer.getEvaluation();
+				humanEvaluation += evaluatorForHuman.getEvaluation();
+			}
+			return computerEvaluation - humanEvaluation;
+		} catch (VictoryFound e) {
+			if (e.getPlayer() == COMPUTER) {
+				return VICTORY;
+			} else {
+				return DEFEAT;
+			}
+		}
+	}
+
 	/**
 	 * Actual evaluation
 	 */
-	protected int evaluatePosition(Board board) {
+	protected int evaluatePositionOld(Board board) {
 
 		int[] position = board.getPosition();
 		// evaluation points for Cross and Zero players:

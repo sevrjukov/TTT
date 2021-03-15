@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class BoardSequences {
 
-	public static final Map<Integer, List<int[]>> ASSOCIATIVE_INDEXES;
+	public static final Map<Integer, List<Line>> ASSOCIATIVE_INDEXES;
 	public static int[][] HORIZONTALS = {
 			{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18},
 			{19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37},
@@ -133,14 +133,41 @@ public class BoardSequences {
 		ASSOCIATIVE_INDEXES = new HashMap<>();
 		for (int squareNum = 0; squareNum < Board.SIZE; squareNum++) {
 
-			final List<int[]> sequencesForThisSquare = new ArrayList<>();
+			final List<Line> sequencesForThisSquare = new ArrayList<>();
 			ASSOCIATIVE_INDEXES.put(squareNum, sequencesForThisSquare);
 
 			for (int[] sequence : allSequences) {
 				if (arrayContains(squareNum, sequence)) {
-					sequencesForThisSquare.add(sequence);
+					sequencesForThisSquare.add(new Line(sequence));
 				}
 			}
+		}
+	}
+
+	public static class Line {
+
+		private int[] squares;
+
+		public Line(int []squares) {
+			this.squares = squares;
+		}
+
+		public int[] getSquares() {
+			return squares;
+		}
+
+		@Override
+		public int hashCode() {
+			return squares[0] + 31 * squares[1];
+		}
+
+		@Override
+		public boolean equals(Object o) {
+			if (this == o) {
+				return true;
+			}
+			Line other = (Line) o;
+			return other.squares[0] == this.squares[0] && other.squares[1] == this.squares[1];
 		}
 	}
 
