@@ -95,4 +95,29 @@ public class BoardTest {
 		assertEquals("bad max bounds", 70, board.getMaxBound());
 
 	}
+
+
+		private static void printArray(int[] arr) {
+		System.out.print("{");
+		for (int i : arr) {
+			System.out.print(i + ",");
+		}
+		System.out.println("}");
+	}
+
+	@Test
+	public void testActivatedLines() {
+		var board = new Board();
+		board.makeMove(50, COMPUTER);
+		var activatedLines1 = board.getActivatedLines();
+		board.makeMove(51, COMPUTER);
+		board.makeMove(52, COMPUTER);
+		board.undoLastMove();
+		board.undoLastMove();
+
+		var activatedLines2 = board.getActivatedLines();
+		Assert.assertArrayEquals(activatedLines1, activatedLines2);
+
+	}
 }
+

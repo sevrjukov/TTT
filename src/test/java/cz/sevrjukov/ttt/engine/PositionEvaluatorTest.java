@@ -146,5 +146,22 @@ public class PositionEvaluatorTest {
 	}
 
 
+	@Test
+	public void searchPerformanceTest() {
+		var board = new Board();
+		board.setDebug(true);
+
+		board.parseBoard("-----------------"
+				+ "----------xoox-ooxx------o---xxo-x-----");
+
+		var moveGenerator = new MoveGenerator();
+		var positionEvaluator = new PositionEvaluator(moveGenerator);
+		var eval = positionEvaluator.alphabeta(board, 5, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
+		System.out.println(eval);
+
+		System.out.println(board);
+	}
+
+
 
 }

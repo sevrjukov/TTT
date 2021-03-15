@@ -82,20 +82,21 @@ public class PositionEvaluator {
 
 	protected int evaluatePosition(Board board) {
 
-		int [] position = board.getPosition();
-
-		long start = System.currentTimeMillis();
+		int[] position = board.getPosition();
 
 		// only evaluate lines that contain something
-		int [][] activatedLines = board.getActivatedLines();
-
-		durationPrep += System.currentTimeMillis() - start;
-		start = System.currentTimeMillis();
+		int[] activatedLines = board.getActivatedLines();
 
 		int computerEvaluation = 0;
 		int humanEvaluation = 0;
 		try {
-			for (int [] line  : activatedLines) {
+			for (int lineNumber = 0; lineNumber < BoardSequences.LINES.length; lineNumber++) {
+				int [] line;
+				if (activatedLines[lineNumber] > 0) {
+					line = BoardSequences.LINES[lineNumber];
+				} else {
+					continue;
+				}
 				evaluatorForComputer.newSequence();
 				evaluatorForHuman.newSequence();
 				for (int sqNum : line) {
@@ -111,7 +112,6 @@ public class PositionEvaluator {
 				computerEvaluation += evaluatorForComputer.getEvaluation();
 				humanEvaluation += evaluatorForHuman.getEvaluation();
 			}
-			durationCalc += System.currentTimeMillis() - start;
 			return computerEvaluation - humanEvaluation;
 		} catch (VictoryFound e) {
 			if (e.getPlayer() == COMPUTER) {

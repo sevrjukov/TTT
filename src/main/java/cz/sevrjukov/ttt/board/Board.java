@@ -1,9 +1,12 @@
 package cz.sevrjukov.ttt.board;
 
+import cz.sevrjukov.ttt.engine.BoardSequences;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.Arrays;
 import java.util.Stack;
 
 public class Board {
@@ -23,9 +26,13 @@ public class Board {
 
 	private Stack<Move> movesHistory = new Stack<>();
 
-	private int [][] activatedLines;
+	private int[] activatedLines = new int[BoardSequences.LINES.length];
 
 	private boolean debug = false;
+
+	private long timeTotalMakeMove = 0;
+	private long timeTotalUndoMove = 0;
+
 
 	public Board() {
 		clearBoard();
@@ -43,6 +50,7 @@ public class Board {
 		movesHistory.clear();
 		minBound = Integer.MAX_VALUE;
 		maxBound = Integer.MIN_VALUE;
+		Arrays.fill(activatedLines, 0);
 	}
 
 	public int[] getPosition() {
@@ -74,6 +82,7 @@ public class Board {
 	}
 
 	public void makeMove(int squareNum, int side) {
+		var start = System.currentTimeMillis();
 		if (position[squareNum] != EMPTY) {
 			throw new IllegalArgumentException("Cannot execute move " + squareNum + " " + side);
 		}
@@ -85,9 +94,15 @@ public class Board {
 		minBound = Math.min(minBound, squareNum - W - 1);
 
 		// activate lines
+		int[] newlyActivatedLines = BoardSequences.LINES_USAGE[squareNum];
+		for (int lineNumber : newlyActivatedLines) {
+			activatedLines[lineNumber] = activatedLines[lineNumber] + 1;
+		}
+		timeTotalMakeMove += System.currentTimeMillis() - start;
 	}
 
 	public void undoLastMove() {
+		var start = System.currentTimeMillis();
 		var lastMove = movesHistory.pop();
 		position[lastMove.squareNum] = EMPTY;
 		// restore bounds
@@ -95,6 +110,11 @@ public class Board {
 		minBound = lastMove.minBound;
 
 		// deactivate lines
+		int[] deactivatedLines = BoardSequences.LINES_USAGE[lastMove.squareNum];
+		for (int lineNumber : deactivatedLines) {
+			activatedLines[lineNumber] = activatedLines[lineNumber] - 1;
+		}
+		timeTotalUndoMove += System.currentTimeMillis() - start;
 	}
 
 	public Stack<Move> getMovesHistory() {
@@ -154,10 +174,12 @@ public class Board {
 				builder.append("\n");
 			}
 		}
+		builder.append(" total time make moves [ms] " + timeTotalMakeMove);
+		builder.append(" total time undo moves [ms] " + timeTotalUndoMove);
 		return builder.toString();
 	}
 
-	public int[][] getActivatedLines() {
+	public int[] getActivatedLines() {
 		return activatedLines;
 	}
 }

@@ -3,14 +3,19 @@ package cz.sevrjukov.ttt.engine;
 import cz.sevrjukov.ttt.board.Board;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class BoardSequences {
 
-	public static int[][][] ASSOCIATIVE_INDEXES;
-	public static int[][] HORIZONTALS = {
+	// which squares are contained in which lines - a square is always contained in multiple lines (3 or 4)
+	public static final int[][] LINES_USAGE;
+
+	// all vertical, horizontal and diagonal lines on the board
+	// lines shorter than 5 are omitted, as we don't need to evaluate them (they are useless)
+	// they are sorted from min square number to max square number
+	public static final int[][] LINES = {
+
+			// horizontals
 			{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18},
 			{19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37},
 			{38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56},
@@ -29,9 +34,9 @@ public class BoardSequences {
 			{285, 286, 287, 288, 289, 290, 291, 292, 293, 294, 295, 296, 297, 298, 299, 300, 301, 302, 303},
 			{304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321, 322},
 			{323, 324, 325, 326, 327, 328, 329, 330, 331, 332, 333, 334, 335, 336, 337, 338, 339, 340, 341},
-			{342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360}
-	};
-	public static int[][] VERTICALS = {
+			{342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360},
+
+			// verticals
 			{0, 19, 38, 57, 76, 95, 114, 133, 152, 171, 190, 209, 228, 247, 266, 285, 304, 323, 342},
 			{1, 20, 39, 58, 77, 96, 115, 134, 153, 172, 191, 210, 229, 248, 267, 286, 305, 324, 343},
 			{2, 21, 40, 59, 78, 97, 116, 135, 154, 173, 192, 211, 230, 249, 268, 287, 306, 325, 344},
@@ -50,40 +55,40 @@ public class BoardSequences {
 			{15, 34, 53, 72, 91, 110, 129, 148, 167, 186, 205, 224, 243, 262, 281, 300, 319, 338, 357},
 			{16, 35, 54, 73, 92, 111, 130, 149, 168, 187, 206, 225, 244, 263, 282, 301, 320, 339, 358},
 			{17, 36, 55, 74, 93, 112, 131, 150, 169, 188, 207, 226, 245, 264, 283, 302, 321, 340, 359},
-			{18, 37, 56, 75, 94, 113, 132, 151, 170, 189, 208, 227, 246, 265, 284, 303, 322, 341, 360}
-	};
-	public static int[][] DIAGONALS_TOP_RIGHT = {
-			{76, 58, 40, 22, 4},
-			{95, 77, 59, 41, 23, 5},
-			{114, 96, 78, 60, 42, 24, 6},
-			{133, 115, 97, 79, 61, 43, 25, 7},
-			{152, 134, 116, 98, 80, 62, 44, 26, 8},
-			{171, 153, 135, 117, 99, 81, 63, 45, 27, 9},
-			{190, 172, 154, 136, 118, 100, 82, 64, 46, 28, 10},
-			{209, 191, 173, 155, 137, 119, 101, 83, 65, 47, 29, 11},
-			{228, 210, 192, 174, 156, 138, 120, 102, 84, 66, 48, 30, 12},
-			{247, 229, 211, 193, 175, 157, 139, 121, 103, 85, 67, 49, 31, 13},
-			{266, 248, 230, 212, 194, 176, 158, 140, 122, 104, 86, 68, 50, 32, 14},
-			{285, 267, 249, 231, 213, 195, 177, 159, 141, 123, 105, 87, 69, 51, 33, 15},
-			{304, 286, 268, 250, 232, 214, 196, 178, 160, 142, 124, 106, 88, 70, 52, 34, 16},
-			{323, 305, 287, 269, 251, 233, 215, 197, 179, 161, 143, 125, 107, 89, 71, 53, 35, 17},
-			{342, 324, 306, 288, 270, 252, 234, 216, 198, 180, 162, 144, 126, 108, 90, 72, 54, 36, 18},
-			{343, 325, 307, 289, 271, 253, 235, 217, 199, 181, 163, 145, 127, 109, 91, 73, 55, 37},
-			{344, 326, 308, 290, 272, 254, 236, 218, 200, 182, 164, 146, 128, 110, 92, 74, 56},
-			{345, 327, 309, 291, 273, 255, 237, 219, 201, 183, 165, 147, 129, 111, 93, 75},
-			{346, 328, 310, 292, 274, 256, 238, 220, 202, 184, 166, 148, 130, 112, 94},
-			{347, 329, 311, 293, 275, 257, 239, 221, 203, 185, 167, 149, 131, 113},
-			{348, 330, 312, 294, 276, 258, 240, 222, 204, 186, 168, 150, 132},
-			{349, 331, 313, 295, 277, 259, 241, 223, 205, 187, 169, 151},
-			{350, 332, 314, 296, 278, 260, 242, 224, 206, 188, 170},
-			{351, 333, 315, 297, 279, 261, 243, 225, 207, 189},
-			{352, 334, 316, 298, 280, 262, 244, 226, 208},
-			{353, 335, 317, 299, 281, 263, 245, 227},
-			{354, 336, 318, 300, 282, 264, 246},
-			{355, 337, 319, 301, 283, 265},
-			{356, 338, 320, 302, 284}
-	};
-	public static int[][] DIAGONALS_TOP_LEFT = {
+			{18, 37, 56, 75, 94, 113, 132, 151, 170, 189, 208, 227, 246, 265, 284, 303, 322, 341, 360},
+
+			// diagonals top-right
+			{4,22,40,58,76},
+			{5,23,41,59,77,95},
+			{6,24,42,60,78,96,114},
+			{7,25,43,61,79,97,115,133},
+			{8,26,44,62,80,98,116,134,152},
+			{9,27,45,63,81,99,117,135,153,171},
+			{10,28,46,64,82,100,118,136,154,172,190},
+			{11,29,47,65,83,101,119,137,155,173,191,209},
+			{12,30,48,66,84,102,120,138,156,174,192,210,228},
+			{13,31,49,67,85,103,121,139,157,175,193,211,229,247},
+			{14,32,50,68,86,104,122,140,158,176,194,212,230,248,266},
+			{15,33,51,69,87,105,123,141,159,177,195,213,231,249,267,285},
+			{16,34,52,70,88,106,124,142,160,178,196,214,232,250,268,286,304},
+			{17,35,53,71,89,107,125,143,161,179,197,215,233,251,269,287,305,323},
+			{18,36,54,72,90,108,126,144,162,180,198,216,234,252,270,288,306,324,342},
+			{37,55,73,91,109,127,145,163,181,199,217,235,253,271,289,307,325,343},
+			{56,74,92,110,128,146,164,182,200,218,236,254,272,290,308,326,344},
+			{75,93,111,129,147,165,183,201,219,237,255,273,291,309,327,345},
+			{94,112,130,148,166,184,202,220,238,256,274,292,310,328,346},
+			{113,131,149,167,185,203,221,239,257,275,293,311,329,347},
+			{132,150,168,186,204,222,240,258,276,294,312,330,348},
+			{151,169,187,205,223,241,259,277,295,313,331,349},
+			{170,188,206,224,242,260,278,296,314,332,350},
+			{189,207,225,243,261,279,297,315,333,351},
+			{208,226,244,262,280,298,316,334,352},
+			{227,245,263,281,299,317,335,353},
+			{246,264,282,300,318,336,354},
+			{265,283,301,319,337,355},
+			{284,302,320,338,356},
+
+			// diagonals top-left
 			{266, 286, 306, 326, 346},
 			{247, 267, 287, 307, 327, 347},
 			{228, 248, 268, 288, 308, 328, 348},
@@ -116,36 +121,28 @@ public class BoardSequences {
 	};
 
 	static {
-
-		final List<int[]> allSequences = new ArrayList<>();
-		Collections.addAll(allSequences, VERTICALS);
-		Collections.addAll(allSequences, HORIZONTALS);
-		Collections.addAll(allSequences, DIAGONALS_TOP_LEFT);
-		Collections.addAll(allSequences, DIAGONALS_TOP_RIGHT);
-
-
-		/* Calculate associative index, meaning that
-		 * each board square is contained in one or many sequences (vertical, horizontal, diagonal).
-		 * We can use that to evaluate only sequences which are "activated" - non empty.
-		 * Thus we can eliminate evaluating empty sequences and speed up position evaluation.
-		 */
-		ASSOCIATIVE_INDEXES = new int[Board.SIZE][][];
+		LINES_USAGE = new int[Board.SIZE][];
 		for (int squareNum = 0; squareNum < Board.SIZE; squareNum++) {
-
-			final List<int[]> sequencesForThisSquare = new ArrayList<>();
-
-			for (int[] sequence : allSequences) {
-				if (arrayContains(squareNum, sequence)) {
-					Arrays.sort(sequence);
-					sequencesForThisSquare.add(sequence);
+			List<Integer> lineUsageList = new ArrayList<>();
+			int lineNumber = 0;
+			for (int[] line : LINES) {
+				if (arrayContains(squareNum, line)) {
+					lineUsageList.add(lineNumber);
 				}
+				lineNumber++;
 			}
-
-			ASSOCIATIVE_INDEXES[squareNum] = new int[sequencesForThisSquare.size()][];
-			for (int i = 0; i < sequencesForThisSquare.size(); i++) {
-				ASSOCIATIVE_INDEXES[squareNum][i] = sequencesForThisSquare.get(i);
-			}
+			LINES_USAGE[squareNum] = listToArray(lineUsageList);
 		}
+	}
+
+	private static int [] listToArray(List<Integer> list) {
+		int [] result = new int[list.size()];
+		int index = 0;
+		for (int a : list) {
+			result[index] = a;
+			index++;
+		}
+		return result;
 	}
 
 
@@ -158,6 +155,16 @@ public class BoardSequences {
 		return false;
 	}
 
+
+//	public static void main(String[] args) {
+//		int sqNum = 0;
+//		for (int [] lineUsage : LINES_USAGE) {
+//			System.out.print(sqNum +  "->");
+//			printArray(lineUsage);
+//			sqNum++;
+//		}
+//	}
+
 //	public static void main(String[] args) {
 //		for (int sqNum = 0; sqNum < Board.SIZE; sqNum++) {
 //			System.out.println(sqNum + "->" + ASSOCIATIVE_INDEXES[sqNum].length);
@@ -168,11 +175,11 @@ public class BoardSequences {
 //	}
 //
 //	private static void printArray(int[] arr) {
-//		System.out.print("[");
+//		System.out.print("{");
 //		for (int i : arr) {
-//			System.out.print(i + " ");
+//			System.out.print(i + ",");
 //		}
-//		System.out.println("]");
+//		System.out.println("}");
 //	}
 
 }

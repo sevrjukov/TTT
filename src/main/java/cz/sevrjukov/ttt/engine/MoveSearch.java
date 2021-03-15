@@ -21,15 +21,11 @@ public class MoveSearch {
 
 		Map<Integer, Integer> evaluatedMoves = new HashMap<>();
 
-
 		for (int moveSquare : moves) {
-
-
 			// evaluating this position:
 			board.makeMove(moveSquare, COMPUTER);
 			int evaluation = positionEvaluator.alphabeta(board, searchDepth, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
 			board.undoLastMove();
-
 
 			evaluatedMoves.put(evaluation, moveSquare);
 			System.out.println("Move " + moveSquare + " was evaluated " + evaluation);
