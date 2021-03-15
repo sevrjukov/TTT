@@ -14,17 +14,17 @@ public class MoveGeneratorTest {
 	@Test
 	public void testBasicGeneration() {
 
-		testWithSquare(35);
+		testWithSquare(121);
 	}
 
 	@Test
 	public void testCorners() {
-		testWithSquare(0, 10, 132, 142);
+		testWithSquare(0, 18, 342, 360);
 	}
 
 	@Test
 	public void testSides() {
-		testWithSquare(8, 22, 65, 138);
+		testWithSquare(8, 171, 189, 350);
 	}
 
 	@Test

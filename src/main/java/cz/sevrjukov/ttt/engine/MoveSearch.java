@@ -15,21 +15,25 @@ public class MoveSearch {
 
 	public int findNextMove(Board board, int searchDepth) {
 
-		// generates move candidates, pre-checks them
-		// sorts, etc..
-		// and runs MoveEvaluator and selects the best one
-
 		var moves = moveGenerator.generateMoves(board);
+
+		//TODO here - run shallow evaluation and sort moves by it, before feeding into deep evaluation
 
 		Map<Integer, Integer> evaluatedMoves = new HashMap<>();
 
+
 		for (int moveSquare : moves) {
-			board.makeMove(moveSquare, COMPUTER);
+
+
 			// evaluating this position:
-			var evaluation = positionEvaluator.alphabeta(board, searchDepth, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
+			board.makeMove(moveSquare, COMPUTER);
+			int evaluation = positionEvaluator.alphabeta(board, searchDepth, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
+			board.undoLastMove();
+
+
 			evaluatedMoves.put(evaluation, moveSquare);
 			System.out.println("Move " + moveSquare + " was evaluated " + evaluation);
-			board.undoLastMove();
+
 			if (evaluation == VICTORY) {
 				break;
 			}

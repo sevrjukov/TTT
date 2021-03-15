@@ -27,11 +27,11 @@ public class MoveSearchTest {
 	public void simpleCase() {
 		var board = new Board();
 		board.parseBoard(
-				"-----------"
-			+	"-o---------"
-			+	"-o---------"
-			+	"-o---------"
-			+	"-----------"
+				"-------------------"
+			+	"-o-----------------"
+			+	"-o-----------------"
+			+	"-o-----------------"
+			+	"-------------------"
 			);
 		MoveSearch moveSearch = new MoveSearch();
 		int nextMove = moveSearch.findNextMove(board, 4);

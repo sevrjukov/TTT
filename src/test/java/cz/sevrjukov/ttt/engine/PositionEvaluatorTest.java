@@ -31,11 +31,11 @@ public class PositionEvaluatorTest {
 	public void testVerticalFour() {
 		var board = new Board();
 		board.parseBoard(
-				"-----------"
-						+ "-o---------"
-						+ "-o---------"
-						+ "-o---------"
-						+ "-o---------"
+				"-------------------"
+						+ "-o-----------------"
+						+ "-o-----------------"
+						+ "-o-----------------"
+						+ "-o-----------------"
 		);
 		board.printBoard();
 
@@ -51,11 +51,11 @@ public class PositionEvaluatorTest {
 	public void testDiagonalFour1() {
 		var board = new Board();
 		board.parseBoard(
-				"-----------"
-						+ "-o---------"
-						+ "--o--------"
-						+ "---o-------"
-						+ "----o------"
+				"-------------------"
+						+ "-o-----------------"
+						+ "--o----------------"
+						+ "---o---------------"
+						+ "----o--------------"
 		);
 		board.printBoard();
 
@@ -70,11 +70,11 @@ public class PositionEvaluatorTest {
 	public void testDiagonalFour2() {
 		var board = new Board();
 		board.parseBoard(
-				"-----------"
-						+ "----o------"
-						+ "---o-------"
-						+ "--o--------"
-						+ "-o---------"
+				"-------------------"
+						+ "----o--------------"
+						+ "---o---------------"
+						+ "--o----------------"
+						+ "-o-----------------"
 		);
 		board.printBoard();
 

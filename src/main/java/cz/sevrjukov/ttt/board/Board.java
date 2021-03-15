@@ -8,8 +8,8 @@ import java.util.Stack;
 
 public class Board {
 
-	public static int W = 11;
-	public static int H = 13;
+	public static int W = 19;
+	public static int H = 19;
 	public static int SIZE = W * H;
 
 	public static int EMPTY = 0;

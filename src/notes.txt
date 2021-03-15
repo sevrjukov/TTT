@@ -1,5 +1,9 @@
 Next steps:
 
+- "isTerminal" funkce - pro rychlou detekci vyhry/prohry
+- Evaluation function
+    - predpocitane diagonaly
+    - mit seznam, ktere diagonaly jsou aktivovany
 - MoveGenerator: rozsirit na druhou vrstvu
 
 
