@@ -25,6 +25,8 @@ public class Board {
 	private int maxBound = Integer.MIN_VALUE;
 
 	private Stack<Move> movesHistory = new Stack<>();
+	// for faster access, no need to access the stack
+	private int lastMoveSquare = -1;
 
 	private int[] activatedLines = new int[BoardSequences.LINES.length];
 
@@ -35,19 +37,20 @@ public class Board {
 
 
 	public Board() {
-		clearBoard();
+		reset();
 	}
 
 	public void setDebug(boolean debug) {
 		this.debug = debug;
 	}
 
-	public void clearBoard() {
+	public void reset() {
 		position = new int[SIZE];
 		for (int i = 0; i < SIZE; i++) {
 			position[i] = EMPTY;
 		}
 		movesHistory.clear();
+		lastMoveSquare = -1;
 		minBound = Integer.MAX_VALUE;
 		maxBound = Integer.MIN_VALUE;
 		Arrays.fill(activatedLines, 0);
@@ -81,6 +84,10 @@ public class Board {
 		return minBound;
 	}
 
+	public int getLastMove() {
+		return lastMoveSquare;
+	}
+
 	public void makeMove(int squareNum, int side) {
 		var start = System.currentTimeMillis();
 		if (position[squareNum] != EMPTY) {
@@ -88,6 +95,7 @@ public class Board {
 		}
 
 		movesHistory.push(new Move(squareNum, side, maxBound, minBound));
+		lastMoveSquare = squareNum;
 		position[squareNum] = side;
 		// calculate new bounds
 		maxBound = Math.max(maxBound, squareNum + W + 1);
@@ -105,6 +113,8 @@ public class Board {
 		var start = System.currentTimeMillis();
 		var lastMove = movesHistory.pop();
 		position[lastMove.squareNum] = EMPTY;
+		lastMoveSquare = movesHistory.peek().squareNum;
+
 		// restore bounds
 		maxBound = lastMove.maxBound;
 		minBound = lastMove.minBound;

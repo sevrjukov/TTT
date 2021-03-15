@@ -15,3 +15,5 @@ Evaluation function:
 
 Search alg
 https://www.baeldung.com/java-minimax-algorithm
+
+- check all TODOs

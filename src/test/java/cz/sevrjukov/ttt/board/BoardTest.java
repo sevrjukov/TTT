@@ -35,7 +35,7 @@ public class BoardTest {
 
 		board.printBoard();
 
-		board.clearBoard();
+		board.reset();
 
 		board.printBoard();
 	}
@@ -110,14 +110,28 @@ public class BoardTest {
 		var board = new Board();
 		board.makeMove(50, COMPUTER);
 		var activatedLines1 = board.getActivatedLines();
-		board.makeMove(51, COMPUTER);
+		board.makeMove(51, HUMAN);
 		board.makeMove(52, COMPUTER);
 		board.undoLastMove();
 		board.undoLastMove();
 
 		var activatedLines2 = board.getActivatedLines();
 		Assert.assertArrayEquals(activatedLines1, activatedLines2);
+	}
 
+
+	@Test
+	public void testLastMove() {
+		var board = new Board();
+		board.makeMove(9, HUMAN);
+		board.makeMove(50, COMPUTER);
+		Assert.assertEquals("Last move is not correct", 50, board.getLastMove());
+		board.makeMove(126, HUMAN);
+		Assert.assertEquals("Last move is not correct", 126, board.getLastMove());
+		board.undoLastMove();
+		Assert.assertEquals("Last move is not correct", 50, board.getLastMove());
+		board.undoLastMove();
+		Assert.assertEquals("Last move is not correct", 9, board.getLastMove());
 	}
 }
 

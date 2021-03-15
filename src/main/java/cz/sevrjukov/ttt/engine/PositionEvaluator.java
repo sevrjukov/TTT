@@ -126,6 +126,7 @@ public class PositionEvaluator {
 	/**
 	 * Actual evaluation
 	 */
+	//TODO remove this
 	protected int evaluatePositionOld(Board board) {
 
 		int[] position = board.getPosition();
@@ -230,7 +231,9 @@ public class PositionEvaluator {
 
 	@Override
 	public String toString() {
-		return "duration prep [ms] " + durationPrep + " duration calc [ms] " + durationCalc;
+		return "duration prep [ms] " + durationPrep + " duration calc [ms] " + durationCalc +
+				"\n" +
+				" cache hits " + cacheHits + " total cache size " + cache.size();
 	}
 
 
