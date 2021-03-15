@@ -18,10 +18,12 @@ public class Board {
 	public static int UNDEFINED = -1;
 
 	private int[] position;
-	private int minBound = 9999;
-	private int maxBound = -9999;
+	private int minBound = Integer.MAX_VALUE;
+	private int maxBound = Integer.MIN_VALUE;
 
 	private Stack<Move> movesHistory = new Stack<>();
+
+	private int [][] activatedLines;
 
 	private boolean debug = false;
 
@@ -39,8 +41,8 @@ public class Board {
 			position[i] = EMPTY;
 		}
 		movesHistory.clear();
-		minBound = 9999;
-		maxBound = -9999;
+		minBound = Integer.MAX_VALUE;
+		maxBound = Integer.MIN_VALUE;
 	}
 
 	public int[] getPosition() {
@@ -81,6 +83,8 @@ public class Board {
 		// calculate new bounds
 		maxBound = Math.max(maxBound, squareNum + W + 1);
 		minBound = Math.min(minBound, squareNum - W - 1);
+
+		// activate lines
 	}
 
 	public void undoLastMove() {
@@ -89,6 +93,8 @@ public class Board {
 		// restore bounds
 		maxBound = lastMove.maxBound;
 		minBound = lastMove.minBound;
+
+		// deactivate lines
 	}
 
 	public Stack<Move> getMovesHistory() {
@@ -151,4 +157,7 @@ public class Board {
 		return builder.toString();
 	}
 
+	public int[][] getActivatedLines() {
+		return activatedLines;
+	}
 }

@@ -1,11 +1,8 @@
 package cz.sevrjukov.ttt.engine;
 
 import cz.sevrjukov.ttt.board.Board;
-import cz.sevrjukov.ttt.engine.BoardSequences.Line;
 
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static cz.sevrjukov.ttt.board.Board.COMPUTER;
@@ -84,33 +81,24 @@ public class PositionEvaluator {
 	}
 
 	protected int evaluatePosition(Board board) {
-		// only evaluate lines that contain something
+
 		int [] position = board.getPosition();
 
 		long start = System.currentTimeMillis();
 
-		final Set<Line> evaluatedLines = new HashSet<>();
-
-
-		//TODO possible remedy - board keeps info itself and can return "list of activated lines"
-		board.getMovesHistory().forEach(
-				move -> {
-					var lines = BoardSequences.ASSOCIATIVE_INDEXES.get(move.squareNum);
-					evaluatedLines.addAll(lines);
-				});
+		// only evaluate lines that contain something
+		int [][] activatedLines = board.getActivatedLines();
 
 		durationPrep += System.currentTimeMillis() - start;
 		start = System.currentTimeMillis();
 
 		int computerEvaluation = 0;
 		int humanEvaluation = 0;
-		var it = evaluatedLines.stream().iterator();
 		try {
-			while (it.hasNext()) {
-				var line = it.next();
+			for (int [] line  : activatedLines) {
 				evaluatorForComputer.newSequence();
 				evaluatorForHuman.newSequence();
-				for (int sqNum : line.getSquares()) {
+				for (int sqNum : line) {
 					if (sqNum < board.getMinBound()) {
 						continue;
 					}

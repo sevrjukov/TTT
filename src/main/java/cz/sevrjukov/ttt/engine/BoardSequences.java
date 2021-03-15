@@ -5,13 +5,11 @@ import cz.sevrjukov.ttt.board.Board;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class BoardSequences {
 
-	public static final Map<Integer, List<Line>> ASSOCIATIVE_INDEXES;
+	public static int[][][] ASSOCIATIVE_INDEXES;
 	public static int[][] HORIZONTALS = {
 			{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18},
 			{19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37},
@@ -131,47 +129,25 @@ public class BoardSequences {
 		 * We can use that to evaluate only sequences which are "activated" - non empty.
 		 * Thus we can eliminate evaluating empty sequences and speed up position evaluation.
 		 */
-		ASSOCIATIVE_INDEXES = new HashMap<>();
+		ASSOCIATIVE_INDEXES = new int[Board.SIZE][][];
 		for (int squareNum = 0; squareNum < Board.SIZE; squareNum++) {
 
-			final List<Line> sequencesForThisSquare = new ArrayList<>();
-			ASSOCIATIVE_INDEXES.put(squareNum, sequencesForThisSquare);
+			final List<int[]> sequencesForThisSquare = new ArrayList<>();
 
 			for (int[] sequence : allSequences) {
 				if (arrayContains(squareNum, sequence)) {
 					Arrays.sort(sequence);
-					sequencesForThisSquare.add(new Line(sequence));
+					sequencesForThisSquare.add(sequence);
 				}
 			}
-		}
-	}
 
-	public static class Line {
-
-		private int[] squares;
-
-		public Line(int[] squares) {
-			this.squares = squares;
-		}
-
-		public int[] getSquares() {
-			return squares;
-		}
-
-		@Override
-		public int hashCode() {
-			return squares[0] + 31 * squares[1];
-		}
-
-		@Override
-		public boolean equals(Object o) {
-			if (this == o) {
-				return true;
+			ASSOCIATIVE_INDEXES[squareNum] = new int[sequencesForThisSquare.size()][];
+			for (int i = 0; i < sequencesForThisSquare.size(); i++) {
+				ASSOCIATIVE_INDEXES[squareNum][i] = sequencesForThisSquare.get(i);
 			}
-			Line other = (Line) o;
-			return other.squares[0] == this.squares[0] && other.squares[1] == this.squares[1];
 		}
 	}
+
 
 	private static boolean arrayContains(int num, int[] arr) {
 		for (int i : arr) {
@@ -183,21 +159,17 @@ public class BoardSequences {
 	}
 
 //	public static void main(String[] args) {
-//			ASSOCIATIVE_INDEXES.entrySet().forEach(
-//					entry -> {
-//						System.out.println(entry.getKey() + "->" + entry.getValue().size());
-//						entry.getValue().forEach(
-//								line -> {
-//									printArray(line);
-//								}
-//						);
-//					}
-//			);
+//		for (int sqNum = 0; sqNum < Board.SIZE; sqNum++) {
+//			System.out.println(sqNum + "->" + ASSOCIATIVE_INDEXES[sqNum].length);
+//			for (int[] arr : ASSOCIATIVE_INDEXES[sqNum]) {
+//				printArray(arr);
+//			}
+//		}
 //	}
 //
-//	private static void printArray(int [] arr) {
+//	private static void printArray(int[] arr) {
 //		System.out.print("[");
-//		for (int i: arr) {
+//		for (int i : arr) {
 //			System.out.print(i + " ");
 //		}
 //		System.out.println("]");
