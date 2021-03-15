@@ -3,6 +3,7 @@ package cz.sevrjukov.ttt.engine;
 import cz.sevrjukov.ttt.board.Board;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -138,6 +139,7 @@ public class BoardSequences {
 
 			for (int[] sequence : allSequences) {
 				if (arrayContains(squareNum, sequence)) {
+					Arrays.sort(sequence);
 					sequencesForThisSquare.add(new Line(sequence));
 				}
 			}
@@ -148,7 +150,7 @@ public class BoardSequences {
 
 		private int[] squares;
 
-		public Line(int []squares) {
+		public Line(int[] squares) {
 			this.squares = squares;
 		}
 

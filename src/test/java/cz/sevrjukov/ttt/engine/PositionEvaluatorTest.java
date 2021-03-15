@@ -121,5 +121,30 @@ public class PositionEvaluatorTest {
 
 	}
 
+	@Test
+	public void measurementTest() {
+		var board = new Board();
+		board.parseBoard(
+				"-------------------"
+						+ "----o--------------"
+						+ "---o-x-------------"
+						+ "--oxx--x------------"
+						+ "-o-----------------"
+						+ "---x----------------"
+		);
+		board.printBoard();
+
+		var moveGenerator = new MoveGenerator();
+		var positionEvaluator = new PositionEvaluator(moveGenerator);
+		int numRepetitions = 1_000_000;
+
+		for (int i = 0; i < numRepetitions; i++) {
+			positionEvaluator.evaluatePosition(board);
+		}
+
+		System.out.println(positionEvaluator);
+	}
+
+
 
 }

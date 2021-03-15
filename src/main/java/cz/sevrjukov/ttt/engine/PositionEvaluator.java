@@ -21,6 +21,8 @@ public class PositionEvaluator {
 
 	final Map<Long, Integer> cache = new ConcurrentHashMap<>(100_000);
 	private long cacheHits = 0;
+	private long durationPrep = 0;
+	private long durationCalc = 0;
 
 	private MoveGenerator moveGenerator;
 	private SequenceEvaluator evaluatorForComputer = new SequenceEvaluator(COMPUTER);
@@ -84,6 +86,9 @@ public class PositionEvaluator {
 	protected int evaluatePosition(Board board) {
 		// only evaluate lines that contain something
 		int [] position = board.getPosition();
+
+		long start = System.currentTimeMillis();
+
 		final Set<Line> evaluatedLines = new HashSet<>();
 
 
@@ -94,6 +99,8 @@ public class PositionEvaluator {
 					evaluatedLines.addAll(lines);
 				});
 
+		durationPrep += System.currentTimeMillis() - start;
+		start = System.currentTimeMillis();
 
 		int computerEvaluation = 0;
 		int humanEvaluation = 0;
@@ -104,7 +111,6 @@ public class PositionEvaluator {
 				evaluatorForComputer.newSequence();
 				evaluatorForHuman.newSequence();
 				for (int sqNum : line.getSquares()) {
-					//TODO min search bound, max search bound
 					if (sqNum < board.getMinBound()) {
 						continue;
 					}
@@ -117,6 +123,7 @@ public class PositionEvaluator {
 				computerEvaluation += evaluatorForComputer.getEvaluation();
 				humanEvaluation += evaluatorForHuman.getEvaluation();
 			}
+			durationCalc += System.currentTimeMillis() - start;
 			return computerEvaluation - humanEvaluation;
 		} catch (VictoryFound e) {
 			if (e.getPlayer() == COMPUTER) {
@@ -227,5 +234,12 @@ public class PositionEvaluator {
 		// no more free squares to make next move (all squares occupied)
 		return (board.getPosition().length == board.getMovesHistory().size());
 	}
+
+
+	@Override
+	public String toString() {
+		return "duration prep [ms] " + durationPrep + " duration calc [ms] " + durationCalc;
+	}
+
 
 }
