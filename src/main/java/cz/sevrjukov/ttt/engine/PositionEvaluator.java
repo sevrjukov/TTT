@@ -85,9 +85,9 @@ public class PositionEvaluator {
 		// only evaluate lines that contain something
 		int [] position = board.getPosition();
 		final Set<Line> evaluatedLines = new HashSet<>();
-		// TODO possible optimization here - putting stuff into set means calculating hashcode
 
-		// possible remedy - board keeps info itself and can return "list of activated lines"
+
+		//TODO possible remedy - board keeps info itself and can return "list of activated lines"
 		board.getMovesHistory().forEach(
 				move -> {
 					var lines = BoardSequences.ASSOCIATIVE_INDEXES.get(move.squareNum);
@@ -105,6 +105,12 @@ public class PositionEvaluator {
 				evaluatorForHuman.newSequence();
 				for (int sqNum : line.getSquares()) {
 					//TODO min search bound, max search bound
+					if (sqNum < board.getMinBound()) {
+						continue;
+					}
+					if (sqNum > board.getMaxBound()) {
+						break;
+					}
 					evaluatorForComputer.feedNextSquare(position[sqNum]);
 					evaluatorForHuman.feedNextSquare(position[sqNum]);
 				}

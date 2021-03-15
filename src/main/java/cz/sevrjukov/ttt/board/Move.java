@@ -7,6 +7,7 @@ public class Move {
 
 	public int squareNum;
 	public int side;
-
+	public int maxBound;
+	public int minBound;
 
 }

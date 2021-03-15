@@ -3,6 +3,10 @@ package cz.sevrjukov.ttt.board;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static cz.sevrjukov.ttt.board.Board.COMPUTER;
+import static cz.sevrjukov.ttt.board.Board.HUMAN;
+import static junit.framework.TestCase.assertEquals;
+
 public class BoardTest {
 
 
@@ -61,5 +65,34 @@ public class BoardTest {
 		var hash2 = board.getPositionHashShallow();
 
 		Assert.assertEquals(hash1, hash2);
+	}
+
+
+	@Test
+	public void testBounds() {
+		var board = new Board();
+
+		board.makeMove(50, COMPUTER);
+
+		assertEquals("bad min bounds", 30, board.getMinBound());
+		assertEquals("bad max bounds", 70, board.getMaxBound());
+
+		board.makeMove(100, HUMAN);
+
+		assertEquals("bad min bounds", 30, board.getMinBound());
+		assertEquals("bad max bounds", 120, board.getMaxBound());
+
+		board.makeMove(68, HUMAN);
+		assertEquals("bad min bounds", 30, board.getMinBound());
+		assertEquals("bad max bounds", 120, board.getMaxBound());
+
+		board.undoLastMove();
+		assertEquals("bad min bounds", 30, board.getMinBound());
+		assertEquals("bad max bounds", 120, board.getMaxBound());
+
+		board.undoLastMove();
+		assertEquals("bad min bounds", 30, board.getMinBound());
+		assertEquals("bad max bounds", 70, board.getMaxBound());
+
 	}
 }

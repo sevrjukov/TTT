@@ -18,6 +18,8 @@ public class Board {
 	public static int UNDEFINED = -1;
 
 	private int[] position;
+	private int minBound = 9999;
+	private int maxBound = -9999;
 
 	private Stack<Move> movesHistory = new Stack<>();
 
@@ -37,6 +39,8 @@ public class Board {
 			position[i] = EMPTY;
 		}
 		movesHistory.clear();
+		minBound = 9999;
+		maxBound = -9999;
 	}
 
 	public int[] getPosition() {
@@ -59,17 +63,32 @@ public class Board {
 		return result;
 	}
 
+	public int getMaxBound() {
+		return maxBound;
+	}
+
+	public int getMinBound() {
+		return minBound;
+	}
+
 	public void makeMove(int squareNum, int side) {
 		if (position[squareNum] != EMPTY) {
 			throw new IllegalArgumentException("Cannot execute move " + squareNum + " " + side);
 		}
-		movesHistory.push(new Move(squareNum, side));
+
+		movesHistory.push(new Move(squareNum, side, maxBound, minBound));
 		position[squareNum] = side;
+		// calculate new bounds
+		maxBound = Math.max(maxBound, squareNum + W + 1);
+		minBound = Math.min(minBound, squareNum - W - 1);
 	}
 
 	public void undoLastMove() {
 		var lastMove = movesHistory.pop();
 		position[lastMove.squareNum] = EMPTY;
+		// restore bounds
+		maxBound = lastMove.maxBound;
+		minBound = lastMove.minBound;
 	}
 
 	public Stack<Move> getMovesHistory() {
@@ -100,7 +119,7 @@ public class Board {
 
 	public void saveToFile() {
 		if (!debug) {
-			throw  new IllegalArgumentException("Board will not save to file, not in debug mode!");
+			throw new IllegalArgumentException("Board will not save to file, not in debug mode!");
 		}
 		try {
 			Files.writeString(Paths.get("/tmp", "board.txt"), toString(), StandardOpenOption.TRUNCATE_EXISTING);
