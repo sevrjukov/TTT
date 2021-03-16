@@ -36,7 +36,7 @@ public class GameController implements ActionListener, MovesListener {
 		}
 
 		if (btn == window.btnMakeMove) {
-			game.makeNextMove();
+			game.makeFirstMove();
 		}
 	}
 

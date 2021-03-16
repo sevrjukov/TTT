@@ -3,7 +3,9 @@ package cz.sevrjukov.ttt.game;
 import cz.sevrjukov.ttt.board.Board;
 import cz.sevrjukov.ttt.engine.MoveSearch;
 import cz.sevrjukov.ttt.engine.MoveSearch.MoveEval;
+import cz.sevrjukov.ttt.engine.PositionEvaluator;
 
+import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 
 import static cz.sevrjukov.ttt.board.Board.COMPUTER;
@@ -16,6 +18,8 @@ public class Game {
 	boolean calculating = false;
 	private Board board = new Board();
 	private MoveSearch moveSearch = new MoveSearch();
+	private PositionEvaluator positionEvaluator = new PositionEvaluator();
+
 	private MovesListener movesListener;
 	boolean isFirstMove = true;
 
@@ -56,20 +60,23 @@ public class Game {
 		calculating = false;
 		if (computerMove.sqNum != MOVE_RESIGN) {
 			board.makeMove(computerMove.sqNum, COMPUTER);
+			// this evaluation is only in order to detect the winning position for the computer
+			int eval = positionEvaluator.evaluatePositionOrGetCached(board);
 			movesListener.displayMove(computerMove.sqNum, COMPUTER);
+			if (eval == VICTORY) {
+				movesListener.announceVictory();
+			}
 		} else {
 			movesListener.resign();
 		}
-
-		if (computerMove.eval == VICTORY) {
-			movesListener.announceVictory();
-		}
 	}
 
-	public void makeNextMove() {
+	public void makeFirstMove() {
 		if (isFirstMove) {
-			board.makeMove(179, COMPUTER);
-			movesListener.displayMove(179, COMPUTER);
+			Random r = new Random();
+			var move = r.nextInt(Board.SIZE) + 1;
+			board.makeMove(move, COMPUTER);
+			movesListener.displayMove(move, COMPUTER);
 			isFirstMove = false;
 		}
 	}

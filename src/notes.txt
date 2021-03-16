@@ -12,12 +12,6 @@ Minimax
 - https://www.baeldung.com/java-minimax-algorithm
 - heuristika - radit tahy - hodnoceni : kolik novy tah ma vedle sebe bunek. Nula je malo, nejlepsi je stredni pocet
 - aplikovat heuristiku jen na shallow depth
-- v prvnim levelu (ten nejvys ve strome) aplikovat pre-check
-    - pokud nektery z tahu vede k vyhre, tak ho vrat rovnou
-    - vyfiltruj pryc tahy, ktere oponentovi zaruci, ze sestavi otevrenou ctyrku
-    - pokud zadne tahy nezbyly, tak rezignuj (vrat tah -2 nebo neco takoveho)
-    - pokud zbyly, tak je serad podle hodnoceni od nejlepsiho
-    - je to nutne, protoze pokud vyherni nebo proherni tah neni prvni, tak se vyhodnocuje do hloubky prvni leva vetev
 
 
 - check all TODOs

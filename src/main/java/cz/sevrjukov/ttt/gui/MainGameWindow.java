@@ -2,11 +2,9 @@ package cz.sevrjukov.ttt.gui;
 
 import cz.sevrjukov.ttt.board.Board;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextPane;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -21,8 +19,6 @@ import static cz.sevrjukov.ttt.board.Board.HUMAN;
 public class MainGameWindow extends JFrame {
 
 	protected JButton btnNewGame;
-	protected JRadioButton rdbtnYouVs;
-	protected JRadioButton rdbtnTwoPlayers;
 	protected JButton btnMakeMove;
 	protected JTextPane textPane;
 	private List<JButton> gameButtons = new ArrayList<JButton>();
@@ -52,7 +48,7 @@ public class MainGameWindow extends JFrame {
 	private void createAndShowGUI() throws IOException {
 		this.setTitle("TicTacToe");
 		this.setBounds(100, 100, 890, 680);
-		//this.setResizable(false);
+		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBag = new GridBagLayout();
 		gridBag.columnWidths = new int[]{286, 672, 0};
@@ -71,25 +67,20 @@ public class MainGameWindow extends JFrame {
 		gbc_btnResetGame.gridy = 1;
 		this.getContentPane().add(btnNewGame, gbc_btnResetGame);
 
-		btnMakeMove = new JButton("Make next move");
+		btnMakeMove = new JButton("Make first move");
 		btnMakeMove.addActionListener(controller);
 
-		rdbtnYouVs = new JRadioButton("You vs. Computer");
-		rdbtnYouVs.setSelected(true);
 		GridBagConstraints gbc_rdbtnYouVs = new GridBagConstraints();
 		gbc_rdbtnYouVs.anchor = GridBagConstraints.WEST;
 		gbc_rdbtnYouVs.insets = new Insets(0, 0, 5, 0);
 		gbc_rdbtnYouVs.gridx = 1;
 		gbc_rdbtnYouVs.gridy = 1;
-		getContentPane().add(rdbtnYouVs, gbc_rdbtnYouVs);
 
-		rdbtnTwoPlayers = new JRadioButton("Two players");
 		GridBagConstraints gbc_rdbtnTwoPlayers = new GridBagConstraints();
 		gbc_rdbtnTwoPlayers.anchor = GridBagConstraints.WEST;
 		gbc_rdbtnTwoPlayers.insets = new Insets(0, 0, 5, 0);
 		gbc_rdbtnTwoPlayers.gridx = 1;
 		gbc_rdbtnTwoPlayers.gridy = 2;
-		getContentPane().add(rdbtnTwoPlayers, gbc_rdbtnTwoPlayers);
 		GridBagConstraints gbc_btnEvaluate = new GridBagConstraints();
 		gbc_btnEvaluate.anchor = GridBagConstraints.EAST;
 		gbc_btnEvaluate.insets = new Insets(0, 0, 5, 5);
@@ -115,10 +106,6 @@ public class MainGameWindow extends JFrame {
 
 		initGameBoard(boardPanel);
 
-		ButtonGroup gr = new ButtonGroup();
-		gr.add(rdbtnTwoPlayers);
-		gr.add(rdbtnYouVs);
-
 		setVisible(true);
 
 
@@ -137,6 +124,7 @@ public class MainGameWindow extends JFrame {
 				btn.setActionCommand("square_" + sqNum);
 				btn.setSize(25, 25);
 				btn.setText("");
+				btn.setToolTipText(sqNum + "");
 				btn.addActionListener(controller);
 				boardPanel.add(btn);
 				gameButtons.add(btn);
@@ -154,7 +142,6 @@ public class MainGameWindow extends JFrame {
 
 
 	public void displayMoveOnBoard(int squareNum, int side) {
-
 		javax.swing.SwingUtilities.invokeLater(() -> {
 			displayMoveInternal(squareNum, side);
 		});

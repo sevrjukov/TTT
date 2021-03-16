@@ -21,7 +21,7 @@ public class PositionEvaluatorTest {
 
 //		board.printBoard();
 		var moveGenerator = new MoveGenerator();
-		var positionEvaluator = new PositionEvaluator(moveGenerator);
+		var positionEvaluator = new PositionEvaluator();
 		var evaluation = positionEvaluator.evaluatePosition(board);
 		assertTrue(evaluation < -10000);
 		System.out.println(evaluation);
@@ -41,7 +41,7 @@ public class PositionEvaluatorTest {
 		board.printBoard();
 
 		var moveGenerator = new MoveGenerator();
-		var positionEvaluator = new PositionEvaluator(moveGenerator);
+		var positionEvaluator = new PositionEvaluator();
 		var evaluation = positionEvaluator.evaluatePosition(board);
 		System.out.println(evaluation);
 		assertTrue(evaluation < -10000);
@@ -60,8 +60,7 @@ public class PositionEvaluatorTest {
 		);
 		board.printBoard();
 
-		var moveGenerator = new MoveGenerator();
-		var positionEvaluator = new PositionEvaluator(moveGenerator);
+		var positionEvaluator = new PositionEvaluator();
 		var evaluation = positionEvaluator.evaluatePosition(board);
 		System.out.println(evaluation);
 		assertTrue(evaluation < -10000);
@@ -79,8 +78,7 @@ public class PositionEvaluatorTest {
 		);
 		board.printBoard();
 
-		var moveGenerator = new MoveGenerator();
-		var positionEvaluator = new PositionEvaluator(moveGenerator);
+		var positionEvaluator = new PositionEvaluator();
 		var evaluation = positionEvaluator.evaluatePosition(board);
 		System.out.println(evaluation);
 		assertTrue(evaluation < -10000);
@@ -98,8 +96,7 @@ public class PositionEvaluatorTest {
 		);
 		board.printBoard();
 
-		var moveGenerator = new MoveGenerator();
-		var positionEvaluator = new PositionEvaluator(moveGenerator);
+		var positionEvaluator = new PositionEvaluator();
 		var evaluation = positionEvaluator.evaluatePosition(board);
 		System.out.println(evaluation);
 	}
@@ -118,8 +115,7 @@ public class PositionEvaluatorTest {
 		);
 		board.printBoard();
 
-		var moveGenerator = new MoveGenerator();
-		var positionEvaluator = new PositionEvaluator(moveGenerator);
+		var positionEvaluator = new PositionEvaluator();
 		int numRepetitions = 1_000_000;
 
 		long start1 = System.currentTimeMillis();
@@ -153,8 +149,7 @@ public class PositionEvaluatorTest {
 		);
 		board.printBoard();
 
-		var moveGenerator = new MoveGenerator();
-		var positionEvaluator = new PositionEvaluator(moveGenerator);
+		var positionEvaluator = new PositionEvaluator();
 		int numRepetitions = 1_000_000;
 
 		for (int i = 0; i < numRepetitions; i++) {
@@ -167,8 +162,7 @@ public class PositionEvaluatorTest {
 	@Test
 	public void testFinalPositionEval() {
 		var board = new Board();
-		var moveGenerator = new MoveGenerator();
-		var positionEvaluator = new PositionEvaluator(moveGenerator);
+		var positionEvaluator = new PositionEvaluator();
 
 		board.parseBoard(
 				"-------------------"

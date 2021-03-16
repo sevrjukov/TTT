@@ -21,14 +21,9 @@ public class PositionEvaluator {
 	private long durationPrep = 0;
 	private long durationCalc = 0;
 
-	private MoveGenerator moveGenerator;
 	private SequenceEvaluator evaluatorForComputer = new SequenceEvaluator(COMPUTER);
 	private SequenceEvaluator evaluatorForHuman = new SequenceEvaluator(HUMAN);
 	private WinPositionEvaluator winPositionEvaluator = new WinPositionEvaluator();
-
-	public PositionEvaluator(MoveGenerator moveGenerator) {
-		this.moveGenerator = moveGenerator;
-	}
 
 
 	/**

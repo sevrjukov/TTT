@@ -21,7 +21,7 @@ public class MoveSearch {
 	public static final int MOVE_RESIGN = -2;
 
 	private MoveGenerator moveGenerator = new MoveGenerator();
-	private PositionEvaluator positionEvaluator = new PositionEvaluator(moveGenerator);
+	private PositionEvaluator positionEvaluator = new PositionEvaluator();
 
 	public int moveNumber = 0;
 	private int searchDepth = 5;
@@ -47,7 +47,7 @@ public class MoveSearch {
 	}
 
 
-	public MoveEval alphabeta(Board board, int depth, int alpha, int beta, boolean maximizingPlayer) {
+	private MoveEval alphabeta(Board board, int depth, int alpha, int beta, boolean maximizingPlayer) {
 
 		if (depth == 0 || positionEvaluator.isFinalPosition(board)) {
 			int value = positionEvaluator.evaluatePositionOrGetCached(board);
@@ -61,8 +61,6 @@ public class MoveSearch {
 			int[] moves = moveGenerator.generateMoves(board);
 
 			if (depth == searchDepth) {
-				//TODO heuristika - seradit tahy
-				// pre-evaluate moves and sort them
 				List<MoveEval> filteredMoves = new ArrayList<>();
 				for (int moveSq : moves) {
 					board.makeMove(moveSq, COMPUTER);
@@ -77,7 +75,6 @@ public class MoveSearch {
 						continue;
 					}
 					filteredMoves.add(new MoveEval(moveSq, moveValue));
-
 				}
 				// no moves to play - resign
 				if (filteredMoves.isEmpty()) {
@@ -98,7 +95,6 @@ public class MoveSearch {
 			int bestSquare = MOVE_RESIGN;
 			int counter = 0;
 			for (int moveSquare : moves) {
-
 				if (depth == searchDepth) {
 					System.out.println("Evaluating move " + (++counter) + "/" + moves.length);
 				}
