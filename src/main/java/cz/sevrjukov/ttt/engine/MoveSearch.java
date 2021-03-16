@@ -2,11 +2,23 @@ package cz.sevrjukov.ttt.engine;
 
 import cz.sevrjukov.ttt.board.Board;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static cz.sevrjukov.ttt.board.Board.COMPUTER;
 import static cz.sevrjukov.ttt.board.Board.HUMAN;
+import static cz.sevrjukov.ttt.engine.PositionEvaluator.DEFEAT;
+import static cz.sevrjukov.ttt.engine.PositionEvaluator.VICTORY;
+import static cz.sevrjukov.ttt.engine.SequenceEvaluator.OPENED_FOUR;
 
 public class MoveSearch {
+
+	public static final int MOVE_RESIGN = -2;
 
 	private MoveGenerator moveGenerator = new MoveGenerator();
 	private PositionEvaluator positionEvaluator = new PositionEvaluator(moveGenerator);
@@ -40,12 +52,41 @@ public class MoveSearch {
 			int[] moves = moveGenerator.generateMoves(board);
 
 			if (depth == searchDepth) {
-				// TODO odsekat takove tahy, ktere vedou k prohre, a vyhodnotit jen ty
 				//TODO heuristika - seradit tahy
+				// pre-evaluate moves and sort them
+				List<MoveValue> filteredMoves = new ArrayList<>();
+				for (int moveSq : moves) {
+					board.makeMove(moveSq, COMPUTER);
+					int moveValue = positionEvaluator.evaluatePosition(board);
+					board.undoLastMove();
+					if (moveValue == VICTORY) {
+						// this is a victory move, play immediately
+						return new MoveValue(moveSq, VICTORY);
+					}
+					if (moveValue <= -OPENED_FOUR) {
+						// this is a bad move, don't play it
+						continue;
+					}
+					filteredMoves.add(new MoveValue(moveSq, moveValue));
+
+				}
+				// no moves to play - resign
+				if (filteredMoves.isEmpty()) {
+					return new MoveValue(MOVE_RESIGN, DEFEAT);
+				}
+				// sort them from best to worst
+				var sortedMovesList = filteredMoves.stream()
+						.sorted(Comparator.comparing(MoveValue::getValue).reversed())
+						.collect(Collectors.toList());
+				moves = new int[sortedMovesList.size()];
+				Arrays.fill(moves, -1);
+				for (int i = 0; i < moves.length; i++) {
+					moves[i] = sortedMovesList.get(i).sqNum;
+				}
 			}
 
 			int bestValue = Integer.MIN_VALUE;
-			int bestSquare = -1;
+			int bestSquare = MOVE_RESIGN;
 			for (int moveSquare : moves) {
 
 				board.makeMove(moveSquare, COMPUTER);
@@ -65,7 +106,7 @@ public class MoveSearch {
 			return new MoveValue(bestSquare, bestValue);
 		} else {
 
-			// evaluating human turn
+			// evaluating opponent turn
 
 			int worstValue = Integer.MAX_VALUE;
 			int worstSquare = -1;
@@ -93,6 +134,7 @@ public class MoveSearch {
 	}
 
 	@AllArgsConstructor
+	@Getter
 	private class MoveValue {
 
 		public int sqNum;

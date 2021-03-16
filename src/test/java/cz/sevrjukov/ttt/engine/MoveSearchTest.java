@@ -1,9 +1,11 @@
 package cz.sevrjukov.ttt.engine;
 
 import cz.sevrjukov.ttt.board.Board;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static cz.sevrjukov.ttt.board.Board.COMPUTER;
+import static cz.sevrjukov.ttt.engine.MoveSearch.MOVE_RESIGN;
 
 public class MoveSearchTest {
 
@@ -34,7 +36,7 @@ public class MoveSearchTest {
 						+ "------xoo-o-----");
 		board.printBoard();
 		MoveSearch moveSearch = new MoveSearch();
-		int nextMove = moveSearch.findNextMove(board, 6);
+		int nextMove = moveSearch.findNextMove(board, 7);
 
 		board.makeMove(nextMove, COMPUTER);
 		board.printBoard();
@@ -51,9 +53,24 @@ public class MoveSearchTest {
 						+ "-------------------"
 		);
 		MoveSearch moveSearch = new MoveSearch();
-		int nextMove = moveSearch.findNextMove(board, 2);
-		board.makeMove(nextMove, COMPUTER);
-		board.printBoard();
+		int nextMove = moveSearch.findNextMove(board, 3);
+		if (nextMove == MOVE_RESIGN) {
+			System.out.println("computer resigned");
+		} else {
+			board.makeMove(nextMove, COMPUTER);
+			board.printBoard();
+		}
 	}
+
+	@Test
+	public void testWinningPosition() {
+		Assert.fail("implement me");
+	}
+
+	@Test
+	public void testLosingPosition() {
+		Assert.fail("implement me");
+	}
+
 
 }
