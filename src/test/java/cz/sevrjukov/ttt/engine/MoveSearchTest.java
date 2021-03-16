@@ -23,7 +23,7 @@ public class MoveSearchTest {
 	}
 
 	@Test
-	public void moveSearchTestMidsizePosxition() {
+	public void moveSearchTestMidsizePosition() {
 
 		var board = new Board();
 		board.parseBoard(
@@ -34,7 +34,7 @@ public class MoveSearchTest {
 						+ "------xoo-o-----");
 		board.printBoard();
 		MoveSearch moveSearch = new MoveSearch();
-		int nextMove = moveSearch.findNextMove(board, 6);
+		int nextMove = moveSearch.findNextMove(board, 5);
 
 		board.makeMove(nextMove, COMPUTER);
 		board.printBoard();

@@ -18,8 +18,7 @@ public class SequenceEvaluator {
 	private int playerToEvaluate;
 
 	/**
-	 * Sequence is a row of my squares or empty squares. When an opponent square
-	 * appears, sequence is restarted.
+	 * Sequence is a row of my squares or empty squares. When an opponent square appears, sequence is restarted.
 	 */
 	private int sequenceLength;
 	private int numMySquares; // number of my squares in the sequence
@@ -47,24 +46,18 @@ public class SequenceEvaluator {
 	}
 
 	/**
-     * Algorithm performs analysis on the input row of squares, so it doesn't
-     * care if it's vertical, diagonal or horizontal.<br>
-     * <br>
-     * Sequence is a row of my squares or empty squares. If opponent's square or
-     * end-of-line square is reached, the sequence restarts.<br>
-     * <br>
-     * The input sequence is divided into "rounds" - subsequences of my squares,
-     * ended with an empty square. addVal() function is triggered at the end of
-     * each round and then at the end of the whole sequence.<br>
-     * <br>
-     * The algorithm counts number of my squares in the sequence and rounds,
-     * number of empty squares (called "holes"), and identifies, if the sequence
-     * stars and/or ends with empty squares.<br>
-     * <br>
-     * The function throws WinException - to interrupt the evaluation in case of
-     * the winning position.
-     */
-	public void feedNextSquare(int sq) {
+	 * Algorithm performs analysis on the input row of squares, so it doesn't care if it's vertical, diagonal or horizontal.<br>
+	 * <br>
+	 * Sequence is a row of my squares or empty squares. If opponent's square or end-of-line square is reached, the sequence restarts.<br>
+	 * <br>
+	 * The input sequence is divided into "rounds" - subsequences of my squares, ended with an empty square. addVal() function is triggered at the end of each round and then at the end of the whole
+	 * sequence.<br>
+	 * <br>
+	 * The algorithm counts number of my squares in the sequence and rounds, number of empty squares (called "holes"), and identifies, if the sequence stars and/or ends with empty squares.<br>
+	 * <br>
+	 * The function returns true if an immediate win was just found.
+	 */
+	public boolean feedNextSquare(int sq) {
 		// opponent's square - reset the machine
 		if (sq != EMPTY && sq != playerToEvaluate) {
 			if (previousSquare == EMPTY) {
@@ -80,7 +73,7 @@ public class SequenceEvaluator {
 			if (previousSquare == playerToEvaluate) {
 				adjacentSquares++;
 				if (adjacentSquares == LENGTH_TO_WIN - 1) {
-					throw new VictoryFound(playerToEvaluate);
+					return true;
 				}
 			}
 		}
@@ -107,7 +100,8 @@ public class SequenceEvaluator {
 			adjacentSquares = 0;
 		}
 		previousSquare = sq;
-	} // eo feedNextSquare
+		return false;
+	}
 
 
 	/**
@@ -124,8 +118,9 @@ public class SequenceEvaluator {
 			// (subsequence) in the sequence
 			// remove the last hole, if there's any (because it's not really a hole)
 			// if (numHoles > 0) numHoles--;
-			if (endsWithHole && numHoles > 0)
+			if (endsWithHole && numHoles > 0) {
 				numHoles--;
+			}
 			/*
 			 * This is the evaluation itself - very simple. The less
 			 */
@@ -148,7 +143,7 @@ public class SequenceEvaluator {
 		}
 	}
 
-	public int getEvaluation()  {
+	public int getEvaluation() {
 		// feed artificial square to trigger the evaluation
 		feedNextSquare(UNDEFINED);
 		return finalEvaluation;

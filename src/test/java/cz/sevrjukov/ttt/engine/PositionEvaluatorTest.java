@@ -1,6 +1,7 @@
 package cz.sevrjukov.ttt.engine;
 
 import cz.sevrjukov.ttt.board.Board;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertTrue;
@@ -87,7 +88,7 @@ public class PositionEvaluatorTest {
 
 
 	@Test
-	public void performanceTest() {
+	public void performanceComparisonTest() {
 		var board = new Board();
 		board.parseBoard(
 				"-------------------"
@@ -162,6 +163,58 @@ public class PositionEvaluatorTest {
 		System.out.println(board);
 	}
 
+	@Test
+	public void testFinalPositionEval() {
+		var board = new Board();
+		var moveGenerator = new MoveGenerator();
+		var positionEvaluator = new PositionEvaluator(moveGenerator);
+
+		board.parseBoard(
+				"-------------------"
+						+ "-o--x--------------"
+						+ "-ox----------------"
+						+ "-o---x-------------"
+						+ "-o-----------------"
+						+ "-o-----------------"
+		);
+		Assert.assertTrue("must be win", positionEvaluator.isFinalPosition(board));
+
+		board.reset();
+		board.parseBoard(
+				"-------------------"
+						+ "-o--x--------------"
+						+ "-ox----------------"
+						+ "-o---x-------------"
+						+ "-o-----------------"
+						+ "-xxxxx-------------"
+		);
+		Assert.assertTrue("must be win", positionEvaluator.isFinalPosition(board));
+
+		board.reset();
+		board.parseBoard(
+				"-------------------"
+						+ "-o--xx-------------"
+						+ "-ox-x--------------"
+						+ "-o-x-x-------------"
+						+ "-ox----------------"
+						+ "-x-----------------"
+		);
+		Assert.assertTrue("must be win", positionEvaluator.isFinalPosition(board));
+
+
+		board.reset();
+		board.parseBoard(
+				"-------------------"
+						+ "-o--xx-------------"
+						+ "-ox-o--------------"
+						+ "-o-x-x-------------"
+						+ "-ox-x--------------"
+						+ "-x---x-------------"
+						+ "-o----x------------"
+		);
+		Assert.assertTrue("must be win", positionEvaluator.isFinalPosition(board));
+
+	}
 
 
 }

@@ -54,6 +54,8 @@ public class Board {
 		minBound = Integer.MAX_VALUE;
 		maxBound = Integer.MIN_VALUE;
 		Arrays.fill(activatedLines, 0);
+		timeTotalMakeMove = 0;
+		timeTotalUndoMove = 0;
 	}
 
 	public int[] getPosition() {
