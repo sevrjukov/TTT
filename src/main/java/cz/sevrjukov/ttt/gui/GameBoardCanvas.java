@@ -27,6 +27,7 @@ public class GameBoardCanvas extends Canvas {
 	private static final Color LINES_COLOR = new Color(237, 247, 244);
 	private static final Color BLUE_CIRCLE_COLOR = new Color(95, 141, 218);
 	private static final Color ORANGE_CIRCLE_COLOR = new Color(161, 86, 28);
+	private static final Color LAST_MOVE_COLOR = new Color(218, 240, 233);
 
 	private Board board;
 
@@ -36,17 +37,21 @@ public class GameBoardCanvas extends Canvas {
 
 	@Override
 	public void paint(Graphics g) {
-		super.paint(g);
 
 		g.setColor(BACKGROUND_COLOR);
 
-		g.fillRoundRect(0,0, DIMENSION, DIMENSION, 20, 20);
+		g.fillRoundRect(0, 0, DIMENSION, DIMENSION, 20, 20);
 		paintLines();
 
 		var movesList = (Stack<Move>) board.getMovesHistory().clone();
 
-		for (var move : movesList) {
-			drawMove(move.squareNum, move.side);
+		for (int moveNum = 0; moveNum < movesList.size(); moveNum++) {
+			var move = movesList.get(moveNum);
+			if (moveNum == movesList.size() - 1 && move.side == COMPUTER) {
+				drawLastMove(move.squareNum, move.side);
+			} else {
+				drawMove(move.squareNum, move.side);
+			}
 		}
 
 	}
@@ -63,11 +68,29 @@ public class GameBoardCanvas extends Canvas {
 		int sqX = squareNum % NUM_CELLS;
 		int sqY = squareNum / NUM_CELLS;
 
-		int rectTopLeftX = sqX * FIELD_SIZE + CIRCLE_OFFSET;
-		int rectTopLeftY = sqY * FIELD_SIZE + CIRCLE_OFFSET;
+		int coordX = sqX * FIELD_SIZE + CIRCLE_OFFSET;
+		int coordY = sqY * FIELD_SIZE + CIRCLE_OFFSET;
 
 		Color circleColor = (side == COMPUTER) ? BLUE_CIRCLE_COLOR : ORANGE_CIRCLE_COLOR;
-		drawCircle(rectTopLeftX, rectTopLeftY, circleColor);
+		drawCircle(coordX, coordY, circleColor);
+	}
+
+	// highlighted one
+	public void drawLastMove(int squareNum, int size) {
+
+		// draw a small highlighted square
+		int sqX = squareNum % NUM_CELLS;
+		int sqY = squareNum / NUM_CELLS;
+
+		int coordX = sqX * FIELD_SIZE;
+		int coordY = sqY * FIELD_SIZE;
+
+		Graphics g = getGraphics();
+		g.setColor(LAST_MOVE_COLOR);
+
+		g.fillRect(coordX, coordY, FIELD_SIZE, FIELD_SIZE);
+
+		drawMove(squareNum, size);
 	}
 
 	private void drawCircle(int x, int y, Color color) {

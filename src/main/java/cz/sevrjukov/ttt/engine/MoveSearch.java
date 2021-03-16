@@ -35,8 +35,7 @@ public class MoveSearch {
 
 	public MoveEval findNextMove(Board board) {
 		moveNumber++;
-		var actualSearchDepth = (moveNumber < 5) ? 3 : searchDepth;
-		return findNextMove(board, actualSearchDepth);
+		return findNextMove(board, searchDepth);
 	}
 
 	protected MoveEval findNextMove(Board board, int searchDepth) {
