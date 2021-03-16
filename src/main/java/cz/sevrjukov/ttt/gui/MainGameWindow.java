@@ -23,7 +23,7 @@ public class MainGameWindow extends JFrame {
 	protected JButton btnNewGame;
 	protected JRadioButton rdbtnYouVs;
 	protected JRadioButton rdbtnTwoPlayers;
-//	protected JButton btnMakeMove;
+	protected JButton btnMakeMove;
 	protected JTextPane textPane;
 	private List<JButton> gameButtons = new ArrayList<JButton>();
 	private JPanel boardPanel;
@@ -71,8 +71,8 @@ public class MainGameWindow extends JFrame {
 		gbc_btnResetGame.gridy = 1;
 		this.getContentPane().add(btnNewGame, gbc_btnResetGame);
 
-//		btnMakeMove = new JButton("Make next move");
-//		btnMakeMove.addActionListener(controller);
+		btnMakeMove = new JButton("Make next move");
+		btnMakeMove.addActionListener(controller);
 
 		rdbtnYouVs = new JRadioButton("You vs. Computer");
 		rdbtnYouVs.setSelected(true);
@@ -95,7 +95,7 @@ public class MainGameWindow extends JFrame {
 		gbc_btnEvaluate.insets = new Insets(0, 0, 5, 5);
 		gbc_btnEvaluate.gridx = 0;
 		gbc_btnEvaluate.gridy = 3;
-//		this.getContentPane().add(btnMakeMove, gbc_btnEvaluate);
+		this.getContentPane().add(btnMakeMove, gbc_btnEvaluate);
 
 		textPane = new JTextPane();
 		GridBagConstraints gbc_textPane = new GridBagConstraints();

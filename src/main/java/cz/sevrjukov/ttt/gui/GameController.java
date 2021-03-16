@@ -7,8 +7,6 @@ import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static cz.sevrjukov.ttt.board.Board.HUMAN;
-
 public class GameController implements ActionListener, MovesListener {
 
 	private MainGameWindow window;
@@ -37,10 +35,9 @@ public class GameController implements ActionListener, MovesListener {
 			newGame();
 		}
 
-
-//		if (btn == window.btnMakeMove) {
-//		//	game.makeNextMove();
-//		}
+		if (btn == window.btnMakeMove) {
+			game.makeNextMove();
+		}
 	}
 
 	private void newGame() {
@@ -55,8 +52,6 @@ public class GameController implements ActionListener, MovesListener {
 		int sqNum = Integer.parseInt(tokens[1]);
 		try {
 			game.inputHumanMove(sqNum);
-			displayMove(sqNum, HUMAN);
-			game.findComputerMove();
 		} catch (IllegalArgumentException i) {
 			i.printStackTrace();
 		}

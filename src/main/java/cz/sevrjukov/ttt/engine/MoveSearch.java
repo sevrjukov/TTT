@@ -24,7 +24,7 @@ public class MoveSearch {
 	private PositionEvaluator positionEvaluator = new PositionEvaluator(moveGenerator);
 
 	public int moveNumber = 0;
-	private int searchDepth = 3;
+	private int searchDepth = 5;
 
 	public void reset() {
 		moveNumber = 0;
