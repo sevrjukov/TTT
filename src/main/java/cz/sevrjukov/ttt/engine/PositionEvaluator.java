@@ -30,46 +30,12 @@ public class PositionEvaluator {
 		this.moveGenerator = moveGenerator;
 	}
 
-	//TODO funkce bude vracet object "MinimaxMove" misto int hodnoceni
-	public int alphabeta(Board board, int depth, int alpha, int beta, boolean maximizingPlayer) {
 
-		if (depth == 0 || isFinalPosition(board)) {
-			return evaluatePositionOrGetCached(board);
-		}
-
-		if (maximizingPlayer) {
-			int value = Integer.MIN_VALUE;
-			int[] moves = moveGenerator.generateMoves(board);
-			for (int moveSquare : moves) {
-				board.makeMove(moveSquare, COMPUTER);
-				value = Math.max(value, alphabeta(board, depth - 1, alpha, beta, false));
-				alpha = Math.max(alpha, value);
-				board.undoLastMove();
-				if (alpha >= beta) {
-					break;
-				}
-			}
-			return value;
-		} else {
-			int value = Integer.MAX_VALUE;
-			int[] moves = moveGenerator.generateMoves(board);
-			for (int moveSquare : moves) {
-				board.makeMove(moveSquare, HUMAN);
-				value = Math.min(value, alphabeta(board, depth - 1, alpha, beta, true));
-				beta = Math.min(beta, value);
-				board.undoLastMove();
-				if (beta <= alpha) {
-					break;
-				}
-			}
-			return value;
-		}
-	}
 
 	/**
 	 * Evaluation is always performed from the computer point of view.
 	 */
-	private int evaluatePositionOrGetCached(Board board) {
+	public int evaluatePositionOrGetCached(Board board) {
 		var cachedValue = cache.get(board.getPositionHash());
 		if (cachedValue != null) {
 			cacheHits++;

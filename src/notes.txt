@@ -1,19 +1,18 @@
 Next steps:
 
-- "isTerminal" funkce - pro rychlou detekci vyhry/prohry
+- "isTerminal" funkce - pro rychlou detekci vyhry/prohry - HOTOVO
 - Evaluation function
-    - predpocitane diagonaly
-    - mit seznam, ktere diagonaly jsou aktivovany
     - stavova masina misto SequenceEvaluatoru
 - MoveGenerator: rozsirit na druhou vrstvu
 
 
-Evaluation function:
-- predpocitat diagonaly, horizontaly, vertikaly (aby se nemusel pokazdy znovu vypocitavat index)
-- nepocitat prazdne lajny
 
 
-Search alg
-https://www.baeldung.com/java-minimax-algorithm
+Minimax
+- https://www.baeldung.com/java-minimax-algorithm
+- heuristika - radit tahy - hodnoceni : kolik novy tah ma vedle sebe bunek. Nula je malo, nejlepsi je stredni pocet
+- aplikovat heuristiku jen na shallow depth
+- v prvnim levelu (ten nejvys ve strome) aplikovat pre-check - OTAZKA, ZDA JE TO NUTNE
+
 
 - check all TODOs

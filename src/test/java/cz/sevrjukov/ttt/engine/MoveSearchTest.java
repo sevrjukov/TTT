@@ -34,7 +34,7 @@ public class MoveSearchTest {
 						+ "------xoo-o-----");
 		board.printBoard();
 		MoveSearch moveSearch = new MoveSearch();
-		int nextMove = moveSearch.findNextMove(board, 7);
+		int nextMove = moveSearch.findNextMove(board, 6);
 
 		board.makeMove(nextMove, COMPUTER);
 		board.printBoard();
@@ -51,7 +51,7 @@ public class MoveSearchTest {
 						+ "-------------------"
 		);
 		MoveSearch moveSearch = new MoveSearch();
-		int nextMove = moveSearch.findNextMove(board, 5);
+		int nextMove = moveSearch.findNextMove(board, 2);
 		board.makeMove(nextMove, COMPUTER);
 		board.printBoard();
 	}

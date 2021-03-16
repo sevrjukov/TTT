@@ -71,7 +71,7 @@ public class PositionEvaluatorTest {
 	public void testDiagonalFour2() {
 		var board = new Board();
 		board.parseBoard(
-				"-------------------"
+				"------------------"
 						+ "----o--------------"
 						+ "---o---------------"
 						+ "--o----------------"
@@ -84,6 +84,24 @@ public class PositionEvaluatorTest {
 		var evaluation = positionEvaluator.evaluatePosition(board);
 		System.out.println(evaluation);
 		assertTrue(evaluation < -10000);
+	}
+
+	@Test
+	public void testStrangeThing() {
+		var board = new Board();
+		board.parseBoard(
+				"x------------------"
+						+ "o------------------"
+						+ "o------------------"
+						+ "o------------------"
+						+ "-o------------------"
+		);
+		board.printBoard();
+
+		var moveGenerator = new MoveGenerator();
+		var positionEvaluator = new PositionEvaluator(moveGenerator);
+		var evaluation = positionEvaluator.evaluatePosition(board);
+		System.out.println(evaluation);
 	}
 
 
@@ -144,23 +162,6 @@ public class PositionEvaluatorTest {
 		}
 
 		System.out.println(positionEvaluator);
-	}
-
-
-	@Test
-	public void searchPerformanceTest() {
-		var board = new Board();
-		board.setDebug(true);
-
-		board.parseBoard("-----------------"
-				+ "----------xoox-ooxx------o---xxo-x-----");
-
-		var moveGenerator = new MoveGenerator();
-		var positionEvaluator = new PositionEvaluator(moveGenerator);
-		var eval = positionEvaluator.alphabeta(board, 5, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
-		System.out.println(eval);
-
-		System.out.println(board);
 	}
 
 	@Test
