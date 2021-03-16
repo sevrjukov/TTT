@@ -6,11 +6,13 @@ import cz.sevrjukov.ttt.game.MovesListener;
 import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 
 public class GameController implements ActionListener, MovesListener {
 
 	private MainGameWindow window;
 	private Game game = new Game();
+	private BoardModel boardModel = new BoardModel();
 
 	public GameController(MainGameWindow window) {
 		this.window = window;
@@ -19,6 +21,10 @@ public class GameController implements ActionListener, MovesListener {
 
 	public Game getGame() {
 		return game;
+	}
+
+	public BoardModel getBoardModel() {
+		return boardModel;
 	}
 
 	@Override
@@ -35,6 +41,28 @@ public class GameController implements ActionListener, MovesListener {
 		}
 	}
 
+	public void boardClicked(MouseEvent e) {
+		int xCoord = e.getX();
+		int yCoord = e.getY();
+		int sqX = xCoord / GameBoardCanvas.FIELD_SIZE;
+		int sqy = yCoord / GameBoardCanvas.FIELD_SIZE;
+		int sqNum = sqy * GameBoardCanvas.NUM_CELLS + sqX;
+		System.out.println("sqx " + sqX + " sqy " + sqy);
+
+		game.inputHumanMove(sqNum);
+
+		refreshBoard();
+
+		// refresh moves model for GUI
+		game.findComputerMove();
+	}
+
+	private void refreshBoardModel() {
+		var movesHistory = game.getBoard().getMovesHistory();
+		boardModel.getMovesList().clear();
+		movesHistory.forEach(move -> boardModel.getMovesList().add(move));
+	}
+
 	private void newGame() {
 		game.newGame();
 		refreshBoard();
@@ -42,6 +70,7 @@ public class GameController implements ActionListener, MovesListener {
 
 	@Override
 	public void refreshBoard() {
+		refreshBoardModel();
 		window.refreshBoard();
 	}
 

@@ -1,13 +1,9 @@
 package cz.sevrjukov.ttt.gui;
 
-import cz.sevrjukov.ttt.board.Board;
-import cz.sevrjukov.ttt.board.Move;
-
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.util.Stack;
 
 import static cz.sevrjukov.ttt.board.Board.COMPUTER;
 
@@ -29,10 +25,10 @@ public class GameBoardCanvas extends Canvas {
 	private static final Color ORANGE_CIRCLE_COLOR = new Color(161, 86, 28);
 	private static final Color LAST_MOVE_COLOR = new Color(218, 240, 233);
 
-	private Board board;
+	private BoardModel boardModel;
 
-	public GameBoardCanvas(Board board) {
-		this.board = board;
+	public GameBoardCanvas(BoardModel boardModel) {
+		this.boardModel = boardModel;
 	}
 
 	@Override
@@ -43,7 +39,7 @@ public class GameBoardCanvas extends Canvas {
 		g.fillRoundRect(0, 0, DIMENSION, DIMENSION, 20, 20);
 		paintLines();
 
-		var movesList = (Stack<Move>) board.getMovesHistory().clone();
+		var movesList = boardModel.getMovesList();
 
 		for (int moveNum = 0; moveNum < movesList.size(); moveNum++) {
 			var move = movesList.get(moveNum);
@@ -71,7 +67,7 @@ public class GameBoardCanvas extends Canvas {
 		int coordX = sqX * FIELD_SIZE + CIRCLE_OFFSET;
 		int coordY = sqY * FIELD_SIZE + CIRCLE_OFFSET;
 
-		Color circleColor = (side == COMPUTER) ? BLUE_CIRCLE_COLOR : ORANGE_CIRCLE_COLOR;
+		Color circleColor = (side == COMPUTER) ? ORANGE_CIRCLE_COLOR : BLUE_CIRCLE_COLOR;
 		drawCircle(coordX, coordY, circleColor);
 	}
 

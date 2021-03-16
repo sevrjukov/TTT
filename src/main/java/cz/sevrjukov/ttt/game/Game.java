@@ -44,8 +44,6 @@ public class Game {
 		}
 		try {
 			board.makeMove(squareNum, HUMAN);
-			movesListener.refreshBoard();
-			findComputerMove();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

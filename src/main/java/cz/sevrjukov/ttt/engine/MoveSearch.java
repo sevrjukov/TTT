@@ -24,7 +24,9 @@ public class MoveSearch {
 	private PositionEvaluator positionEvaluator = new PositionEvaluator();
 
 	public int moveNumber = 0;
-	private int searchDepth = 5;
+	private static final int INITIAL_SEARCH_DEPTH = 2;
+	private static final int SEARCH_DEPTH = 5;
+	private int currentSearchDepth = INITIAL_SEARCH_DEPTH;
 
 	public void reset() {
 		moveNumber = 0;
@@ -35,12 +37,16 @@ public class MoveSearch {
 
 	public MoveEval findNextMove(Board board) {
 		moveNumber++;
-		return findNextMove(board, searchDepth);
+		var depth = moveNumber < 4 ? INITIAL_SEARCH_DEPTH : SEARCH_DEPTH;
+		currentSearchDepth = depth;
+		var bestMove = alphabeta(board, depth, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
+		System.out.println("best move was " + bestMove.sqNum + " with evaluation " + bestMove.eval);
+		return bestMove;
 	}
 
 	protected MoveEval findNextMove(Board board, int searchDepth) {
-		this.searchDepth = searchDepth;
-
+		moveNumber++;
+		currentSearchDepth = searchDepth;
 		var bestMove = alphabeta(board, searchDepth, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
 		System.out.println("best move was " + bestMove.sqNum + " with evaluation " + bestMove.eval);
 		return bestMove;
@@ -60,7 +66,7 @@ public class MoveSearch {
 
 			int[] moves = moveGenerator.generateMoves(board);
 
-			if (depth == searchDepth) {
+			if (depth == SEARCH_DEPTH) {
 				List<MoveEval> filteredMoves = new ArrayList<>();
 				for (int moveSq : moves) {
 					board.makeMove(moveSq, COMPUTER);
@@ -95,8 +101,8 @@ public class MoveSearch {
 			int bestSquare = MOVE_RESIGN;
 			int counter = 0;
 			for (int moveSquare : moves) {
-				if (depth == searchDepth) {
-					System.out.println("Evaluating move " + (++counter) + "/" + moves.length);
+				if (depth == currentSearchDepth) {
+					System.out.println("Evaluating move " + (++counter) + "/" + moves.length + ", depth " + depth);
 				}
 				board.makeMove(moveSquare, COMPUTER);
 				MoveEval node = alphabeta(board, depth - 1, alpha, beta, false);

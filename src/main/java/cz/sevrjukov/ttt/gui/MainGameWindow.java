@@ -105,21 +105,14 @@ public class MainGameWindow extends JFrame {
 	}
 
 	private void initGameBoard(JPanel boardPanel) {
-		boardCanvas = new GameBoardCanvas(controller.getGame().getBoard());
+		boardCanvas = new GameBoardCanvas(controller.getBoardModel());
 		boardCanvas.addMouseListener(
 				new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						int xCoord = e.getX();
-						int yCoord = e.getY();
-						int sqX = xCoord / GameBoardCanvas.FIELD_SIZE;
-						int sqy = yCoord / GameBoardCanvas.FIELD_SIZE;
-						int sqNum = sqy * GameBoardCanvas.NUM_CELLS + sqX;
-						System.out.println("sqx " + sqX + " sqy " + sqy);
-						controller.getGame().inputHumanMove(sqNum);
+						controller.boardClicked(e);
 					}
-				}
-		);
+				});
 		boardPanel.add(boardCanvas);
 	}
 
