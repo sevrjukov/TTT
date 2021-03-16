@@ -1,28 +1,23 @@
 package cz.sevrjukov.ttt.gui;
 
-import cz.sevrjukov.ttt.board.Board;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import static cz.sevrjukov.ttt.board.Board.HUMAN;
 
 public class MainGameWindow extends JFrame {
 
 	protected JButton btnNewGame;
 	protected JButton btnMakeMove;
 	protected JTextPane textPane;
-	private List<JButton> gameButtons = new ArrayList<JButton>();
 	private JPanel boardPanel;
+	private GameBoardCanvas boardCanvas;
 	private GameController controller;
 
 	public static void main(String[] args) {
@@ -107,60 +102,32 @@ public class MainGameWindow extends JFrame {
 		initGameBoard(boardPanel);
 
 		setVisible(true);
-
-
 	}
 
 	private void initGameBoard(JPanel boardPanel) {
-
-		int cols = Board.W;
-		int rows = Board.H;
-		GridLayout gbl = new GridLayout(rows, cols);
-
-		int sqNum = 0;
-		for (int i = 0; i < cols; i++) {
-			for (int k = 0; k < rows; k++) {
-				JButton btn = new JButton();
-				btn.setActionCommand("square_" + sqNum);
-				btn.setSize(25, 25);
-				btn.setText("");
-				btn.setToolTipText(sqNum + "");
-				btn.addActionListener(controller);
-				boardPanel.add(btn);
-				gameButtons.add(btn);
-				sqNum++;
-			}
-		}
-		boardPanel.setLayout(gbl);
-	}
-
-	public void resetBoard() {
-		for (JButton btn : gameButtons) {
-			btn.setText("");
-		}
-	}
-
-
-	public void displayMoveOnBoard(int squareNum, int side) {
-		javax.swing.SwingUtilities.invokeLater(() -> {
-			displayMoveInternal(squareNum, side);
-		});
-	}
-
-
-	private void displayMoveInternal(int squareNum, int side) {
-		String command = "square_" + squareNum;
-		for (JButton btn : gameButtons) {
-			if (btn.getActionCommand().equals(command)) {
-				if (side == HUMAN) {
-					btn.setText("O");
-				} else {
-					btn.setText("X");
+		boardCanvas = new GameBoardCanvas(controller.getGame().getBoard());
+		boardCanvas.addMouseListener(
+				new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						int xCoord = e.getX();
+						int yCoord = e.getY();
+						int sqX = xCoord / GameBoardCanvas.FIELD_SIZE;
+						int sqy = yCoord / GameBoardCanvas.FIELD_SIZE;
+						int sqNum = sqy * GameBoardCanvas.NUM_CELLS + sqX;
+						System.out.println("sqx " + sqX + " sqy " + sqy);
+						controller.getGame().inputHumanMove(sqNum);
+					}
 				}
-				break;
-			}
-		}
+		);
+		boardPanel.add(boardCanvas);
 	}
+
+
+	public void refreshBoard() {
+		boardCanvas.repaint();
+	}
+
 
 	public void appendTextMessage(String text) {
 		textPane.setText(textPane.getText() + text + "\r\n");

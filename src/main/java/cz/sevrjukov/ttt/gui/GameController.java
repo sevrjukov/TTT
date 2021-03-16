@@ -17,20 +17,15 @@ public class GameController implements ActionListener, MovesListener {
 		game.setMovesListener(this);
 	}
 
+	public Game getGame() {
+		return game;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
 		JButton btn = (JButton) e.getSource();
 
-		String actionCommand = btn.getActionCommand();
-
-		// buttons on game board
-		if (actionCommand.startsWith("square_")) {
-			squareClicked(btn);
-			return;
-		}
-
-		// other buttons:
 		if (btn == window.btnNewGame) {
 			newGame();
 		}
@@ -42,25 +37,12 @@ public class GameController implements ActionListener, MovesListener {
 
 	private void newGame() {
 		game.newGame();
-		window.resetBoard();
+		refreshBoard();
 	}
-
-	private void squareClicked(JButton btn) {
-		String actionCommand = btn.getActionCommand();
-
-		String[] tokens = actionCommand.split("_");
-		int sqNum = Integer.parseInt(tokens[1]);
-		try {
-			game.inputHumanMove(sqNum);
-		} catch (IllegalArgumentException i) {
-			i.printStackTrace();
-		}
-	}
-
 
 	@Override
-	public void displayMove(int sq, int side) {
-		window.displayMoveOnBoard(sq, side);
+	public void refreshBoard() {
+		window.refreshBoard();
 	}
 
 	@Override

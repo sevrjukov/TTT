@@ -1,18 +1,20 @@
 package cz.sevrjukov.ttt.gui;
 
 import cz.sevrjukov.ttt.board.Board;
+import cz.sevrjukov.ttt.board.Move;
 
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.util.Stack;
 
 import static cz.sevrjukov.ttt.board.Board.COMPUTER;
 
 public class GameBoardCanvas extends Canvas {
 
 	public static final int NUM_CELLS = 19;
-	public static final int FIELD_SIZE = 26;
+	public static final int FIELD_SIZE = 30;
 
 	private static final int DIMENSION = NUM_CELLS * FIELD_SIZE;
 
@@ -21,9 +23,8 @@ public class GameBoardCanvas extends Canvas {
 	private static final int LINES_OFFSET = 6;
 
 
-
-	private static final Color BACKGROUND_COLOR = new Color(235, 239, 245);
-	private static final Color LINES_COLOR = new Color(199, 205, 214);
+	private static final Color BACKGROUND_COLOR = new Color(199, 217, 211);
+	private static final Color LINES_COLOR = new Color(237, 247, 244);
 	private static final Color BLUE_CIRCLE_COLOR = new Color(95, 141, 218);
 	private static final Color ORANGE_CIRCLE_COLOR = new Color(161, 86, 28);
 
@@ -37,10 +38,12 @@ public class GameBoardCanvas extends Canvas {
 	public void paint(Graphics g) {
 		super.paint(g);
 
-		this.setBackground(BACKGROUND_COLOR);
+		g.setColor(BACKGROUND_COLOR);
+
+		g.fillRoundRect(0,0, DIMENSION, DIMENSION, 20, 20);
 		paintLines();
 
-		var movesList = board.getMovesHistory();
+		var movesList = (Stack<Move>) board.getMovesHistory().clone();
 
 		for (var move : movesList) {
 			drawMove(move.squareNum, move.side);
@@ -54,10 +57,11 @@ public class GameBoardCanvas extends Canvas {
 		return new Dimension(DIMENSION, DIMENSION);
 	}
 
+
 	public void drawMove(int squareNum, int side) {
 		// square coordinates
 		int sqX = squareNum % NUM_CELLS;
-		int sqY = squareNum / NUM_CELLS + 1;
+		int sqY = squareNum / NUM_CELLS;
 
 		int rectTopLeftX = sqX * FIELD_SIZE + CIRCLE_OFFSET;
 		int rectTopLeftY = sqY * FIELD_SIZE + CIRCLE_OFFSET;

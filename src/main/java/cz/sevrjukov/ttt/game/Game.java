@@ -29,6 +29,9 @@ public class Game {
 		isFirstMove = true;
 	}
 
+	public Board getBoard() {
+		return board;
+	}
 
 	public void setMovesListener(MovesListener movesListener) {
 		this.movesListener = movesListener;
@@ -41,7 +44,7 @@ public class Game {
 		}
 		try {
 			board.makeMove(squareNum, HUMAN);
-			movesListener.displayMove(squareNum, HUMAN);
+			movesListener.refreshBoard();
 			findComputerMove();
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -62,7 +65,7 @@ public class Game {
 			board.makeMove(computerMove.sqNum, COMPUTER);
 			// this evaluation is only in order to detect the winning position for the computer
 			int eval = positionEvaluator.evaluatePositionOrGetCached(board);
-			movesListener.displayMove(computerMove.sqNum, COMPUTER);
+			movesListener.refreshBoard();
 			if (eval == VICTORY) {
 				movesListener.announceVictory();
 			}
@@ -76,7 +79,7 @@ public class Game {
 			Random r = new Random();
 			var move = r.nextInt(Board.SIZE) + 1;
 			board.makeMove(move, COMPUTER);
-			movesListener.displayMove(move, COMPUTER);
+			movesListener.refreshBoard();
 			isFirstMove = false;
 		}
 	}
