@@ -4,34 +4,47 @@ import cz.sevrjukov.ttt.board.Board;
 import org.junit.Test;
 
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class MoveGeneratorTest {
 
+
+	@Test
+	public void testOptimizationAlreadFound() {
+		System.out.println("Optimization - already found");
+		testWithSquare(21, 22);
+	}
+
 	@Test
 	public void testBasicGeneration() {
-
+		System.out.println("Basic");
 		testWithSquare(121);
 	}
 
 	@Test
 	public void testCorners() {
+		System.out.println("Corners");
 		testWithSquare(0, 18, 342, 360);
 	}
 
 	@Test
 	public void testSides() {
+		System.out.println("Sides");
 		testWithSquare(8, 171, 189, 350);
 	}
 
 	@Test
+	public void testSubCorners() {
+		System.out.println("Subcorners");
+		testWithSquare(20, 36, 324, 340);
+	}
+
+	@Test
 	public void testComplexPosition() {
+		System.out.println("Complex position");
 		var board = new Board();
 		board.parseBoard("x-----------x-xx----"
 				+ "---xx-xxx-xx-xx-xxx--xxxxx-xxx");
+		board.makeMove(293, Board.COMPUTER);
 
 		var moveGenerator = new MoveGenerator();
 		var moves = moveGenerator.generateMoves(board);
@@ -44,6 +57,7 @@ public class MoveGeneratorTest {
 
 	@Test
 	public void testRealPosition() {
+		System.out.println("Real position");
 		var board = new Board();
 		board.parseBoard("----------------"
 				+ "---xoxx----"
@@ -77,6 +91,7 @@ public class MoveGeneratorTest {
 	@Test
 	public void testGenerationSpeed() throws ExecutionException, InterruptedException {
 
+		System.out.println("Cache test");
 		var board = new Board();
 		var moveGenerator = new MoveGenerator();
 
@@ -86,19 +101,9 @@ public class MoveGeneratorTest {
 
 		var start = System.currentTimeMillis();
 
-		AtomicInteger howMany = new AtomicInteger(1_000_000);
-
-		ExecutorService e = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-		Future<Boolean> f = e.submit(
-				() -> {
-					while (howMany.decrementAndGet() > 0) {
-						// this is cached, so it's fast
-						moveGenerator.generateMoves(board);
-					}
-					return true;
-				});
-
-		f.get();
+		for (int i = 0; i < 1_000_000; i++) {
+			moveGenerator.generateMoves(board);
+		}
 
 		var end = System.currentTimeMillis();
 		var duration = end - start;

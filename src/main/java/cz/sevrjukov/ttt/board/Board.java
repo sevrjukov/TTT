@@ -153,6 +153,7 @@ public class Board {
 	public void printBoard() {
 		System.out.println();
 		System.out.println(toString());
+		System.out.println("---------------------");
 	}
 
 	public void saveToFile() {

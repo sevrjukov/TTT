@@ -35,35 +35,35 @@ public class MoveGenerator {
 		for (int sqNum = 0; sqNum < SIZE; sqNum++) {
 			if (position[sqNum] != EMPTY) {
 				// s - w - 1
-				if (validate(sqNum, sqNum - W - 1, position)) {
+				if (validate(sqNum, sqNum - W - 1, position, tmp)) {
 					tmp[sqNum - W - 1] = true;
 				}
 				// s - w
-				if (validate(sqNum, sqNum - W, position)) {
+				if (validate(sqNum, sqNum - W, position, tmp)) {
 					tmp[sqNum - W] = true;
 				}
 				// s - w + 1
-				if (validate(sqNum, sqNum - W + 1, position)) {
+				if (validate(sqNum, sqNum - W + 1, position, tmp)) {
 					tmp[sqNum - W + 1] = true;
 				}
 				// s - 1
-				if (validate(sqNum, sqNum - 1, position)) {
+				if (validate(sqNum, sqNum - 1, position, tmp)) {
 					tmp[sqNum - 1] = true;
 				}
 				// s + 1
-				if (validate(sqNum, sqNum + 1, position)) {
+				if (validate(sqNum, sqNum + 1, position, tmp)) {
 					tmp[sqNum + 1] = true;
 				}
 				// s + w - 1
-				if (validate(sqNum, sqNum + W - 1, position)) {
+				if (validate(sqNum, sqNum + W - 1, position, tmp)) {
 					tmp[sqNum + W - 1] = true;
 				}
 				// s + w
-				if (validate(sqNum, sqNum + W, position)) {
+				if (validate(sqNum, sqNum + W, position, tmp)) {
 					tmp[sqNum + W] = true;
 				}
 				// s + w + 1
-				if (validate(sqNum, sqNum + W + 1, position)) {
+				if (validate(sqNum, sqNum + W + 1, position, tmp)) {
 					tmp[sqNum + W + 1] = true;
 				}
 			}
@@ -90,7 +90,7 @@ public class MoveGenerator {
 		return result;
 	}
 
-	private boolean validate(int squareNum, int moveSquare, int[] position) {
+	private boolean validate(int squareNum, int moveSquare, int[] position, boolean [] tmp) {
 		if (moveSquare < 0) {
 			return false;
 		}
@@ -99,6 +99,10 @@ public class MoveGenerator {
 		}
 		if (position[moveSquare] != EMPTY) {
 			return false;
+		}
+		// already marked as a valid move
+		if (tmp[moveSquare]) {
+			return true;
 		}
 		// square coordinates
 		int sqX = squareNum % W;
