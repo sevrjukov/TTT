@@ -16,7 +16,7 @@ public class PositionEvaluator {
 	public static final int VICTORY = Integer.MAX_VALUE;
 	public static final int DEFEAT = Integer.MIN_VALUE;
 
-	final Map<Long, Integer> cache = new ConcurrentHashMap<>(100_000);
+	private final Map<Long, Integer> cache = new ConcurrentHashMap<>(100_000);
 	private long cacheHits = 0;
 	private long durationPrep = 0;
 	private long durationCalc = 0;
@@ -29,7 +29,6 @@ public class PositionEvaluator {
 	public PositionEvaluator(MoveGenerator moveGenerator) {
 		this.moveGenerator = moveGenerator;
 	}
-
 
 
 	/**
@@ -221,4 +220,8 @@ public class PositionEvaluator {
 	}
 
 
+	public void resetCache() {
+		cacheHits = 0;
+		cache.clear();
+	}
 }

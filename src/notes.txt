@@ -21,3 +21,4 @@ Minimax
 
 
 - check all TODOs
+- measure time, if the last evaluation took to long, decrease search depth

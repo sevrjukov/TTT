@@ -93,7 +93,7 @@ public class Board {
 	public void makeMove(int squareNum, int side) {
 		var start = System.currentTimeMillis();
 		if (position[squareNum] != EMPTY) {
-			throw new IllegalArgumentException("Cannot execute move " + squareNum + " " + side);
+			throw new IllegalArgumentException("Square already occupied, cannot execute move " + squareNum + " " + side);
 		}
 
 		movesHistory.push(new Move(squareNum, side, maxBound, minBound));

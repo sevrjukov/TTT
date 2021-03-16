@@ -23,27 +23,36 @@ public class MoveSearch {
 	private MoveGenerator moveGenerator = new MoveGenerator();
 	private PositionEvaluator positionEvaluator = new PositionEvaluator(moveGenerator);
 
-	private int searchDepth = 5;
+	public int moveNumber = 0;
+	private int searchDepth = 3;
 
-	public int findNextMove(Board board) {
+	public void reset() {
+		moveNumber = 0;
+		moveGenerator.resetCache();
+		positionEvaluator.resetCache();
+
+	}
+
+	public MoveEval findNextMove(Board board) {
+		moveNumber++;
 		return findNextMove(board, searchDepth);
 	}
 
-	public int findNextMove(Board board, int searchDepth) {
+	protected MoveEval findNextMove(Board board, int searchDepth) {
 		this.searchDepth = searchDepth;
 
 		var bestMove = alphabeta(board, searchDepth, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
-		System.out.println("best move was " + bestMove.sqNum + " with evaluation " + bestMove.value);
-		return bestMove.sqNum;
+		System.out.println("best move was " + bestMove.sqNum + " with evaluation " + bestMove.eval);
+		return bestMove;
 	}
 
 
-	public MoveValue alphabeta(Board board, int depth, int alpha, int beta, boolean maximizingPlayer) {
+	public MoveEval alphabeta(Board board, int depth, int alpha, int beta, boolean maximizingPlayer) {
 
 		if (depth == 0 || positionEvaluator.isFinalPosition(board)) {
 			int value = positionEvaluator.evaluatePositionOrGetCached(board);
 			int sqNum = board.getLastMove();
-			return new MoveValue(sqNum, value);
+			return new MoveEval(sqNum, value);
 		}
 
 		if (maximizingPlayer) {
@@ -54,29 +63,29 @@ public class MoveSearch {
 			if (depth == searchDepth) {
 				//TODO heuristika - seradit tahy
 				// pre-evaluate moves and sort them
-				List<MoveValue> filteredMoves = new ArrayList<>();
+				List<MoveEval> filteredMoves = new ArrayList<>();
 				for (int moveSq : moves) {
 					board.makeMove(moveSq, COMPUTER);
 					int moveValue = positionEvaluator.evaluatePosition(board);
 					board.undoLastMove();
 					if (moveValue == VICTORY) {
 						// this is a victory move, play immediately
-						return new MoveValue(moveSq, VICTORY);
+						return new MoveEval(moveSq, VICTORY);
 					}
 					if (moveValue <= -OPENED_FOUR) {
 						// this is a bad move, don't play it
 						continue;
 					}
-					filteredMoves.add(new MoveValue(moveSq, moveValue));
+					filteredMoves.add(new MoveEval(moveSq, moveValue));
 
 				}
 				// no moves to play - resign
 				if (filteredMoves.isEmpty()) {
-					return new MoveValue(MOVE_RESIGN, DEFEAT);
+					return new MoveEval(MOVE_RESIGN, DEFEAT);
 				}
 				// sort them from best to worst
 				var sortedMovesList = filteredMoves.stream()
-						.sorted(Comparator.comparing(MoveValue::getValue).reversed())
+						.sorted(Comparator.comparing(MoveEval::getEval).reversed())
 						.collect(Collectors.toList());
 				moves = new int[sortedMovesList.size()];
 				Arrays.fill(moves, -1);
@@ -87,14 +96,18 @@ public class MoveSearch {
 
 			int bestValue = Integer.MIN_VALUE;
 			int bestSquare = MOVE_RESIGN;
+			int counter = 0;
 			for (int moveSquare : moves) {
 
+				if (depth == searchDepth) {
+					System.out.println("Evaluating move " + (++counter) + "/" + moves.length);
+				}
 				board.makeMove(moveSquare, COMPUTER);
-				MoveValue node = alphabeta(board, depth - 1, alpha, beta, false);
+				MoveEval node = alphabeta(board, depth - 1, alpha, beta, false);
 				board.undoLastMove();
 
-				if (node.value > bestValue) {
-					bestValue = node.value;
+				if (node.eval > bestValue) {
+					bestValue = node.eval;
 					bestSquare = moveSquare;
 				}
 				alpha = Math.max(alpha, bestValue);
@@ -103,7 +116,7 @@ public class MoveSearch {
 					break;
 				}
 			}
-			return new MoveValue(bestSquare, bestValue);
+			return new MoveEval(bestSquare, bestValue);
 		} else {
 
 			// evaluating opponent turn
@@ -116,11 +129,11 @@ public class MoveSearch {
 
 			for (int moveSquare : moves) {
 				board.makeMove(moveSquare, HUMAN);
-				MoveValue node = alphabeta(board, depth - 1, alpha, beta, true);
+				MoveEval node = alphabeta(board, depth - 1, alpha, beta, true);
 				board.undoLastMove();
 
-				if (node.value < worstValue) {
-					worstValue = node.value;
+				if (node.eval < worstValue) {
+					worstValue = node.eval;
 					worstSquare = moveSquare;
 				}
 
@@ -129,16 +142,16 @@ public class MoveSearch {
 					break;
 				}
 			}
-			return new MoveValue(worstSquare, worstValue);
+			return new MoveEval(worstSquare, worstValue);
 		}
 	}
 
 	@AllArgsConstructor
 	@Getter
-	private class MoveValue {
+	public static class MoveEval {
 
 		public int sqNum;
-		public int value;
+		public int eval;
 	}
 
 }

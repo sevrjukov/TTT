@@ -90,7 +90,7 @@ public class MoveGenerator {
 		return result;
 	}
 
-	private boolean validate(int squareNum, int moveSquare, int[] position, boolean [] tmp) {
+	private boolean validate(int squareNum, int moveSquare, int[] position, boolean[] tmp) {
 		if (moveSquare < 0) {
 			return false;
 		}
@@ -113,6 +113,11 @@ public class MoveGenerator {
 		int moveY = moveSquare / H + 1;
 
 		return (Math.abs(sqX - moveX) < 2 && Math.abs(sqY - moveY) < 2);
+	}
+
+	public void resetCache() {
+		cache.clear();
+		cacheHits = 0;
 	}
 
 }

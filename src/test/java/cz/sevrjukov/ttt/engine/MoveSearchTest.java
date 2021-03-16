@@ -18,9 +18,9 @@ public class MoveSearchTest {
 				+ "----------xoox-ooxx------o---xxo-x-----");
 		board.printBoard();
 		MoveSearch moveSearch = new MoveSearch();
-		int nextMove = moveSearch.findNextMove(board, 5);
+		var nextMove = moveSearch.findNextMove(board, 5);
 
-		board.makeMove(nextMove, COMPUTER);
+		board.makeMove(nextMove.sqNum, COMPUTER);
 		board.printBoard();
 	}
 
@@ -31,14 +31,18 @@ public class MoveSearchTest {
 		board.parseBoard(
 				"-----------------" +
 						"-----------------"
-						+ "----------xoox-----"
-						+ "--------ooxx-o--------"
-						+ "------xoo-o-----");
+						+ "----------xxx------"
+						+ "---------ooxo------"
+						+ "---------oxxxo-----"
+						+ "---------oxo-o-----"
+						+ "--------oxxx-------"
+						+ "----------o--------"
+	);
 		board.printBoard();
 		MoveSearch moveSearch = new MoveSearch();
-		int nextMove = moveSearch.findNextMove(board, 7);
+		var nextMove = moveSearch.findNextMove(board, 6);
 
-		board.makeMove(nextMove, COMPUTER);
+		board.makeMove(nextMove.sqNum, COMPUTER);
 		board.printBoard();
 	}
 
@@ -53,11 +57,11 @@ public class MoveSearchTest {
 						+ "-------------------"
 		);
 		MoveSearch moveSearch = new MoveSearch();
-		int nextMove = moveSearch.findNextMove(board, 3);
-		if (nextMove == MOVE_RESIGN) {
+		var nextMove = moveSearch.findNextMove(board, 6);
+		if (nextMove.eval == MOVE_RESIGN) {
 			System.out.println("computer resigned");
 		} else {
-			board.makeMove(nextMove, COMPUTER);
+			board.makeMove(nextMove.sqNum, COMPUTER);
 			board.printBoard();
 		}
 	}
