@@ -74,6 +74,7 @@ public class MoveSearch {
 
 			int[] moves = moveGenerator.generateMoves(board);
 
+			// pre-evaluation and iterative deepening
 			if (depth == SEARCH_DEPTH) {
 				List<MoveEval> filteredMoves = new ArrayList<>();
 				for (int moveSq : moves) {
@@ -97,7 +98,7 @@ public class MoveSearch {
 				if (filteredMoves.isEmpty()) {
 					return new MoveEval(MOVE_RESIGN, DEFEAT);
 				}
-				// only one playable move
+				// only one playable move - no need to evaluate it
 				if (filteredMoves.size() == 1) {
 					return new MoveEval(filteredMoves.get(0).sqNum,
 							filteredMoves.get(0).eval);
@@ -111,14 +112,21 @@ public class MoveSearch {
 				for (int i = 0; i < moves.length; i++) {
 					moves[i] = sortedMovesList.get(i).sqNum;
 				}
-				//TODO based on numnber of moves which are worth calculating, set search depth +1
+				// if we have just a few reasonable moves, calculate them properly
 				if (moves.length < 5) {
 					depth++;
 				}
 			}
 
+			// regular evaluation (computer turn)
 			int bestValue = Integer.MIN_VALUE;
-			int bestSquare = MOVE_RESIGN;
+			/*
+			 * We pick the first move here to be the best "by default".
+			 * Even if this is a hopeless situation for the computer, and it cannot win, it's not going
+			 * to resign too early, as the human opponent may make a mistake. Otherwise it assumes
+			 * perfect play from the human and therefore "loses hope".
+			 */
+			int bestSquare = moves[0];
 			int counter = 0;
 			for (int moveSquare : moves) {
 				if (depth >= SEARCH_DEPTH) {
@@ -147,7 +155,6 @@ public class MoveSearch {
 			int worstSquare = -1;
 
 			int[] moves = moveGenerator.generateMoves(board);
-			// TODO heuristika i tady?
 
 			for (int moveSquare : moves) {
 				board.makeMove(moveSquare, HUMAN);
@@ -170,7 +177,7 @@ public class MoveSearch {
 
 
 	/*
-	This is used to pre-evaluate individual moves.
+	This is used to pre-evaluate individual moves in early phase of search.
 	 */
 	private int alphabetaEvaluate(Board board, int depth, int alpha, int beta, boolean maximizingPlayer) {
 
