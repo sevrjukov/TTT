@@ -84,6 +84,7 @@ public class MainGameWindow extends JFrame {
 		this.getContentPane().add(btnMakeMove, gbc_btnEvaluate);
 
 		textPane = new JTextPane();
+
 		GridBagConstraints gbc_textPane = new GridBagConstraints();
 		gbc_textPane.insets = new Insets(0, 0, 5, 5);
 		gbc_textPane.fill = GridBagConstraints.BOTH;
@@ -123,6 +124,6 @@ public class MainGameWindow extends JFrame {
 
 
 	public void appendTextMessage(String text) {
-		textPane.setText(textPane.getText() + text + "\r\n");
+		textPane.setText(text);
 	}
 }

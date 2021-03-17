@@ -1,8 +1,6 @@
-Next steps:
-
-- "isTerminal" funkce - pro rychlou detekci vyhry/prohry - HOTOVO
-- Evaluation function
-    - stavova masina misto SequenceEvaluatoru
+Evaluace:
+- pre-evaluace musi bejt do hloubky 2, ne 1
+- Evaluation function stavova masina misto SequenceEvaluatoru?
 - MoveGenerator: rozsirit na druhou vrstvu
 
 
@@ -16,3 +14,11 @@ Minimax
 
 - check all TODOs
 - measure time, if the last evaluation took to long, decrease search depth
+
+
+featury:
+- ukladani her
+- zobrazit prubeh vypocitavani
+- zajistit preruseni, pokud to trva moc dlouho
+- zvyraznit vyherni policka
+- ikonka aplikace

@@ -16,30 +16,33 @@ import static cz.sevrjukov.ttt.engine.PositionEvaluator.VICTORY;
 public class Game {
 
 	boolean calculating = false;
+	boolean gameFinished = false;
 	private Board board = new Board();
 	private MoveSearch moveSearch = new MoveSearch();
 	private PositionEvaluator positionEvaluator = new PositionEvaluator();
 
-	private MovesListener movesListener;
+	private GameEventListener gameEventListener;
 	boolean isFirstMove = true;
 
 	public void newGame() {
 		board.reset();
 		moveSearch.reset();
 		isFirstMove = true;
+		gameFinished = false;
 	}
 
 	public Board getBoard() {
 		return board;
 	}
 
-	public void setMovesListener(MovesListener movesListener) {
-		this.movesListener = movesListener;
+	public void setGameEventsListener(GameEventListener gameEventListener) {
+		this.gameEventListener = gameEventListener;
+		moveSearch.setGameEventListener(gameEventListener);
 	}
 
 	public void inputHumanMove(int squareNum) {
 		isFirstMove = false;
-		if (calculating) {
+		if (calculating || gameFinished) {
 			return;
 		}
 		try {
@@ -50,6 +53,9 @@ public class Game {
 	}
 
 	public void findComputerMove() {
+		if (gameFinished) {
+			return;
+		}
 		calculating = true;
 		CompletableFuture
 				.supplyAsync(() -> moveSearch.findNextMove(board))
@@ -63,12 +69,14 @@ public class Game {
 			board.makeMove(computerMove.sqNum, COMPUTER);
 			// this evaluation is only in order to detect the winning position for the computer
 			int eval = positionEvaluator.evaluatePositionOrGetCached(board);
-			movesListener.refreshBoard();
+			gameEventListener.refreshBoard();
 			if (eval == VICTORY) {
-				movesListener.announceVictory();
+				gameEventListener.announceVictory();
+				gameFinished = true;
 			}
 		} else {
-			movesListener.resign();
+			gameEventListener.resign();
+			gameFinished = true;
 		}
 	}
 
@@ -77,7 +85,7 @@ public class Game {
 			Random r = new Random();
 			var move = r.nextInt(Board.SIZE) + 1;
 			board.makeMove(move, COMPUTER);
-			movesListener.refreshBoard();
+			gameEventListener.refreshBoard();
 			isFirstMove = false;
 		}
 	}

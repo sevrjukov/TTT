@@ -1,14 +1,15 @@
 package cz.sevrjukov.ttt.gui;
 
 import cz.sevrjukov.ttt.game.Game;
-import cz.sevrjukov.ttt.game.MovesListener;
+import cz.sevrjukov.ttt.game.GameEventListener;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
-public class GameController implements ActionListener, MovesListener {
+public class GameController implements ActionListener, GameEventListener {
 
 	private MainGameWindow window;
 	private Game game = new Game();
@@ -16,11 +17,7 @@ public class GameController implements ActionListener, MovesListener {
 
 	public GameController(MainGameWindow window) {
 		this.window = window;
-		game.setMovesListener(this);
-	}
-
-	public Game getGame() {
-		return game;
+		game.setGameEventsListener(this);
 	}
 
 	public BoardModel getBoardModel() {
@@ -77,10 +74,19 @@ public class GameController implements ActionListener, MovesListener {
 	@Override
 	public void resign() {
 		window.appendTextMessage("Computer resigns");
+		JOptionPane.showMessageDialog(window, "Computer resigns");
 	}
 
 	@Override
 	public void announceVictory() {
 		window.appendTextMessage("Computer wins");
+		JOptionPane.showMessageDialog(window, "Computer wins");
 	}
+
+	@Override
+	public void printInfo(String info) {
+		System.out.println(info);
+		window.appendTextMessage(info);
+	}
+
 }

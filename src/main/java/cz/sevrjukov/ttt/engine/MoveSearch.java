@@ -1,6 +1,7 @@
 package cz.sevrjukov.ttt.engine;
 
 import cz.sevrjukov.ttt.board.Board;
+import cz.sevrjukov.ttt.game.GameEventListener;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -22,6 +23,7 @@ public class MoveSearch {
 
 	private MoveGenerator moveGenerator = new MoveGenerator();
 	private PositionEvaluator positionEvaluator = new PositionEvaluator();
+	private GameEventListener gameEventListener;
 
 	public int moveNumber = 0;
 	private static final int INITIAL_SEARCH_DEPTH = 2;
@@ -32,7 +34,10 @@ public class MoveSearch {
 		moveNumber = 0;
 		moveGenerator.resetCache();
 		positionEvaluator.resetCache();
+	}
 
+	public void setGameEventListener(GameEventListener gameEventListener) {
+		this.gameEventListener = gameEventListener;
 	}
 
 	public MoveEval findNextMove(Board board) {
@@ -40,7 +45,7 @@ public class MoveSearch {
 		var depth = moveNumber < 4 ? INITIAL_SEARCH_DEPTH : SEARCH_DEPTH;
 		currentSearchDepth = depth;
 		var bestMove = alphabeta(board, depth, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
-		System.out.println("best move was " + bestMove.sqNum + " with evaluation " + bestMove.eval);
+		displayMoveFoundMessage(bestMove);
 		return bestMove;
 	}
 
@@ -48,8 +53,12 @@ public class MoveSearch {
 		moveNumber++;
 		currentSearchDepth = searchDepth;
 		var bestMove = alphabeta(board, searchDepth, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
-		System.out.println("best move was " + bestMove.sqNum + " with evaluation " + bestMove.eval);
+		displayMoveFoundMessage(bestMove);
 		return bestMove;
+	}
+
+	private void displayMoveFoundMessage(MoveEval move) {
+		gameEventListener.printInfo(String.format("Best move [%s] eval [%s]", move.sqNum, move.eval));
 	}
 
 
@@ -102,7 +111,7 @@ public class MoveSearch {
 			int counter = 0;
 			for (int moveSquare : moves) {
 				if (depth == currentSearchDepth) {
-					System.out.println("Evaluating move " + (++counter) + "/" + moves.length + ", depth " + depth);
+					gameEventListener.printInfo("Evaluating move " + (++counter) + "/" + moves.length + ", depth " + depth);
 				}
 				board.makeMove(moveSquare, COMPUTER);
 				MoveEval node = alphabeta(board, depth - 1, alpha, beta, false);
