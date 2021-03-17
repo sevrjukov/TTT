@@ -9,4 +9,5 @@ public interface GameEventListener {
 	void announceVictory();
 
 	void printInfo(String info);
+
 }

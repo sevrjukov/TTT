@@ -29,6 +29,7 @@ public class Game {
 		moveSearch.reset();
 		isFirstMove = true;
 		gameFinished = false;
+		gameEventListener.printInfo("New game");
 	}
 
 	public Board getBoard() {
@@ -92,5 +93,9 @@ public class Game {
 			gameEventListener.refreshBoard();
 			isFirstMove = false;
 		}
+	}
+
+	public String getStats() {
+		return moveSearch.getStats();
 	}
 }

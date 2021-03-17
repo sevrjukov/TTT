@@ -18,7 +18,7 @@ public class MoveSearchTest {
 				+ "----------xoox-ooxx------o---xxo-x-----");
 		board.printBoard();
 		MoveSearch moveSearch = new MoveSearch();
-		var nextMove = moveSearch.findNextMove(board, 5);
+		var nextMove = moveSearch.findNextMove(board);
 
 		board.makeMove(nextMove.sqNum, COMPUTER);
 		board.printBoard();
@@ -40,7 +40,7 @@ public class MoveSearchTest {
 	);
 		board.printBoard();
 		MoveSearch moveSearch = new MoveSearch();
-		var nextMove = moveSearch.findNextMove(board, 6);
+		var nextMove = moveSearch.findNextMove(board);
 
 		board.makeMove(nextMove.sqNum, COMPUTER);
 		board.printBoard();
@@ -57,7 +57,7 @@ public class MoveSearchTest {
 						+ "-------------------"
 		);
 		MoveSearch moveSearch = new MoveSearch();
-		var nextMove = moveSearch.findNextMove(board, 6);
+		var nextMove = moveSearch.findNextMove(board);
 		if (nextMove.eval == MOVE_RESIGN) {
 			System.out.println("computer resigned");
 		} else {

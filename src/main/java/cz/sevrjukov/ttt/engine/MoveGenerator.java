@@ -13,12 +13,13 @@ import static cz.sevrjukov.ttt.board.Board.W;
 public class MoveGenerator {
 
 	final Map<Long, int[]> cache = new ConcurrentHashMap<>(100_000);
-	long cacheHits = 0;
+	private long cacheHits = 0;
+	private long genRequests = 0;
 
 	public int[] generateMoves(Board board) {
 
+		genRequests++;
 		var cacheKey = board.getPositionHashShallow();
-
 		var cachedResult = cache.get(cacheKey);
 		if (cachedResult != null) {
 			cacheHits++;
@@ -117,7 +118,23 @@ public class MoveGenerator {
 
 	public void resetCache() {
 		cache.clear();
-		cacheHits = 0;
+		resetStats();
 	}
 
+	public void resetStats() {
+		cacheHits = 0;
+		genRequests = 0;
+	}
+
+	public int getCacheSize() {
+		return cache.size();
+	}
+
+	public long cacheHits() {
+		return cacheHits;
+	}
+
+	public long getGenRequests() {
+		return genRequests;
+	}
 }

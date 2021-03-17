@@ -44,7 +44,7 @@ public class MainGameWindow extends JFrame {
 
 	private void createAndShowGUI() throws IOException {
 		this.setTitle("TicTacToe");
-		this.setBounds(100, 100, 1000, 680);
+		this.setBounds(100, 100, 1000, 640);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -70,6 +70,7 @@ public class MainGameWindow extends JFrame {
 
 		infoTextPane = new JTextPane();
 		infoTextPane.setPreferredSize(new Dimension(300, 200));
+
 		infoTextPane.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 		infoTextPane.setEditable(false);
 		leftSidePannel.add(infoTextPane);
@@ -108,6 +109,22 @@ public class MainGameWindow extends JFrame {
 
 
 	public void appendTextMessage(String text) {
-		infoTextPane.setText(text);
+		var currentText = infoTextPane.getText();
+		var lines = currentText.split(System.lineSeparator());
+		if (lines.length < 11) {
+			if (currentText.isBlank()) {
+				infoTextPane.setText(text);
+			} else {
+				infoTextPane.setText(currentText + System.lineSeparator() + text);
+			}
+		} else {
+			var builder = new StringBuilder();
+			for (int i = 1; i < lines.length; i++) {
+				builder.append(lines[i].trim());
+				builder.append(System.lineSeparator());
+			}
+			builder.append(text);
+			infoTextPane.setText(builder.toString());
+		}
 	}
 }

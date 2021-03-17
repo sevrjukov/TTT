@@ -8,16 +8,26 @@ import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class GameController implements ActionListener, GameEventListener {
 
 	private MainGameWindow window;
 	private Game game = new Game();
 	private BoardModel boardModel = new BoardModel();
+	private TimerTask refreshStatsTask;
 
 	public GameController(MainGameWindow window) {
 		this.window = window;
 		game.setGameEventsListener(this);
+
+		new Timer().schedule(new TimerTask() {
+			@Override
+			public void run() {
+				printStats();
+			}
+		}, 1000, 1000);
 	}
 
 	public BoardModel getBoardModel() {
@@ -87,6 +97,12 @@ public class GameController implements ActionListener, GameEventListener {
 	public void printInfo(String info) {
 		System.out.println(info);
 		window.appendTextMessage(info);
+	}
+
+
+	public void printStats() {
+		var stats = game.getStats();
+		window.statsTextPane.setText(stats);
 	}
 
 }

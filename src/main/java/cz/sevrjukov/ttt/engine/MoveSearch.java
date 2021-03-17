@@ -2,6 +2,7 @@ package cz.sevrjukov.ttt.engine;
 
 import cz.sevrjukov.ttt.board.Board;
 import cz.sevrjukov.ttt.game.GameEventListener;
+import cz.sevrjukov.ttt.util.TextUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -30,8 +31,14 @@ public class MoveSearch {
 	private static final int SEARCH_DEPTH = 5;
 	private static final int BAD_MOVE_CUTOFF = -OPENED_FOUR + 100;
 
+	// stats
+	long positionsEvaluated = 0;
+	long searchStartTime = 0;
+	boolean running = false;
+
 	public void reset() {
 		moveNumber = 0;
+		positionsEvaluated = 0;
 		moveGenerator.resetCache();
 		positionEvaluator.resetCache();
 	}
@@ -42,14 +49,13 @@ public class MoveSearch {
 
 	public MoveEval findNextMove(Board board) {
 		moveNumber++;
+		positionsEvaluated = 0;
+		moveGenerator.resetStats();
+		positionEvaluator.resetStats();
+		searchStartTime = System.currentTimeMillis();
+		running = true;
 		var bestMove = alphabetaBestMove(board, SEARCH_DEPTH, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
-		displayMoveFoundMessage(bestMove);
-		return bestMove;
-	}
-
-	protected MoveEval findNextMove(Board board, int searchDepth) {
-		moveNumber++;
-		var bestMove = alphabetaBestMove(board, searchDepth, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
+		running = false;
 		displayMoveFoundMessage(bestMove);
 		return bestMove;
 	}
@@ -65,6 +71,7 @@ public class MoveSearch {
 	private MoveEval alphabetaBestMove(Board board, int depth, int alpha, int beta, boolean maximizingPlayer) {
 
 		if (depth == 0 || positionEvaluator.isFinalPosition(board)) {
+			positionsEvaluated++;
 			int value = positionEvaluator.evaluatePositionOrGetCached(board);
 			int sqNum = board.getLastMove();
 			return new MoveEval(sqNum, value);
@@ -185,6 +192,7 @@ public class MoveSearch {
 	private int alphabetaEvaluate(Board board, int depth, int alpha, int beta, boolean maximizingPlayer) {
 
 		if (depth == 0 || positionEvaluator.isFinalPosition(board)) {
+			positionsEvaluated++;
 			return positionEvaluator.evaluatePositionOrGetCached(board);
 		}
 
@@ -224,5 +232,55 @@ public class MoveSearch {
 		public int sqNum;
 		public int eval;
 	}
+
+	public String getStats() {
+		var EL = System.lineSeparator();
+		var builder = new StringBuilder();
+		builder.append("Positions evaluated: ");
+		builder.append(TextUtils.numToHumanStr(positionsEvaluated));
+		builder.append(EL);
+
+		long timeElapsed = System.currentTimeMillis() - searchStartTime;
+		builder.append("performance: ");
+		long positionsPerSeconds = (timeElapsed > 0 && running) ? positionsEvaluated * 1000 / timeElapsed : 0;
+		builder.append(TextUtils.numToHumanStr(positionsPerSeconds));
+		builder.append(" pps");
+		builder.append(EL);
+		builder.append(EL);
+
+		// movegen cache
+		builder.append("Movegen cache");
+		builder.append(EL);
+		builder.append("size: ");
+		builder.append(TextUtils.numToHumanStr(moveGenerator.getCacheSize()));
+
+		builder.append(" hits: ");
+		builder.append(TextUtils.numToHumanStr(moveGenerator.cacheHits()));
+		builder.append(" (");
+
+		var moveGenHitsPerc = (moveGenerator.getGenRequests() > 0) ? moveGenerator.cacheHits() * 100 / moveGenerator.getGenRequests() : 0;
+		builder.append(moveGenHitsPerc);
+		builder.append("%)");
+		builder.append(EL);
+		builder.append(EL);
+
+		// position evaluator cache
+		builder.append("Position evaluator cache");
+		builder.append(EL);
+		builder.append("size: ");
+		builder.append(TextUtils.numToHumanStr(positionEvaluator.getCacheSize()));
+
+		builder.append(" hits: ");
+		builder.append(TextUtils.numToHumanStr(positionEvaluator.cacheHits()));
+		builder.append(" (");
+
+		var posEvHitsPerc = (positionEvaluator.getEvalRequests() > 0) ? positionEvaluator.cacheHits() * 100 / positionEvaluator.getEvalRequests() : 0;
+		builder.append(posEvHitsPerc);
+		builder.append("%)");
+		builder.append(EL);
+
+		return builder.toString();
+	}
+
 
 }
