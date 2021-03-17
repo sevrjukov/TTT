@@ -46,12 +46,12 @@ public class GameController implements ActionListener, GameEventListener {
 		int sqNum = sqy * GameBoardCanvas.NUM_CELLS + sqX;
 		System.out.println("sqx " + sqX + " sqy " + sqy);
 
-		game.inputHumanMove(sqNum);
-
-		refreshBoard();
-
-		// refresh moves model for GUI
-		game.findComputerMove();
+		if (!game.isCalculating()) {
+			game.inputHumanMove(sqNum);
+			refreshBoard();
+			// refresh moves model for GUI
+			game.findComputerMove();
+		}
 	}
 
 	private void refreshBoardModel() {

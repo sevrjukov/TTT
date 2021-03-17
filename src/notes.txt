@@ -1,5 +1,4 @@
 Evaluace:
-- pre-evaluace musi bejt do hloubky 2, ne 1
 - Evaluation function stavova masina misto SequenceEvaluatoru?
 - MoveGenerator: rozsirit na druhou vrstvu
 
@@ -9,11 +8,7 @@ Evaluace:
 Minimax
 - https://www.baeldung.com/java-minimax-algorithm
 - heuristika - radit tahy - hodnoceni : kolik novy tah ma vedle sebe bunek. Nula je malo, nejlepsi je stredni pocet
-- aplikovat heuristiku jen na shallow depth
-
-
 - check all TODOs
-- measure time, if the last evaluation took to long, decrease search depth
 
 
 featury:

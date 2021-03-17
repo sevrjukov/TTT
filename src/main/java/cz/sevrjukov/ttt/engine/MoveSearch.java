@@ -7,6 +7,7 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -103,7 +104,9 @@ public class MoveSearch {
 					return new MoveEval(filteredMoves.get(0).sqNum,
 							filteredMoves.get(0).eval);
 				}
-				// sort them from best to worst
+				// sort them from best to worst. Shuffle will introduce some randomness
+				// in case that we have multiple moves with the same pre-evaluation.
+				Collections.shuffle(filteredMoves);
 				var sortedMovesList = filteredMoves.stream()
 						.sorted(Comparator.comparing(MoveEval::getEval).reversed())
 						.collect(Collectors.toList());

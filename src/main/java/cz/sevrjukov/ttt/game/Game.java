@@ -35,6 +35,10 @@ public class Game {
 		return board;
 	}
 
+	public boolean isCalculating() {
+		return calculating;
+	}
+
 	public void setGameEventsListener(GameEventListener gameEventListener) {
 		this.gameEventListener = gameEventListener;
 		moveSearch.setGameEventListener(gameEventListener);
@@ -53,7 +57,7 @@ public class Game {
 	}
 
 	public void findComputerMove() {
-		if (gameFinished) {
+		if (gameFinished || calculating) {
 			return;
 		}
 		calculating = true;
