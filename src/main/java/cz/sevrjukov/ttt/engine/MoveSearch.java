@@ -26,9 +26,8 @@ public class MoveSearch {
 	private GameEventListener gameEventListener;
 
 	public int moveNumber = 0;
-	private static final int INITIAL_SEARCH_DEPTH = 2;
 	private static final int SEARCH_DEPTH = 5;
-	private int currentSearchDepth = INITIAL_SEARCH_DEPTH;
+	private static final int BAD_MOVE_CUTOFF = -OPENED_FOUR + 100;
 
 	public void reset() {
 		moveNumber = 0;
@@ -42,17 +41,14 @@ public class MoveSearch {
 
 	public MoveEval findNextMove(Board board) {
 		moveNumber++;
-		var depth = moveNumber < 4 ? INITIAL_SEARCH_DEPTH : SEARCH_DEPTH;
-		currentSearchDepth = depth;
-		var bestMove = alphabeta(board, depth, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
+		var bestMove = alphabetaBestMove(board, SEARCH_DEPTH, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
 		displayMoveFoundMessage(bestMove);
 		return bestMove;
 	}
 
 	protected MoveEval findNextMove(Board board, int searchDepth) {
 		moveNumber++;
-		currentSearchDepth = searchDepth;
-		var bestMove = alphabeta(board, searchDepth, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
+		var bestMove = alphabetaBestMove(board, searchDepth, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
 		displayMoveFoundMessage(bestMove);
 		return bestMove;
 	}
@@ -62,7 +58,10 @@ public class MoveSearch {
 	}
 
 
-	private MoveEval alphabeta(Board board, int depth, int alpha, int beta, boolean maximizingPlayer) {
+	/**
+	 * This does actually search for the best available move
+	 */
+	private MoveEval alphabetaBestMove(Board board, int depth, int alpha, int beta, boolean maximizingPlayer) {
 
 		if (depth == 0 || positionEvaluator.isFinalPosition(board)) {
 			int value = positionEvaluator.evaluatePositionOrGetCached(board);
@@ -78,14 +77,17 @@ public class MoveSearch {
 			if (depth == SEARCH_DEPTH) {
 				List<MoveEval> filteredMoves = new ArrayList<>();
 				for (int moveSq : moves) {
+
 					board.makeMove(moveSq, COMPUTER);
-					int moveValue = positionEvaluator.evaluatePosition(board);
+					int moveValue = alphabetaEvaluate(board, 1, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
+					System.out.println("pre-evaluated move " + moveSq + " with value " + moveValue);
 					board.undoLastMove();
+
 					if (moveValue == VICTORY) {
 						// this is a victory move, play immediately
 						return new MoveEval(moveSq, VICTORY);
 					}
-					if (moveValue <= -OPENED_FOUR) {
+					if (moveValue <= BAD_MOVE_CUTOFF) {
 						// this is a bad move, don't play it
 						continue;
 					}
@@ -94,6 +96,11 @@ public class MoveSearch {
 				// no moves to play - resign
 				if (filteredMoves.isEmpty()) {
 					return new MoveEval(MOVE_RESIGN, DEFEAT);
+				}
+				// only one playable move
+				if (filteredMoves.size() == 1) {
+					return new MoveEval(filteredMoves.get(0).sqNum,
+							filteredMoves.get(0).eval);
 				}
 				// sort them from best to worst
 				var sortedMovesList = filteredMoves.stream()
@@ -104,17 +111,21 @@ public class MoveSearch {
 				for (int i = 0; i < moves.length; i++) {
 					moves[i] = sortedMovesList.get(i).sqNum;
 				}
+				//TODO based on numnber of moves which are worth calculating, set search depth +1
+				if (moves.length < 5) {
+					depth++;
+				}
 			}
 
 			int bestValue = Integer.MIN_VALUE;
 			int bestSquare = MOVE_RESIGN;
 			int counter = 0;
 			for (int moveSquare : moves) {
-				if (depth == currentSearchDepth) {
+				if (depth >= SEARCH_DEPTH) {
 					gameEventListener.printInfo("Evaluating move " + (++counter) + "/" + moves.length + ", depth " + depth);
 				}
 				board.makeMove(moveSquare, COMPUTER);
-				MoveEval node = alphabeta(board, depth - 1, alpha, beta, false);
+				MoveEval node = alphabetaBestMove(board, depth - 1, alpha, beta, false);
 				board.undoLastMove();
 
 				if (node.eval > bestValue) {
@@ -140,7 +151,7 @@ public class MoveSearch {
 
 			for (int moveSquare : moves) {
 				board.makeMove(moveSquare, HUMAN);
-				MoveEval node = alphabeta(board, depth - 1, alpha, beta, true);
+				MoveEval node = alphabetaBestMove(board, depth - 1, alpha, beta, true);
 				board.undoLastMove();
 
 				if (node.eval < worstValue) {
@@ -154,6 +165,45 @@ public class MoveSearch {
 				}
 			}
 			return new MoveEval(worstSquare, worstValue);
+		}
+	}
+
+
+	/*
+	This is used to pre-evaluate individual moves.
+	 */
+	private int alphabetaEvaluate(Board board, int depth, int alpha, int beta, boolean maximizingPlayer) {
+
+		if (depth == 0 || positionEvaluator.isFinalPosition(board)) {
+			return positionEvaluator.evaluatePositionOrGetCached(board);
+		}
+
+		if (maximizingPlayer) {
+			int value = Integer.MIN_VALUE;
+			int[] moves = moveGenerator.generateMoves(board);
+			for (int moveSquare : moves) {
+				board.makeMove(moveSquare, COMPUTER);
+				value = Math.max(value, alphabetaEvaluate(board, depth - 1, alpha, beta, false));
+				alpha = Math.max(alpha, value);
+				board.undoLastMove();
+				if (alpha >= beta) {
+					break;
+				}
+			}
+			return value;
+		} else {
+			int value = Integer.MAX_VALUE;
+			int[] moves = moveGenerator.generateMoves(board);
+			for (int moveSquare : moves) {
+				board.makeMove(moveSquare, HUMAN);
+				value = Math.min(value, alphabetaEvaluate(board, depth - 1, alpha, beta, true));
+				beta = Math.min(beta, value);
+				board.undoLastMove();
+				if (beta <= alpha) {
+					break;
+				}
+			}
+			return value;
 		}
 	}
 
