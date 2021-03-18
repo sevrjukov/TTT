@@ -1,5 +1,6 @@
 package cz.sevrjukov.ttt.gui;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import cz.sevrjukov.ttt.board.Board;
 import cz.sevrjukov.ttt.game.Game;
 import cz.sevrjukov.ttt.game.GameEventListener;
@@ -17,18 +18,20 @@ public class GameController implements ActionListener, GameEventListener {
 	private MainGameWindow window;
 	private Game game = new Game();
 	private BoardModel boardModel = new BoardModel();
-	private TimerTask refreshStatsTask;
 
 	public GameController(MainGameWindow window) {
 		this.window = window;
 		game.setGameEventsListener(this);
+	}
 
+	public void init() {
 		new Timer().schedule(new TimerTask() {
 			@Override
 			public void run() {
 				printStats();
 			}
 		}, 1000, 1000);
+		game.newGame();
 	}
 
 	public BoardModel getBoardModel() {
@@ -46,6 +49,15 @@ public class GameController implements ActionListener, GameEventListener {
 
 		if (btn == window.btnMakeMove) {
 			game.makeFirstMove();
+		}
+
+		if (btn == window.btnSaveGames) {
+			try {
+				String historyJson = game.getHistory().exportToJson();
+				System.out.println(historyJson);
+			} catch (JsonProcessingException jsonProcessingException) {
+				jsonProcessingException.printStackTrace();
+			}
 		}
 	}
 

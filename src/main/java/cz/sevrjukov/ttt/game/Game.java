@@ -4,7 +4,7 @@ import cz.sevrjukov.ttt.board.Board;
 import cz.sevrjukov.ttt.engine.MoveSearch;
 import cz.sevrjukov.ttt.engine.MoveSearch.MoveEval;
 import cz.sevrjukov.ttt.engine.PositionEvaluator;
-import cz.sevrjukov.ttt.game.history.GameHistory;
+import cz.sevrjukov.ttt.game.history.GameHistoryController;
 
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
@@ -21,14 +21,10 @@ public class Game {
 	private Board board = new Board();
 	private MoveSearch moveSearch = new MoveSearch();
 	private PositionEvaluator positionEvaluator = new PositionEvaluator();
-	private GameHistory history = new GameHistory();
+	private GameHistoryController history = new GameHistoryController();
 
 	private GameEventListener gameEventListener;
 	boolean isFirstMove = true;
-
-	public Game() {
-		newGame();
-	}
 
 	public void newGame() {
 		board.reset();
@@ -86,7 +82,7 @@ public class Game {
 		if (computerMove.sqNum != MOVE_RESIGN) {
 
 			board.makeMove(computerMove.sqNum, COMPUTER);
-			history.recordMove(computerMove.sqNum, COMPUTER);
+			history.recordMove(computerMove.sqNum, COMPUTER, computerMove.eval);
 
 			// this evaluation is only in order to detect the winning position for the computer
 			int eval = positionEvaluator.evaluatePositionOrGetCached(board);
@@ -107,8 +103,9 @@ public class Game {
 	public void makeFirstMove() {
 		if (isFirstMove) {
 			Random r = new Random();
-			var move = r.nextInt(Board.SIZE) + 1;
-			board.makeMove(move, COMPUTER);
+			var squareNum = r.nextInt(Board.SIZE) + 1;
+			board.makeMove(squareNum, COMPUTER);
+			history.recordMove(squareNum, COMPUTER);
 			gameEventListener.refreshBoard();
 			isFirstMove = false;
 		}
@@ -122,5 +119,9 @@ public class Game {
 		gameEventListener.resign(HUMAN);
 		history.recordResign(HUMAN);
 		gameFinished = true;
+	}
+
+	public GameHistoryController getHistory() {
+		return history;
 	}
 }

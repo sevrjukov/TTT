@@ -31,10 +31,10 @@ public class MainGameWindow extends JFrame {
 
 	public void init() {
 		controller = new GameController(this);
-
 		javax.swing.SwingUtilities.invokeLater(() -> {
 			try {
 				createAndShowGUI();
+				controller.init();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -65,7 +65,7 @@ public class MainGameWindow extends JFrame {
 		leftSidePannel.add(btnMakeMove);
 
 		btnSaveGames = new JButton("Save games");
-		btnMakeMove.addActionListener(controller);
+		btnSaveGames.addActionListener(controller);
 		leftSidePannel.add(btnSaveGames);
 
 		infoTextPane = new JTextPane();
