@@ -4,7 +4,7 @@ public interface GameEventListener {
 
 	void refreshBoard();
 
-	void resign();
+	void resign(int player);
 
 	void announceVictory();
 

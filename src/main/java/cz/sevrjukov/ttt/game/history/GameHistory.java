@@ -70,7 +70,7 @@ public class GameHistory {
 	public void recordResign(int player) {
 		var event = GameEvent.builder()
 				.eventTime(LocalDateTime.now())
-				.eventType(EventType.VICTORY)
+				.eventType(EventType.RESIGN)
 				.playedBy(getPlayer(player))
 				.build();
 		getLastGame().addEvent(event);

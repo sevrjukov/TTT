@@ -4,6 +4,7 @@ import cz.sevrjukov.ttt.board.Board;
 import cz.sevrjukov.ttt.engine.MoveSearch;
 import cz.sevrjukov.ttt.engine.MoveSearch.MoveEval;
 import cz.sevrjukov.ttt.engine.PositionEvaluator;
+import cz.sevrjukov.ttt.game.history.GameHistory;
 
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
@@ -20,9 +21,14 @@ public class Game {
 	private Board board = new Board();
 	private MoveSearch moveSearch = new MoveSearch();
 	private PositionEvaluator positionEvaluator = new PositionEvaluator();
+	private GameHistory history = new GameHistory();
 
 	private GameEventListener gameEventListener;
 	boolean isFirstMove = true;
+
+	public Game() {
+		newGame();
+	}
 
 	public void newGame() {
 		board.reset();
@@ -30,6 +36,7 @@ public class Game {
 		isFirstMove = true;
 		gameFinished = false;
 		gameEventListener.printInfo("New game");
+		history.newGame();
 	}
 
 	public Board getBoard() {
@@ -38,6 +45,10 @@ public class Game {
 
 	public boolean isCalculating() {
 		return calculating;
+	}
+
+	public boolean isGameFinished() {
+		return gameFinished;
 	}
 
 	public void setGameEventsListener(GameEventListener gameEventListener) {
@@ -52,7 +63,9 @@ public class Game {
 		}
 		try {
 			board.makeMove(squareNum, HUMAN);
+			history.recordMove(squareNum, HUMAN);
 		} catch (Exception ex) {
+			//TODO this is ugly
 			ex.printStackTrace();
 		}
 	}
@@ -71,16 +84,22 @@ public class Game {
 	private void processFoundMove(MoveEval computerMove) {
 		calculating = false;
 		if (computerMove.sqNum != MOVE_RESIGN) {
+
 			board.makeMove(computerMove.sqNum, COMPUTER);
+			history.recordMove(computerMove.sqNum, COMPUTER);
+
 			// this evaluation is only in order to detect the winning position for the computer
 			int eval = positionEvaluator.evaluatePositionOrGetCached(board);
+
 			gameEventListener.refreshBoard();
 			if (eval == VICTORY) {
 				gameEventListener.announceVictory();
 				gameFinished = true;
+				history.recordVictory(COMPUTER);
 			}
 		} else {
-			gameEventListener.resign();
+			gameEventListener.resign(COMPUTER);
+			history.recordResign(COMPUTER);
 			gameFinished = true;
 		}
 	}
@@ -97,5 +116,11 @@ public class Game {
 
 	public String getStats() {
 		return moveSearch.getStats();
+	}
+
+	public void humanResigns() {
+		gameEventListener.resign(HUMAN);
+		history.recordResign(HUMAN);
+		gameFinished = true;
 	}
 }

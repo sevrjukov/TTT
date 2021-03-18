@@ -1,5 +1,6 @@
 package cz.sevrjukov.ttt.gui;
 
+import cz.sevrjukov.ttt.board.Board;
 import cz.sevrjukov.ttt.game.Game;
 import cz.sevrjukov.ttt.game.GameEventListener;
 
@@ -71,8 +72,25 @@ public class GameController implements ActionListener, GameEventListener {
 	}
 
 	private void newGame() {
-		game.newGame();
-		refreshBoard();
+		if (!game.isGameFinished()) {
+
+			String[] options = {"Continue playing", "Resign"};
+			int answer = JOptionPane.showOptionDialog(window, "What do you want to do?", "Game is not finished",
+					JOptionPane.YES_NO_OPTION,
+					JOptionPane.QUESTION_MESSAGE,
+					null,
+					options,
+					options[0]);
+
+			if (answer == 1) {
+				game.humanResigns();
+				game.newGame();
+				refreshBoard();
+			}
+		} else {
+			game.newGame();
+			refreshBoard();
+		}
 	}
 
 	@Override
@@ -82,9 +100,13 @@ public class GameController implements ActionListener, GameEventListener {
 	}
 
 	@Override
-	public void resign() {
-		window.appendTextMessage("Computer resigns");
-		JOptionPane.showMessageDialog(window, "Computer resigns");
+	public void resign(int player) {
+		if (player == Board.COMPUTER) {
+			window.appendTextMessage("Computer resigns");
+			JOptionPane.showMessageDialog(window, "Computer resigns");
+		} else {
+			window.appendTextMessage("You resigned");
+		}
 	}
 
 	@Override
