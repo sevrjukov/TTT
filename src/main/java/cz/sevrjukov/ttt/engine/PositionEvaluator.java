@@ -2,8 +2,8 @@ package cz.sevrjukov.ttt.engine;
 
 import cz.sevrjukov.ttt.board.Board;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static cz.sevrjukov.ttt.board.Board.COMPUTER;
 import static cz.sevrjukov.ttt.board.Board.HUMAN;
@@ -12,8 +12,9 @@ public class PositionEvaluator {
 
 	public static final int VICTORY = Integer.MAX_VALUE;
 	public static final int DEFEAT = Integer.MIN_VALUE;
+	private static final int MAX_CACHE_SIZE = 5_000_000;
 
-	private final Map<Long, Integer> cache = new ConcurrentHashMap<>(100_000);
+	private final Map<Long, Integer> cache = new HashMap<>(1_000_000);
 	private long cacheHits = 0;
 	private long evalRequests = 0;
 
@@ -126,5 +127,12 @@ public class PositionEvaluator {
 
 	public long getEvalRequests() {
 		return evalRequests;
+	}
+
+
+	public void clearCacheIfNeeded() {
+		if (cache.size() > MAX_CACHE_SIZE) {
+			cache.clear();
+		}
 	}
 }

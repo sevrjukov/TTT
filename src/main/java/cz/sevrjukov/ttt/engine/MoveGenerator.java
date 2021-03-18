@@ -2,8 +2,8 @@ package cz.sevrjukov.ttt.engine;
 
 import cz.sevrjukov.ttt.board.Board;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static cz.sevrjukov.ttt.board.Board.EMPTY;
 import static cz.sevrjukov.ttt.board.Board.H;
@@ -13,7 +13,7 @@ import static cz.sevrjukov.ttt.board.Board.W;
 public class MoveGenerator {
 
 	private static final int MAX_CACHE_SIZE = 500_000;
-	final Map<Long, int[]> cache = new ConcurrentHashMap<>(100_000);
+	final Map<Long, int[]> cache = new HashMap<>(100_000);
 	private long cacheHits = 0;
 	private long genRequests = 0;
 

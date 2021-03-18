@@ -53,6 +53,7 @@ public class MoveSearch {
 		moveGenerator.resetStats();
 		moveGenerator.clearCacheIfNeeded();
 		positionEvaluator.resetStats();
+		positionEvaluator.clearCacheIfNeeded();
 		searchStartTime = System.currentTimeMillis();
 		running = true;
 		var bestMove = alphabetaBestMove(board, SEARCH_DEPTH, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
