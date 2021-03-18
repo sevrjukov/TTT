@@ -4,6 +4,8 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 
 import static cz.sevrjukov.ttt.board.Board.COMPUTER;
 
@@ -64,8 +66,8 @@ public class GameBoardCanvas extends Canvas {
 		int sqX = squareNum % NUM_CELLS;
 		int sqY = squareNum / NUM_CELLS;
 
-		int coordX = sqX * FIELD_SIZE + CIRCLE_OFFSET;
-		int coordY = sqY * FIELD_SIZE + CIRCLE_OFFSET;
+		int coordX = sqX * FIELD_SIZE + CIRCLE_OFFSET + 1;
+		int coordY = sqY * FIELD_SIZE + CIRCLE_OFFSET + 1;
 
 		Color circleColor = (side == COMPUTER) ? ORANGE_CIRCLE_COLOR : BLUE_CIRCLE_COLOR;
 		drawCircle(coordX, coordY, circleColor);
@@ -91,8 +93,19 @@ public class GameBoardCanvas extends Canvas {
 
 	private void drawCircle(int x, int y, Color color) {
 		Graphics g = getGraphics();
-		g.setColor(color);
-		g.fillOval(x, y, CIRCLE_SIZE, CIRCLE_SIZE);
+		Graphics2D g2 = (Graphics2D) g;
+
+		RenderingHints rh = new RenderingHints(
+				RenderingHints.KEY_TEXT_ANTIALIASING,
+				RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		rh.add(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY));
+		rh.add(new RenderingHints(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE));
+		rh.add(new RenderingHints(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC));
+
+		g2.setRenderingHints(rh);
+		g2.setColor(color);
+
+		g2.fillOval(x, y, CIRCLE_SIZE, CIRCLE_SIZE);
 	}
 
 
