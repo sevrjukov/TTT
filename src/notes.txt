@@ -7,13 +7,12 @@ Evaluace:
 
 Minimax
 - https://www.baeldung.com/java-minimax-algorithm
-- heuristika - radit tahy - hodnoceni : kolik novy tah ma vedle sebe bunek. Nula je malo, nejlepsi je stredni pocet
 - check all TODOs
 
 
 featury:
 - ukladani her
-- zobrazit prubeh vypocitavani
-- zajistit preruseni, pokud to trva moc dlouho
 - zvyraznit vyherni policka
+- funkce Rezignovat / kdyz dam New game v nedokoncene hre, tak se me to zepta.
+- zajistit preruseni, pokud to trva moc dlouho
 - ikonka aplikace
