@@ -11,8 +11,6 @@ Minimax
 
 
 featury:
-- ukladani her
 - zvyraznit vyherni policka
-- funkce Rezignovat / kdyz dam New game v nedokoncene hre, tak se me to zepta.
 - zajistit preruseni, pokud to trva moc dlouho
 - ikonka aplikace

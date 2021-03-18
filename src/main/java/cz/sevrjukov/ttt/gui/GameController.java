@@ -1,17 +1,24 @@
 package cz.sevrjukov.ttt.gui;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import cz.sevrjukov.ttt.board.Board;
 import cz.sevrjukov.ttt.game.Game;
 import cz.sevrjukov.ttt.game.GameEventListener;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+
 
 public class GameController implements ActionListener, GameEventListener {
 
@@ -52,12 +59,7 @@ public class GameController implements ActionListener, GameEventListener {
 		}
 
 		if (btn == window.btnSaveGames) {
-			try {
-				String historyJson = game.getHistory().exportToJson();
-				System.out.println(historyJson);
-			} catch (JsonProcessingException jsonProcessingException) {
-				jsonProcessingException.printStackTrace();
-			}
+			promptToSaveHistory();
 		}
 	}
 
@@ -138,5 +140,60 @@ public class GameController implements ActionListener, GameEventListener {
 		var stats = game.getStats();
 		window.statsTextPane.setText(stats);
 	}
+
+	private void promptToSaveHistory() {
+		try {
+
+			var fc = createSaveHistoryFileChooser();
+
+			var returnVal = fc.showSaveDialog(window);
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				var file = fc.getSelectedFile();
+				System.out.println("Saving games to file " + file.getAbsolutePath());
+				saveHistory(file);
+				printInfo("Saved games to file " + file.getName());
+			}
+
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			printInfo("Error saving file history");
+		}
+	}
+
+	private JFileChooser createSaveHistoryFileChooser() {
+		var fileName = "games_" + new SimpleDateFormat("yyyyMMdd_HHmm").format(new Date()) + ".json";
+		final JFileChooser fc = new JFileChooser() {
+			@Override
+			public void approveSelection() {
+				File f = getSelectedFile();
+				if (f.exists() && getDialogType() == SAVE_DIALOG) {
+					int result = JOptionPane.showConfirmDialog(this,
+							"The file exists, overwrite?", "Existing file",
+							JOptionPane.YES_NO_CANCEL_OPTION);
+					switch (result) {
+						case JOptionPane.YES_OPTION:
+							super.approveSelection();
+							return;
+						case JOptionPane.CANCEL_OPTION:
+							cancelSelection();
+							return;
+						default:
+							return;
+					}
+				}
+				super.approveSelection();
+			}
+		};
+		fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		fc.setMultiSelectionEnabled(false);
+		fc.setSelectedFile(new File(fileName));
+		return fc;
+	}
+
+	private void saveHistory(File f) throws IOException {
+		var historyJson = game.getHistory().exportToJson();
+		Files.writeString(f.toPath(), historyJson, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+	}
+
 
 }

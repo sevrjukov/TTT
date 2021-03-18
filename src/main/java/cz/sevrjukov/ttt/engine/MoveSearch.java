@@ -51,6 +51,7 @@ public class MoveSearch {
 		moveNumber++;
 		positionsEvaluated = 0;
 		moveGenerator.resetStats();
+		moveGenerator.clearCacheIfNeeded();
 		positionEvaluator.resetStats();
 		searchStartTime = System.currentTimeMillis();
 		running = true;
@@ -246,7 +247,6 @@ public class MoveSearch {
 		builder.append(TextUtils.numToHumanStr(positionsPerSeconds));
 		builder.append(" pps");
 		builder.append(EL);
-		builder.append(EL);
 
 		// movegen cache
 		builder.append("Movegen cache");
@@ -261,7 +261,6 @@ public class MoveSearch {
 		var moveGenHitsPerc = (moveGenerator.getGenRequests() > 0) ? moveGenerator.cacheHits() * 100 / moveGenerator.getGenRequests() : 0;
 		builder.append(moveGenHitsPerc);
 		builder.append("%)");
-		builder.append(EL);
 		builder.append(EL);
 
 		// position evaluator cache

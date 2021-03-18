@@ -8,5 +8,6 @@ import java.util.List;
 @Data
 public class GameHistory {
 
+	private String programVersion = "1.0";
 	private List<Game> gamesList = new ArrayList<>();
 }

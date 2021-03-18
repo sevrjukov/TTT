@@ -12,6 +12,7 @@ import static cz.sevrjukov.ttt.board.Board.W;
 
 public class MoveGenerator {
 
+	private static final int MAX_CACHE_SIZE = 500_000;
 	final Map<Long, int[]> cache = new ConcurrentHashMap<>(100_000);
 	private long cacheHits = 0;
 	private long genRequests = 0;
@@ -136,5 +137,11 @@ public class MoveGenerator {
 
 	public long getGenRequests() {
 		return genRequests;
+	}
+
+	public void clearCacheIfNeeded() {
+		if (cache.size() > MAX_CACHE_SIZE) {
+			cache.clear();
+		}
 	}
 }

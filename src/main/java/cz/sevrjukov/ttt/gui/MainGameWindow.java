@@ -8,6 +8,7 @@ import javax.swing.JTextPane;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -43,7 +44,7 @@ public class MainGameWindow extends JFrame {
 	}
 
 	private void createAndShowGUI() throws IOException {
-		this.setTitle("TicTacToe");
+		this.setTitle("Gomoku");
 		this.setBounds(100, 100, 1000, 640);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,7 +53,7 @@ public class MainGameWindow extends JFrame {
 		this.getContentPane().setLayout(borderLayout);
 
 		var leftSidePannel = new JPanel();
-		leftSidePannel.setPreferredSize(new Dimension(350, 400));
+		leftSidePannel.setPreferredSize(new Dimension(310, 400));
 
 		this.getContentPane().add(leftSidePannel, BorderLayout.WEST);
 
@@ -69,16 +70,19 @@ public class MainGameWindow extends JFrame {
 		leftSidePannel.add(btnSaveGames);
 
 		infoTextPane = new JTextPane();
-		infoTextPane.setPreferredSize(new Dimension(300, 200));
+		infoTextPane.setPreferredSize(new Dimension(280, 200));
 
 		infoTextPane.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 		infoTextPane.setEditable(false);
 		leftSidePannel.add(infoTextPane);
 
 		statsTextPane = new JTextPane();
-		statsTextPane.setPreferredSize(new Dimension(300, 200));
-		statsTextPane.setText("Flabadop blip blup blip");
+		statsTextPane.setPreferredSize(new Dimension(280, 100));
+		statsTextPane.setText("Engine statistics");
 		statsTextPane.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+		Font smallFont = new Font("Monospaced", Font.PLAIN, 10);
+		statsTextPane.setFont(smallFont);
+		statsTextPane.setForeground(Color.DARK_GRAY);
 		statsTextPane.setEditable(false);
 		leftSidePannel.add(statsTextPane);
 
