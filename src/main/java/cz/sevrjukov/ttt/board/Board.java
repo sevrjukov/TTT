@@ -134,6 +134,7 @@ public class Board {
 	}
 
 	public void parseBoard(String boardNotation) {
+		reset();
 		boardNotation = boardNotation.toLowerCase().trim().replaceAll("\\s+", "");
 		if (boardNotation.length() > SIZE) {
 			throw new IllegalArgumentException("board notation invalid");

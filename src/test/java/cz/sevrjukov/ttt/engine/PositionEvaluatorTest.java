@@ -70,7 +70,7 @@ public class PositionEvaluatorTest {
 	public void testDiagonalFour2() {
 		var board = new Board();
 		board.parseBoard(
-				"------------------"
+				"-------------------"
 						+ "----o--------------"
 						+ "---o---------------"
 						+ "--o----------------"
