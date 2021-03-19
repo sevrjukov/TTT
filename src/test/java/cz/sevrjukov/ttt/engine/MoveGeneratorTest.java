@@ -3,8 +3,6 @@ package cz.sevrjukov.ttt.engine;
 import cz.sevrjukov.ttt.board.Board;
 import org.junit.Test;
 
-import java.util.concurrent.ExecutionException;
-
 public class MoveGeneratorTest {
 
 
@@ -89,7 +87,7 @@ public class MoveGeneratorTest {
 	}
 
 	@Test
-	public void testGenerationSpeed() throws ExecutionException, InterruptedException {
+	public void testGenerationSpeed() {
 
 		System.out.println("Cache test");
 		var board = new Board();
@@ -111,5 +109,10 @@ public class MoveGeneratorTest {
 		System.out.println("it took " + duration + " ms");
 	}
 
+	@Test
+	public void generateFirstMoveTest() {
+		var gen = new MoveGenerator();
+		gen.generateFirstMove();
+	}
 
 }

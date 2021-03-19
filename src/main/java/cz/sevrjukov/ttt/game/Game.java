@@ -6,7 +6,6 @@ import cz.sevrjukov.ttt.engine.MoveSearch.MoveEval;
 import cz.sevrjukov.ttt.engine.PositionEvaluator;
 import cz.sevrjukov.ttt.game.history.GameHistoryController;
 
-import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 
 import static cz.sevrjukov.ttt.board.Board.COMPUTER;
@@ -102,8 +101,7 @@ public class Game {
 
 	public void makeFirstMove() {
 		if (isFirstMove) {
-			Random r = new Random();
-			var squareNum = r.nextInt(Board.SIZE) + 1;
+			var squareNum = moveSearch.getMoveGenerator().generateFirstMove();
 			board.makeMove(squareNum, COMPUTER);
 			history.recordMove(squareNum, COMPUTER);
 			gameEventListener.refreshBoard();

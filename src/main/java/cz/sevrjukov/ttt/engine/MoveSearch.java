@@ -66,6 +66,9 @@ public class MoveSearch {
 		gameEventListener.printInfo(String.format("Best move [%s] eval [%s]", move.sqNum, move.eval));
 	}
 
+	public MoveGenerator getMoveGenerator() {
+		return moveGenerator;
+	}
 
 	/**
 	 * This does actually search for the best available move

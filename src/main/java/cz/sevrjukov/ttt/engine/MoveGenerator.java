@@ -2,8 +2,11 @@ package cz.sevrjukov.ttt.engine;
 
 import cz.sevrjukov.ttt.board.Board;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import static cz.sevrjukov.ttt.board.Board.EMPTY;
 import static cz.sevrjukov.ttt.board.Board.H;
@@ -115,6 +118,27 @@ public class MoveGenerator {
 		int moveY = moveSquare / H + 1;
 
 		return (Math.abs(sqX - moveX) < 2 && Math.abs(sqY - moveY) < 2);
+	}
+
+
+	public int generateFirstMove() {
+		// generates the first move, but makes sure it's not too crazy very often
+		// by too crazy we mean too close to the edge of the board.
+		// the closer the move is to the board edge, the less likely it is to be randomly chosen
+
+		final List<Integer> probabilityDistX = new ArrayList<>();
+		for (int i = 0; i < W; i++) {
+			// probability equals to the distance to the board edge
+			int prob = Math.min(i, W - i) + 1;
+			for (int k = 0; k < prob; k++) {
+				probabilityDistX.add(i);
+			}
+		}
+		var r = new Random();
+		int xCoord = probabilityDistX.get(r.nextInt(probabilityDistX.size()));
+		int yCoord = probabilityDistX.get(r.nextInt(probabilityDistX.size()));
+
+		return yCoord * W + xCoord;
 	}
 
 	public void resetCache() {
