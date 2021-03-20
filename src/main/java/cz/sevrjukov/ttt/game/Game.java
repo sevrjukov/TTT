@@ -38,10 +38,6 @@ public class Game {
 		return board;
 	}
 
-	public boolean isCalculating() {
-		return calculating;
-	}
-
 	public boolean isGameFinished() {
 		return gameFinished;
 	}
@@ -51,17 +47,19 @@ public class Game {
 		moveSearch.setGameEventListener(gameEventListener);
 	}
 
-	public void inputHumanMove(int squareNum) {
+	public boolean inputHumanMove(int squareNum) {
 		isFirstMove = false;
 		if (calculating || gameFinished) {
-			return;
+			return false;
 		}
 		try {
 			board.makeMove(squareNum, HUMAN);
 			history.recordMove(squareNum, HUMAN);
+			return true;
 		} catch (Exception ex) {
 			//TODO this is ugly
 			ex.printStackTrace();
+			return false;
 		}
 	}
 

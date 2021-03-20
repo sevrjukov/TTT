@@ -69,12 +69,9 @@ public class GameController implements ActionListener, GameEventListener {
 		int sqX = xCoord / GameBoardCanvas.FIELD_SIZE;
 		int sqy = yCoord / GameBoardCanvas.FIELD_SIZE;
 		int sqNum = sqy * GameBoardCanvas.NUM_CELLS + sqX;
-		System.out.println("sqx " + sqX + " sqy " + sqy);
 
-		if (!game.isCalculating()) {
-			game.inputHumanMove(sqNum);
+		if (game.inputHumanMove(sqNum)) {
 			refreshBoard();
-			// refresh moves model for GUI
 			game.findComputerMove();
 		}
 	}
