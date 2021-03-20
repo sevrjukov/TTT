@@ -121,15 +121,14 @@ public class GameBoardCanvas extends Canvas {
 	}
 
 	private void drawCircle(int x, int y, Color color) {
-		Graphics g = getGraphics();
-		setRenderingHints(g);
+		var g = setRenderingHints(getGraphics());
 		g.setColor(color);
 		g.fillOval(x, y, CIRCLE_SIZE, CIRCLE_SIZE);
 	}
 
 
 	private void paintLines() {
-		Graphics g = getGraphics();
+		var g = setRenderingHints(getGraphics());
 		g.setColor(LINES_COLOR);
 		// verticals
 		var offset = 0;
@@ -140,15 +139,16 @@ public class GameBoardCanvas extends Canvas {
 		}
 	}
 
-	private void setRenderingHints(Graphics g) {
+	private Graphics2D setRenderingHints(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		RenderingHints rh = new RenderingHints(
-				RenderingHints.KEY_TEXT_ANTIALIASING,
-				RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+				RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
 		rh.add(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY));
 		rh.add(new RenderingHints(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE));
 		rh.add(new RenderingHints(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC));
 		g2.setRenderingHints(rh);
+		return g2;
 	}
 
 
