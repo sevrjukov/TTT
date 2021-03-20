@@ -79,7 +79,10 @@ public class PositionEvaluator {
 		return computerEvaluation - humanEvaluation;
 	}
 
-	protected boolean isFinalPosition(Board board) {
+	/**
+	 * This is designed to be as fast as possible.
+	 */
+	public boolean isFinalPosition(Board board) {
 		// try to find a win (doesn't matter if a computer or human win)
 		int[] checkedLineIds = BoardSequences.LINES_USAGE[board.getLastMove()];
 		int[] position = board.getPosition();
@@ -104,6 +107,30 @@ public class PositionEvaluator {
 		}
 		// no more free squares to make next move (all squares occupied)
 		return (board.getPosition().length == board.getMovesHistory().size());
+	}
+
+	/**
+	 * Finds connected 5 to be visually highlighted on the board.
+	 *
+	 * @return start square, end square (result[0], result[1])
+	 */
+	public int[] findWinningSequence(Board board) {
+
+		int[] checkedLineIds = BoardSequences.LINES_USAGE[board.getLastMove()];
+		int[] position = board.getPosition();
+
+		for (int lineId : checkedLineIds) {
+			winPositionEvaluator.reset();
+			int[] line = BoardSequences.LINES[lineId];
+			for (int i = 0; i < line.length; i++) {
+				if (winPositionEvaluator.feedNextSquare(position[line[i]])) {
+					int startSq = line[i - 4];
+					int endSq = line[i];
+					return new int[]{startSq, endSq};
+				}
+			}
+		}
+		return null;
 	}
 
 

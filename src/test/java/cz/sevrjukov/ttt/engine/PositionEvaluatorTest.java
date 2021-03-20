@@ -12,15 +12,12 @@ public class PositionEvaluatorTest {
 	@Test
 	public void testFourInARow() {
 		var board = new Board();
-		board.setDebug(true);
 
 		board.parseBoard("----------------"
 				+ "--------oooo-----------"
 				+ "------------");
 		board.printBoard();
 
-//		board.printBoard();
-		var moveGenerator = new MoveGenerator();
 		var positionEvaluator = new PositionEvaluator();
 		var evaluation = positionEvaluator.evaluatePosition(board);
 		assertTrue(evaluation < -10000);
@@ -40,7 +37,6 @@ public class PositionEvaluatorTest {
 		);
 		board.printBoard();
 
-		var moveGenerator = new MoveGenerator();
 		var positionEvaluator = new PositionEvaluator();
 		var evaluation = positionEvaluator.evaluatePosition(board);
 		System.out.println(evaluation);
@@ -162,7 +158,6 @@ public class PositionEvaluatorTest {
 		);
 		Assert.assertTrue("must be win", positionEvaluator.isFinalPosition(board));
 
-
 		board.reset();
 		board.parseBoard(
 				"-------------------"
@@ -174,7 +169,28 @@ public class PositionEvaluatorTest {
 						+ "-o----x------------"
 		);
 		Assert.assertTrue("must be win", positionEvaluator.isFinalPosition(board));
+	}
 
+
+	@Test
+	public void findWinningSequence() {
+		var board = new Board();
+		var positionEvaluator = new PositionEvaluator();
+		board.reset();
+		board.parseBoard(
+				"-------------------"
+						+ "-o--xx-------------"
+						+ "-ox-o--------------"
+						+ "-o-x-x-------------"
+						+ "-ox-x--------------"
+						+ "-x---x-------------"
+						+ "-o----x------------"
+		);
+
+		var winningSeq = positionEvaluator.findWinningSequence(board);
+		Assert.assertNotNull("Winning sequence must not be null", winningSeq);
+		Assert.assertEquals("Wrong winning sequence start",  40, winningSeq[0]);
+		Assert.assertEquals("Wrong winning sequence end",  120, winningSeq[1]);
 	}
 
 

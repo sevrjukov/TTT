@@ -1,5 +1,6 @@
 package cz.sevrjukov.ttt.gui;
 
+import java.awt.BasicStroke;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,6 +20,7 @@ public class GameBoardCanvas extends Canvas {
 	private static final int CIRCLE_SIZE = FIELD_SIZE - 12;
 	private static final int CIRCLE_OFFSET = (FIELD_SIZE - CIRCLE_SIZE) / 2;
 	private static final int LINES_OFFSET = 6;
+	private static final int WINNING_LINE_OFFSET = (FIELD_SIZE / 2) + 1;
 
 
 	private static final Color BACKGROUND_COLOR = new Color(199, 217, 211);
@@ -51,6 +53,33 @@ public class GameBoardCanvas extends Canvas {
 				drawMove(move.squareNum, move.side);
 			}
 		}
+
+		if (boardModel.isWinningPosition()) {
+			int[] line = boardModel.getWinningSequence();
+			paintWinningLine(line[0], line[1]);
+		}
+
+	}
+
+	private void paintWinningLine(int startSqNum, int endSqNum) {
+		var g = getGraphics();
+		setRenderingHints(g);
+		g.setColor(ORANGE_CIRCLE_COLOR);
+
+		int startSqX = startSqNum % NUM_CELLS;
+		int startSqY = startSqNum / NUM_CELLS;
+		int x1 = startSqX * FIELD_SIZE + WINNING_LINE_OFFSET;
+		int y1 = startSqY * FIELD_SIZE + WINNING_LINE_OFFSET;
+
+		int endSqX = endSqNum % NUM_CELLS;
+		int endSqY = endSqNum / NUM_CELLS;
+
+		int x2 = endSqX * FIELD_SIZE + WINNING_LINE_OFFSET;
+		int y2 = endSqY * FIELD_SIZE + WINNING_LINE_OFFSET;
+
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setStroke(new BasicStroke(3));
+		g2.drawLine(x1, y1, x2, y2);
 
 	}
 
@@ -93,19 +122,9 @@ public class GameBoardCanvas extends Canvas {
 
 	private void drawCircle(int x, int y, Color color) {
 		Graphics g = getGraphics();
-		Graphics2D g2 = (Graphics2D) g;
-
-		RenderingHints rh = new RenderingHints(
-				RenderingHints.KEY_TEXT_ANTIALIASING,
-				RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		rh.add(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY));
-		rh.add(new RenderingHints(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE));
-		rh.add(new RenderingHints(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC));
-
-		g2.setRenderingHints(rh);
-		g2.setColor(color);
-
-		g2.fillOval(x, y, CIRCLE_SIZE, CIRCLE_SIZE);
+		setRenderingHints(g);
+		g.setColor(color);
+		g.fillOval(x, y, CIRCLE_SIZE, CIRCLE_SIZE);
 	}
 
 
@@ -119,6 +138,17 @@ public class GameBoardCanvas extends Canvas {
 			g.drawLine(offset, LINES_OFFSET, offset, DIMENSION - LINES_OFFSET);
 			g.drawLine(LINES_OFFSET, offset, DIMENSION - LINES_OFFSET, offset);
 		}
+	}
+
+	private void setRenderingHints(Graphics g) {
+		Graphics2D g2 = (Graphics2D) g;
+		RenderingHints rh = new RenderingHints(
+				RenderingHints.KEY_TEXT_ANTIALIASING,
+				RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		rh.add(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY));
+		rh.add(new RenderingHints(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE));
+		rh.add(new RenderingHints(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC));
+		g2.setRenderingHints(rh);
 	}
 
 

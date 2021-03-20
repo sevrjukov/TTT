@@ -2,10 +2,6 @@ package cz.sevrjukov.ttt.board;
 
 import cz.sevrjukov.ttt.engine.BoardSequences;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.Stack;
 
@@ -30,19 +26,14 @@ public class Board {
 
 	private int[] activatedLines = new int[BoardSequences.LINES.length];
 
-	private boolean debug = false;
-
-	private long timeTotalMakeMove = 0;
-	private long timeTotalUndoMove = 0;
+	private boolean isWinningPosition = false;
+	private int [] winningSequence = new int[2]; // start square, end square
 
 
 	public Board() {
 		reset();
 	}
 
-	public void setDebug(boolean debug) {
-		this.debug = debug;
-	}
 
 	public void reset() {
 		position = new int[SIZE];
@@ -54,14 +45,17 @@ public class Board {
 		minBound = Integer.MAX_VALUE;
 		maxBound = Integer.MIN_VALUE;
 		Arrays.fill(activatedLines, 0);
-		timeTotalMakeMove = 0;
-		timeTotalUndoMove = 0;
+		isWinningPosition = false;
+		Arrays.fill(winningSequence, 0);
 	}
 
 	public int[] getPosition() {
 		return position;
 	}
 
+	/**
+	 * Full position hash for position evaluator
+	 */
 	public long getPositionHash() {
 		long result = 1;
 		for (int element : position) {
@@ -70,6 +64,10 @@ public class Board {
 		return result;
 	}
 
+	/**
+	 * Hash that doesn't care if squares are occupied by computer of human.
+	 * Only cares if the square is empty or not.
+	 */
 	public long getPositionHashShallow() {
 		long result = 1;
 		for (int element : position) {
@@ -90,12 +88,28 @@ public class Board {
 		return lastMoveSquare;
 	}
 
+	public void recordWinningSequence(int [] seq) {
+		winningSequence  = seq;
+		isWinningPosition = true;
+	}
+
+	public boolean isWinningPosition() {
+		return isWinningPosition;
+	}
+
+	public int[] getWinningSequence() {
+		return winningSequence;
+	}
+
+	public int[] getActivatedLines() {
+		return activatedLines;
+	}
+
 	public void makeMove(int squareNum, int side) {
 		var start = System.currentTimeMillis();
 		if (position[squareNum] != EMPTY) {
 			throw new IllegalArgumentException("Square already occupied, cannot execute move " + squareNum + " " + side);
 		}
-
 		movesHistory.push(new Move(squareNum, side, maxBound, minBound));
 		lastMoveSquare = squareNum;
 		position[squareNum] = side;
@@ -108,7 +122,6 @@ public class Board {
 		for (int lineNumber : newlyActivatedLines) {
 			activatedLines[lineNumber] = activatedLines[lineNumber] + 1;
 		}
-		timeTotalMakeMove += System.currentTimeMillis() - start;
 	}
 
 	public void undoLastMove() {
@@ -126,7 +139,6 @@ public class Board {
 		for (int lineNumber : deactivatedLines) {
 			activatedLines[lineNumber] = activatedLines[lineNumber] - 1;
 		}
-		timeTotalUndoMove += System.currentTimeMillis() - start;
 	}
 
 	public Stack<Move> getMovesHistory() {
@@ -157,16 +169,6 @@ public class Board {
 		System.out.println("---------------------");
 	}
 
-	public void saveToFile() {
-		if (!debug) {
-			throw new IllegalArgumentException("Board will not save to file, not in debug mode!");
-		}
-		try {
-			Files.writeString(Paths.get("/tmp", "board.txt"), toString(), StandardOpenOption.TRUNCATE_EXISTING);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	@Override
 	public String toString() {
@@ -188,12 +190,6 @@ public class Board {
 				builder.append("\n");
 			}
 		}
-		builder.append(" total time make moves [ms] " + timeTotalMakeMove);
-		builder.append(" total time undo moves [ms] " + timeTotalUndoMove);
 		return builder.toString();
-	}
-
-	public int[] getActivatedLines() {
-		return activatedLines;
 	}
 }

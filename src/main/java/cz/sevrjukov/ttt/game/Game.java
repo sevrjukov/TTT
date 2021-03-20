@@ -86,11 +86,15 @@ public class Game {
 			// this evaluation is only in order to detect the winning position for the computer
 			int eval = positionEvaluator.evaluatePositionOrGetCached(board);
 
-			gameEventListener.refreshBoard();
 			if (eval == VICTORY) {
-				gameEventListener.announceVictory();
 				gameFinished = true;
+				var winningSequence = positionEvaluator.findWinningSequence(board);
+				board.recordWinningSequence(winningSequence);
 				history.recordVictory(COMPUTER);
+				gameEventListener.refreshBoard();
+				gameEventListener.announceVictory();
+			} else {
+				gameEventListener.refreshBoard();
 			}
 		} else {
 			gameEventListener.resign(COMPUTER);

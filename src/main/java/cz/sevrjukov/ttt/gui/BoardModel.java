@@ -9,5 +9,8 @@ import java.util.List;
 @Data
 public class BoardModel {
 
-	List<Move> movesList = new ArrayList<>();
+	private List<Move> movesList = new ArrayList<>();
+	private boolean isWinningPosition;
+	private int [] winningSequence;
+
 }

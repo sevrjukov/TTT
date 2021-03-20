@@ -80,9 +80,13 @@ public class GameController implements ActionListener, GameEventListener {
 	}
 
 	private void refreshBoardModel() {
-		var movesHistory = game.getBoard().getMovesHistory();
+		var board = game.getBoard();
+		var movesHistory = board.getMovesHistory();
 		boardModel.getMovesList().clear();
 		movesHistory.forEach(move -> boardModel.getMovesList().add(move));
+
+		boardModel.setWinningPosition(board.isWinningPosition());
+		boardModel.setWinningSequence(board.getWinningSequence());
 	}
 
 	private void newGame() {
