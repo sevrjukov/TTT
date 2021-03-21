@@ -1,5 +1,6 @@
 package cz.sevrjukov.ttt.gui;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,7 +13,10 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+
+import static cz.sevrjukov.ttt.util.Versions.PROGRAM_VERSION;
 
 public class MainGameWindow extends JFrame {
 
@@ -41,10 +45,18 @@ public class MainGameWindow extends JFrame {
     }
 
     private void createAndShowGUI() {
-        this.setTitle("Gomoku");
+        this.setTitle("Gomoku " + PROGRAM_VERSION);
         this.setBounds(100, 100, 1000, 640);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // icon
+        try (var stream = new ByteArrayInputStream(GUIResources.ICON_IMAGE)) {
+            setIconImage(ImageIO.read(stream));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         BorderLayout borderLayout = new BorderLayout();
         this.getContentPane().setLayout(borderLayout);

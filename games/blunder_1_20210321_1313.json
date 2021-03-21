@@ -1,0 +1,130 @@
+{
+  "programVersion" : "1.0",
+  "engineVersion" : "1.0",
+  "gamesList" : [ {
+    "id" : "95916c30-81e8-4cb6-a5a2-64ddcb592a86",
+    "dateStarted" : "2021-03-21T13:11:21.035661",
+    "dateFinished" : null,
+    "events" : [ {
+      "eventType" : "MOVE",
+      "eventTime" : "2021-03-21T13:11:25.5513236",
+      "playedBy" : "HUMAN",
+      "moveSquareNumber" : 179,
+      "evaluation" : 0
+    }, {
+      "eventType" : "MOVE",
+      "eventTime" : "2021-03-21T13:11:26.2231692",
+      "playedBy" : "COMPUTER",
+      "moveSquareNumber" : 180,
+      "evaluation" : 4
+    }, {
+      "eventType" : "MOVE",
+      "eventTime" : "2021-03-21T13:11:27.5358515",
+      "playedBy" : "HUMAN",
+      "moveSquareNumber" : 197,
+      "evaluation" : 0
+    }, {
+      "eventType" : "MOVE",
+      "eventTime" : "2021-03-21T13:11:28.2387859",
+      "playedBy" : "COMPUTER",
+      "moveSquareNumber" : 215,
+      "evaluation" : 7
+    }, {
+      "eventType" : "MOVE",
+      "eventTime" : "2021-03-21T13:11:33.2700437",
+      "playedBy" : "HUMAN",
+      "moveSquareNumber" : 218,
+      "evaluation" : 0
+    }, {
+      "eventType" : "MOVE",
+      "eventTime" : "2021-03-21T13:11:34.5825373",
+      "playedBy" : "COMPUTER",
+      "moveSquareNumber" : 234,
+      "evaluation" : 12
+    }, {
+      "eventType" : "MOVE",
+      "eventTime" : "2021-03-21T13:11:35.0983696",
+      "playedBy" : "HUMAN",
+      "moveSquareNumber" : 217,
+      "evaluation" : 0
+    }, {
+      "eventType" : "MOVE",
+      "eventTime" : "2021-03-21T13:11:37.1696799",
+      "playedBy" : "COMPUTER",
+      "moveSquareNumber" : 235,
+      "evaluation" : 18
+    }, {
+      "eventType" : "MOVE",
+      "eventTime" : "2021-03-21T13:11:37.9042449",
+      "playedBy" : "HUMAN",
+      "moveSquareNumber" : 198,
+      "evaluation" : 0
+    }, {
+      "eventType" : "MOVE",
+      "eventTime" : "2021-03-21T13:11:40.3728451",
+      "playedBy" : "COMPUTER",
+      "moveSquareNumber" : 236,
+      "evaluation" : -27
+    }, {
+      "eventType" : "MOVE",
+      "eventTime" : "2021-03-21T13:11:44.2323629",
+      "playedBy" : "HUMAN",
+      "moveSquareNumber" : 237,
+      "evaluation" : 0
+    }, {
+      "eventType" : "MOVE",
+      "eventTime" : "2021-03-21T13:11:47.8571889",
+      "playedBy" : "COMPUTER",
+      "moveSquareNumber" : 177,
+      "evaluation" : -40
+    }, {
+      "eventType" : "MOVE",
+      "eventTime" : "2021-03-21T13:11:54.4198764",
+      "playedBy" : "HUMAN",
+      "moveSquareNumber" : 178,
+      "evaluation" : 0
+    }, {
+      "eventType" : "MOVE",
+      "eventTime" : "2021-03-21T13:11:59.3259308",
+      "playedBy" : "COMPUTER",
+      "moveSquareNumber" : 158,
+      "evaluation" : -9980
+    }, {
+      "eventType" : "MOVE",
+      "eventTime" : "2021-03-21T13:12:41.0870216",
+      "playedBy" : "HUMAN",
+      "moveSquareNumber" : 196,
+      "evaluation" : 0
+    }, {
+      "eventType" : "MOVE",
+      "eventTime" : "2021-03-21T13:12:43.3837203",
+      "playedBy" : "COMPUTER",
+      "moveSquareNumber" : 195,
+      "evaluation" : -2147483648
+    }, {
+      "eventType" : "MOVE",
+      "eventTime" : "2021-03-21T13:12:49.7901459",
+      "playedBy" : "HUMAN",
+      "moveSquareNumber" : 199,
+      "evaluation" : 0
+    }, {
+      "eventType" : "MOVE",
+      "eventTime" : "2021-03-21T13:12:49.7901459",
+      "playedBy" : "COMPUTER",
+      "moveSquareNumber" : 200,
+      "evaluation" : -14
+    }, {
+      "eventType" : "MOVE",
+      "eventTime" : "2021-03-21T13:13:10.8370226",
+      "playedBy" : "HUMAN",
+      "moveSquareNumber" : 255,
+      "evaluation" : 0
+    }, {
+      "eventType" : "MOVE",
+      "eventTime" : "2021-03-21T13:13:13.7587172",
+      "playedBy" : "COMPUTER",
+      "moveSquareNumber" : 159,
+      "evaluation" : 45
+    } ]
+  } ]
+}
