@@ -1,0 +1,23 @@
+Game load/replay:
+- Nova tlacitka:
+    * load games
+    * load selected game
+    * doprava/doleva/zacatek/konec - jednotlive tahy
+    * evaluate position
+    * copy current position to clipboard
+- novy prvek - seznam her
+- kdyz se nacte hra z historie, controller se prepne do "replay" rezimu
+- v replay rezimu:
+    * je neaktivni hraci plocha
+    * nelze dat "make first move"
+    * je mozne dat New game
+- tlacitko "load selected game"
+    * dialog, zda prerusit aktualne probihajici hru
+    * nacte posledni
+- tlacitko New game
+    * vypne replay mode
+
+
+Evaluace:
+- Evaluation function stavova masina misto SequenceEvaluatoru?
+- MoveGenerator: rozsirit na druhou vrstvu
