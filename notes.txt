@@ -21,3 +21,7 @@ Game load/replay:
 Evaluace:
 - Evaluation function stavova masina misto SequenceEvaluatoru?
 - MoveGenerator: rozsirit na druhou vrstvu
+
+Zdroje:
+- https://sortingsearching.com/2020/05/18/gomoku.html
+- https://ba.net/juegos/gomoku/ - husty zdrojaky
