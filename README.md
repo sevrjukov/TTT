@@ -12,3 +12,6 @@ Navigate to `target` directory, run
 
 ## Running manually from IDE
 Launch main class `cz.sevrjukov.ttt.gui.MainGameWindow`
+
+## Windows binaries
+Can be found in the `releases` directory.
