@@ -1,0 +1,1608 @@
+{
+  "programVersion": "1.0",
+  "gamesList": [
+    {
+      "id": "76167c9b-1710-4120-9cb6-ae03307b9868",
+      "dateStarted": "2021-03-20T23:13:06.835632",
+      "dateFinished": "2021-03-20T23:14:32.429543",
+      "events": [
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:13:17.633464",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 160,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:13:17.841352",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 161,
+          "evaluation": 4
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:13:32.00393",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 142,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:13:32.276533",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 178,
+          "evaluation": 7
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:13:33.535617",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 124,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:13:33.957583",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 179,
+          "evaluation": 21
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:13:35.175264",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 143,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:13:35.694487",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 181,
+          "evaluation": 16
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:13:37.121437",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 180,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:13:37.490979",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 140,
+          "evaluation": 16
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:13:39.182412",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 159,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:13:39.798528",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 158,
+          "evaluation": 12
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:13:41.578311",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 122,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:13:42.256332",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 201,
+          "evaluation": 22
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:13:44.434048",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 141,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:13:46.746872",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 221,
+          "evaluation": 22
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:13:55.309278",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 241,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:13:56.635867",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 123,
+          "evaluation": 8
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:13:59.389961",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 144,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:13:59.393949",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 145,
+          "evaluation": -27
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:14:09.938417",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 125,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:14:11.238527",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 163,
+          "evaluation": 26
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:14:14.700012",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 127,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:14:18.338078",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 199,
+          "evaluation": 9995
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:14:20.518033",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 217,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:14:21.617829",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 198,
+          "evaluation": 9980
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:14:24.605628",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 218,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:14:24.933627",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 200,
+          "evaluation": 2147483647
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:14:32.421216",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 202,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:14:32.429486",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 197,
+          "evaluation": 2147483647
+        },
+        {
+          "eventType": "VICTORY",
+          "eventTime": "2021-03-20T23:14:32.429527",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 0,
+          "evaluation": 0
+        }
+      ]
+    },
+    {
+      "id": "11f5f4c1-a9ab-4ca5-8eea-d2a9ec154877",
+      "dateStarted": "2021-03-20T23:15:27.567583",
+      "dateFinished": "2021-03-20T23:18:02.128204",
+      "events": [
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:15:28.567805",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 163,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:15:30.125421",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 143,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:15:30.3726",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 164,
+          "evaluation": 21
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:15:35.125503",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 162,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:15:35.354208",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 145,
+          "evaluation": 25
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:15:37.709446",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 181,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:15:38.924033",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 200,
+          "evaluation": -13
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:15:42.546177",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 182,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:15:42.960385",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 142,
+          "evaluation": 18
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:15:51.513463",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 180,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:15:52.329235",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 183,
+          "evaluation": -9
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:15:54.699837",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 179,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:15:54.702269",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 178,
+          "evaluation": 1
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:16:06.839241",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 126,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:16:10.440817",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 198,
+          "evaluation": -9976
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:16:32.269952",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 161,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:16:33.907306",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 125,
+          "evaluation": -6
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:16:47.551613",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 141,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:16:49.545897",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 201,
+          "evaluation": 4
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:17:13.61716",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 199,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:17:15.829435",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 221,
+          "evaluation": 10000
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:17:24.082161",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 202,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:17:24.858251",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 165,
+          "evaluation": 9991
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:17:37.260061",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 185,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:17:38.111349",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 166,
+          "evaluation": 2147483647
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:17:40.608772",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 167,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:17:41.645368",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 219,
+          "evaluation": 2147483647
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:18:02.124422",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 184,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:18:02.128148",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 147,
+          "evaluation": 2147483647
+        },
+        {
+          "eventType": "VICTORY",
+          "eventTime": "2021-03-20T23:18:02.128184",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 0,
+          "evaluation": 0
+        }
+      ]
+    },
+    {
+      "id": "f65fe433-3f27-4e4f-b754-edf3016b66f6",
+      "dateStarted": "2021-03-20T23:18:04.696371",
+      "dateFinished": "2021-03-20T23:18:43.854045",
+      "events": [
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:18:05.819389",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 196,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:18:05.914278",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 197,
+          "evaluation": 4
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:18:07.962787",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 176,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:18:08.144346",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 216,
+          "evaluation": 12
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:18:10.202167",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 213,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:18:10.719713",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 217,
+          "evaluation": 18
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:18:13.290259",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 175,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:18:14.217968",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 218,
+          "evaluation": 28
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:18:15.886297",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 215,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:18:16.60798",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 235,
+          "evaluation": 31
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:18:19.668132",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 178,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:18:20.74791",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 177,
+          "evaluation": -11
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:18:36.452597",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 214,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:18:37.849719",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 237,
+          "evaluation": 2147483647
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:18:43.849503",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 157,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:18:43.854",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 257,
+          "evaluation": 2147483647
+        },
+        {
+          "eventType": "VICTORY",
+          "eventTime": "2021-03-20T23:18:43.854033",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 0,
+          "evaluation": 0
+        }
+      ]
+    },
+    {
+      "id": "15c84663-49ec-4600-9404-1cfa2becc3d1",
+      "dateStarted": "2021-03-20T23:18:46.677183",
+      "dateFinished": "2021-03-20T23:21:14.24666",
+      "events": [
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:18:49.426483",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 162,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:18:49.522417",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 163,
+          "evaluation": 4
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:18:51.585834",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 143,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:18:51.733564",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 182,
+          "evaluation": 9
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:18:54.30822",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 107,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:18:55.266374",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 181,
+          "evaluation": 16
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:19:01.594255",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 104,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:19:04.62645",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 161,
+          "evaluation": 36
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:19:13.235086",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 105,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:19:16.651296",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 106,
+          "evaluation": -29
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:19:21.11921",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 124,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:19:21.120758",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 86,
+          "evaluation": -27
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:19:38.382946",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 144,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:19:45.814205",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 164,
+          "evaluation": -32
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:20:38.011435",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 126,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:20:41.478105",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 180,
+          "evaluation": -21
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:02.605182",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 125,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:07.881293",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 179,
+          "evaluation": 2147483647
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:14.239372",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 183,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:14.246626",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 178,
+          "evaluation": 2147483647
+        },
+        {
+          "eventType": "VICTORY",
+          "eventTime": "2021-03-20T23:21:14.246651",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 0,
+          "evaluation": 0
+        }
+      ]
+    },
+    {
+      "id": "09b256f8-cbdf-4bbb-840a-52e72f4003b0",
+      "dateStarted": "2021-03-20T23:21:16.898821",
+      "dateFinished": "2021-03-20T23:21:50.109367",
+      "events": [
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:17.750708",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 203,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:19.409415",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 202,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:19.552198",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 223,
+          "evaluation": 19
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:21.167849",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 201,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:21.536653",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 242,
+          "evaluation": 33
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:26.109414",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 222,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:26.425705",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 243,
+          "evaluation": 39
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:27.698144",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 183,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:29.254135",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 263,
+          "evaluation": 48
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:30.729631",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 283,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:32.274889",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 244,
+          "evaluation": 51
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:34.086956",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 241,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:35.17226",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 225,
+          "evaluation": 10007
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:38.954561",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 206,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:39.335732",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 261,
+          "evaluation": 2147483647
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:47.649103",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 279,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:48.693708",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 280,
+          "evaluation": 2147483647
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:50.102587",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 204,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:50.1093",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 299,
+          "evaluation": 2147483647
+        },
+        {
+          "eventType": "VICTORY",
+          "eventTime": "2021-03-20T23:21:50.109333",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 0,
+          "evaluation": 0
+        }
+      ]
+    },
+    {
+      "id": "8c3720f6-e779-49ab-936c-af117a41f783",
+      "dateStarted": "2021-03-20T23:21:52.355745",
+      "dateFinished": "2021-03-20T23:22:54.183505",
+      "events": [
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:53.893485",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 179,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:53.988577",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 180,
+          "evaluation": 4
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:56.361158",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 199,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:56.500979",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 219,
+          "evaluation": 7
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:57.593885",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 161,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:58.149196",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 197,
+          "evaluation": 15
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:21:59.718361",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 181,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:22:00.010034",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 217,
+          "evaluation": 27
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:22:01.325073",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 218,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:22:01.928113",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 237,
+          "evaluation": 34
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:22:03.323791",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 177,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:22:06.14302",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 238,
+          "evaluation": 53
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:22:13.242008",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 257,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:22:15.124193",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 236,
+          "evaluation": 9986
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:22:22.220356",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 239,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:22:23.388994",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 255,
+          "evaluation": 2147483647
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:22:33.011731",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 201,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:22:51.630569",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 274,
+          "evaluation": 2147483647
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:22:54.173576",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 198,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:22:54.183472",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 293,
+          "evaluation": 2147483647
+        },
+        {
+          "eventType": "VICTORY",
+          "eventTime": "2021-03-20T23:22:54.183498",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 0,
+          "evaluation": 0
+        }
+      ]
+    },
+    {
+      "id": "e28f719c-1688-4d31-9286-d41cc8d65150",
+      "dateStarted": "2021-03-20T23:22:56.070668",
+      "dateFinished": "2021-03-20T23:23:58.627592",
+      "events": [
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:22:57.618041",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 315,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:22:58.707485",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 295,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:22:58.94215",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 316,
+          "evaluation": 21
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:23:00.432065",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 314,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:23:00.622493",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 333,
+          "evaluation": 24
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:23:01.5518",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 297,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:23:01.974677",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 334,
+          "evaluation": 25
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:23:02.894155",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 296,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:23:03.525566",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 298,
+          "evaluation": -7
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:23:05.220157",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 280,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:23:06.286538",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 318,
+          "evaluation": 24
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:23:08.51575",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 317,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:23:09.588116",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 332,
+          "evaluation": 24
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:23:13.413747",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 331,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:23:14.97538",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 313,
+          "evaluation": 21
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:23:20.431909",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 277,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:23:27.475003",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 257,
+          "evaluation": -10
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:23:31.188712",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 294,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:23:31.192057",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 293,
+          "evaluation": -4
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:23:49.766545",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 278,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:23:51.814087",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 273,
+          "evaluation": 2147483647
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:23:58.618884",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 253,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:23:58.627563",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 353,
+          "evaluation": 2147483647
+        },
+        {
+          "eventType": "VICTORY",
+          "eventTime": "2021-03-20T23:23:58.627586",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 0,
+          "evaluation": 0
+        }
+      ]
+    },
+    {
+      "id": "066d7647-e972-488c-8e94-5358e07f6fc5",
+      "dateStarted": "2021-03-20T23:24:01.001018",
+      "dateFinished": "2021-03-20T23:25:25.313709",
+      "events": [
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:24:02.115853",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 179,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:24:02.216942",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 180,
+          "evaluation": 4
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:24:03.619861",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 159,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:24:03.736432",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 199,
+          "evaluation": 12
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:24:05.157266",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 161,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:24:05.611544",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 197,
+          "evaluation": 12
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:24:10.600684",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 198,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:24:10.931312",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 217,
+          "evaluation": 16
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:24:12.290458",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 181,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:24:12.675016",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 237,
+          "evaluation": 22
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:24:14.209011",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 177,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:24:17.634649",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 216,
+          "evaluation": 26
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:24:26.016362",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 215,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:24:29.617614",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 235,
+          "evaluation": 28
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:24:43.818886",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 178,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:24:49.746426",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 254,
+          "evaluation": 42
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:24:54.383872",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 273,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:25:00.124019",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 218,
+          "evaluation": 9971
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:25:09.273264",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 256,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:25:13.263761",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 236,
+          "evaluation": 9974
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:25:23.181689",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 238,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:25:23.317196",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 200,
+          "evaluation": 2147483647
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:25:25.307763",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 182,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:25:25.313678",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 272,
+          "evaluation": 2147483647
+        },
+        {
+          "eventType": "VICTORY",
+          "eventTime": "2021-03-20T23:25:25.313703",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 0,
+          "evaluation": 0
+        }
+      ]
+    },
+    {
+      "id": "46e166c3-a5f9-4c35-bedc-393e5320dca6",
+      "dateStarted": "2021-03-20T23:25:28.80707",
+      "dateFinished": "2021-03-20T23:28:36.007228",
+      "events": [
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:25:29.441127",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 196,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:25:30.816603",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 178,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:25:31.041743",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 195,
+          "evaluation": 21
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:25:32.180732",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 197,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:25:32.332635",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 216,
+          "evaluation": 24
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:25:33.462467",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 159,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:25:33.681574",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 234,
+          "evaluation": 32
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:25:34.745785",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 140,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:25:34.746828",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 121,
+          "evaluation": -2
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:25:36.775137",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 215,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:25:38.737032",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 252,
+          "evaluation": 31
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:25:40.40487",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 198,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:25:44.528419",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 176,
+          "evaluation": 31
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:25:46.921475",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 236,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:25:51.560464",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 270,
+          "evaluation": 29
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:25:53.844289",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 288,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:26:00.64729",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 308,
+          "evaluation": 24
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:26:15.453976",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 254,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:26:25.832525",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 233,
+          "evaluation": 33
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:26:32.172958",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 214,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:26:42.806868",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 289,
+          "evaluation": 27
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:26:49.6735",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 251,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:26:57.745196",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 327,
+          "evaluation": 30
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:27:00.384449",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 346,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:27:08.054032",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 231,
+          "evaluation": 29
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:27:36.632912",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 232,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:27:43.718258",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 213,
+          "evaluation": 26
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:27:50.662611",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 177,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:27:57.590979",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 309,
+          "evaluation": 9956
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-20T23:28:26.01134",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 218,
+          "evaluation": 0
+        },
+        {
+          "eventType": "RESIGN",
+          "eventTime": "2021-03-20T23:28:36.007208",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 0,
+          "evaluation": 0
+        }
+      ]
+    }
+  ]
+}
