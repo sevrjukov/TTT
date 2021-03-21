@@ -1,0 +1,97 @@
+{
+  "programVersion": "1.0",
+  "engineVersion": "1.0",
+  "gamesList": [
+    {
+      "id": "01626bc6-4c52-40f0-ae70-926a26206e1c",
+      "dateStarted": "2021-03-21T17:40:12.301802",
+      "dateFinished": "2021-03-21T17:40:34.190728",
+      "events": [
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-21T17:40:19.899634",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 178,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-21T17:40:20.127142",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 179,
+          "evaluation": 4
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-21T17:40:21.36252",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 160,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-21T17:40:21.629461",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 196,
+          "evaluation": 7
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-21T17:40:23.535071",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 181,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-21T17:40:24.130719",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 197,
+          "evaluation": 18
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-21T17:40:25.229525",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 161,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-21T17:40:26.423298",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 215,
+          "evaluation": 14
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-21T17:40:29.004783",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 199,
+          "evaluation": 0
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-21T17:40:30.665834",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 235,
+          "evaluation": 28
+        },
+        {
+          "eventType": "MOVE",
+          "eventTime": "2021-03-21T17:40:32.944147",
+          "playedBy": "HUMAN",
+          "moveSquareNumber": 163,
+          "evaluation": 0
+        },
+        {
+          "eventType": "RESIGN",
+          "eventTime": "2021-03-21T17:40:34.190699",
+          "playedBy": "COMPUTER",
+          "moveSquareNumber": 0,
+          "evaluation": 0
+        }
+      ]
+    }
+  ]
+}
