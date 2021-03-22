@@ -50,6 +50,11 @@ public class MoveSearch {
 
 	public MoveEval findNextMove(Board board) {
 		moveNumber++;
+
+		if (moveNumber == 1) {
+			return randomFirstMove(board);
+		}
+
 		positionsEvaluated = 0;
 		moveGenerator.resetStats();
 		moveGenerator.clearCacheIfNeeded();
@@ -245,6 +250,17 @@ public class MoveSearch {
 			}
 			return new MovePreEval(value, reachedDepth);
 		}
+	}
+
+	private MoveEval randomFirstMove(Board board) {
+		// just play a random move, to make it not boring
+		int[] moves = moveGenerator.generateMoves(board);
+		var list = new ArrayList<Integer>();
+		for (int sqNum : moves) {
+			list.add(sqNum);
+		}
+		Collections.shuffle(list);
+		return new MoveEval(list.get(0), 0);
 	}
 
 	@Getter
