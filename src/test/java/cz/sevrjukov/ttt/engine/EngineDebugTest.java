@@ -41,4 +41,31 @@ public class EngineDebugTest {
 	}
 
 
+	@Test
+	public void anotherUltraBlunder() {
+
+		int[] game = {
+				179, 197, 161, 217, 220, 235, 201, 218, 181
+		};
+
+		var board = new Board();
+		var moveSearch = new MoveSearch();
+		var positionEvaluator = new PositionEvaluator();
+		moveSearch.setGameEventListener(new DummyGameEventListener());
+
+		for (int moveNum = 0; moveNum < game.length; moveNum++) {
+			int sqNum = game[moveNum];
+			int player = (moveNum % 2 == 0) ? HUMAN : COMPUTER;
+			board.makeMove(sqNum, player);
+		}
+
+		board.printBoard();
+		var eval = positionEvaluator.evaluatePosition(board);
+		System.out.println("current position eval " + eval);
+
+		var nextMove = moveSearch.findNextMove(board);
+		System.out.printf("Next move [%s] [%s]%n", nextMove.sqNum, nextMove.eval);
+	}
+
+
 }

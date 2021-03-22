@@ -4,7 +4,6 @@ import cz.sevrjukov.ttt.board.Board;
 import cz.sevrjukov.ttt.game.GameEventListener;
 import cz.sevrjukov.ttt.util.TextUtils;
 import cz.sevrjukov.ttt.util.Versions;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -92,22 +91,19 @@ public class MoveSearch {
 			// pre-evaluation and iterative deepening
 			if (depth == SEARCH_DEPTH) {
 				List<MoveEval> filteredMoves = new ArrayList<>();
+				gameEventListener.printInfo("Pre-evaluating moves...");
 				for (int moveSq : moves) {
 
 					board.makeMove(moveSq, COMPUTER);
-					int moveValue = alphabetaEvaluate(board, PREEVAL_SEARCH_DEPTH, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
-					System.out.println("pre-evaluated move " + moveSq + " with value " + moveValue);
+					var preEvaluatedMove = alphabetaEvaluate(board, PREEVAL_SEARCH_DEPTH, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
+					System.out.printf("pre-evaluated move %s with value %s and remaining depth %s %n", moveSq, preEvaluatedMove.eval, preEvaluatedMove.depth);
 					board.undoLastMove();
 
-					if (moveValue == VICTORY) {
-						// this is a victory move, play immediately
-						return new MoveEval(moveSq, VICTORY);
-					}
-					if (moveValue <= BAD_MOVE_CUTOFF) {
+					if (preEvaluatedMove.eval <= BAD_MOVE_CUTOFF) {
 						// this is a bad move, don't play it
 						continue;
 					}
-					filteredMoves.add(new MoveEval(moveSq, moveValue));
+					filteredMoves.add(new MoveEval(moveSq, preEvaluatedMove.eval, preEvaluatedMove.depth));
 				}
 				// no moves to play - resign
 				if (filteredMoves.isEmpty()) {
@@ -123,7 +119,14 @@ public class MoveSearch {
 				Collections.shuffle(filteredMoves);
 				var sortedMovesList = filteredMoves.stream()
 						.sorted(Comparator.comparing(MoveEval::getEval).reversed())
+						.sorted(Comparator.comparing(MoveEval::getDepth).reversed())
 						.collect(Collectors.toList());
+
+				if (sortedMovesList.get(0).eval == VICTORY) {
+					// this is a victory move with the least depth, play immediately
+					return sortedMovesList.get(0);
+				}
+
 				moves = new int[sortedMovesList.size()];
 				Arrays.fill(moves, -1);
 				for (int i = 0; i < moves.length; i++) {
@@ -196,48 +199,83 @@ public class MoveSearch {
 	/*
 	This is used to pre-evaluate individual moves in early phase of search.
 	 */
-	private int alphabetaEvaluate(Board board, int depth, int alpha, int beta, boolean maximizingPlayer) {
+	private MovePreEval alphabetaEvaluate(Board board, int depth, int alpha, int beta, boolean maximizingPlayer) {
 
 		if (depth == 0 || positionEvaluator.isFinalPosition(board)) {
 			positionsEvaluated++;
-			return positionEvaluator.evaluatePositionOrGetCached(board);
+			return new MovePreEval(positionEvaluator.evaluatePositionOrGetCached(board), depth);
 		}
 
 		if (maximizingPlayer) {
 			int value = Integer.MIN_VALUE;
+			int reachedDepth = 0;
 			int[] moves = moveGenerator.generateMoves(board);
 			for (int moveSquare : moves) {
+
 				board.makeMove(moveSquare, COMPUTER);
-				value = Math.max(value, alphabetaEvaluate(board, depth - 1, alpha, beta, false));
-				alpha = Math.max(alpha, value);
+				var preEvalMove = alphabetaEvaluate(board, depth - 1, alpha, beta, false);
 				board.undoLastMove();
+
+				value = Math.max(value, preEvalMove.getEval());
+				reachedDepth = preEvalMove.getDepth();
+				alpha = Math.max(alpha, value);
+
 				if (alpha >= beta) {
 					break;
 				}
 			}
-			return value;
+			return new MovePreEval(value, reachedDepth);
 		} else {
 			int value = Integer.MAX_VALUE;
+			int reachedDepth = 0;
 			int[] moves = moveGenerator.generateMoves(board);
 			for (int moveSquare : moves) {
+
 				board.makeMove(moveSquare, HUMAN);
-				value = Math.min(value, alphabetaEvaluate(board, depth - 1, alpha, beta, true));
-				beta = Math.min(beta, value);
+				var preEvalMove = alphabetaEvaluate(board, depth - 1, alpha, beta, true);
 				board.undoLastMove();
+
+				value = Math.min(value, preEvalMove.getEval());
+				reachedDepth = preEvalMove.getDepth();
+				beta = Math.min(beta, value);
+
 				if (beta <= alpha) {
 					break;
 				}
 			}
-			return value;
+			return new MovePreEval(value, reachedDepth);
 		}
 	}
 
-	@AllArgsConstructor
 	@Getter
 	public static class MoveEval {
 
 		public int sqNum;
 		public int eval;
+		public int depth;
+
+		public MoveEval(int sqNum, int eval) {
+			this.sqNum = sqNum;
+			this.eval = eval;
+		}
+
+		public MoveEval(int sqNum, int eval, int depth) {
+			this.sqNum = sqNum;
+			this.eval = eval;
+			this.depth = depth;
+		}
+	}
+
+	@Getter
+	public static class MovePreEval {
+
+		private int eval;
+		private int depth;
+
+		public MovePreEval(int eval, int depth) {
+			this.eval = eval;
+			this.depth = depth;
+		}
 	}
 
 	public String getStats() {
