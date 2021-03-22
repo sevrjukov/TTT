@@ -117,12 +117,13 @@ public class MoveSearch {
 					return new MoveEval(filteredMoves.get(0).sqNum,
 							filteredMoves.get(0).eval);
 				}
-				// sort them from best to worst. Shuffle will introduce some randomness
+				// Sort them from best to worst. Keep those with the lowest depth first.
+				// Shuffle will introduce some randomness
 				// in case that we have multiple moves with the same pre-evaluation.
 				Collections.shuffle(filteredMoves);
 				var sortedMovesList = filteredMoves.stream()
-						.sorted(Comparator.comparing(MoveEval::getEval).reversed())
-						.sorted(Comparator.comparing(MoveEval::getDepth).reversed())
+						.sorted(Comparator.comparing(MoveEval::getEval).reversed()
+								.thenComparing(Comparator.comparing(MoveEval::getDepth).reversed()))
 						.collect(Collectors.toList());
 
 				if (sortedMovesList.get(0).eval == VICTORY) {
