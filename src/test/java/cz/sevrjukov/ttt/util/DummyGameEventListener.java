@@ -20,7 +20,12 @@ public class DummyGameEventListener implements GameEventListener {
 	}
 
 	@Override
-	public void printInfo(String info) {
+	public void printEvaluationInfo(String info) {
+
+	}
+
+	@Override
+	public void printGameInfo(String info) {
 
 	}
 }

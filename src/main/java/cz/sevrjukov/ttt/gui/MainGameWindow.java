@@ -3,6 +3,7 @@ package cz.sevrjukov.ttt.gui;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
@@ -24,6 +25,7 @@ public class MainGameWindow extends JFrame {
     protected JButton btnSaveGames;
     protected JTextPane infoTextPane;
     protected JTextPane statsTextPane;
+    protected JCheckBox chBoxShowEval;
     private GameBoardCanvas boardCanvas;
     private GameController controller;
 
@@ -83,6 +85,11 @@ public class MainGameWindow extends JFrame {
         infoTextPane.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
         infoTextPane.setEditable(false);
         leftSidePannel.add(infoTextPane);
+
+        chBoxShowEval = new JCheckBox("Show evaluation progress");
+        chBoxShowEval.setSelected(true);
+        leftSidePannel.add(chBoxShowEval);
+        chBoxShowEval.addActionListener(controller);
 
         statsTextPane = new JTextPane();
         statsTextPane.setPreferredSize(new Dimension(280, 110));

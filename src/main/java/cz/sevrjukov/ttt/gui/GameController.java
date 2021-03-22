@@ -4,7 +4,6 @@ import cz.sevrjukov.ttt.board.Board;
 import cz.sevrjukov.ttt.game.Game;
 import cz.sevrjukov.ttt.game.GameEventListener;
 
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
@@ -25,6 +24,7 @@ public class GameController implements ActionListener, GameEventListener {
 	private MainGameWindow window;
 	private Game game = new Game();
 	private BoardModel boardModel = new BoardModel();
+	private boolean showEvaluationInfo = true;
 
 	public GameController(MainGameWindow window) {
 		this.window = window;
@@ -48,19 +48,28 @@ public class GameController implements ActionListener, GameEventListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		JButton btn = (JButton) e.getSource();
+		Object eventSource = e.getSource();
 
-		if (btn == window.btnNewGame) {
+		if (eventSource == window.btnNewGame) {
 			newGame();
 		}
 
-		if (btn == window.btnMakeMove) {
+		if (eventSource == window.btnMakeMove) {
 			game.makeFirstMove();
 		}
 
-		if (btn == window.btnSaveGames) {
+		if (eventSource == window.btnSaveGames) {
 			promptToSaveHistory();
 		}
+
+		if (eventSource == window.chBoxShowEval) {
+			showEvalSettingsChanged(window.chBoxShowEval.isSelected());
+		}
+
+	}
+
+	private void showEvalSettingsChanged(boolean selected) {
+		showEvaluationInfo = selected;
 	}
 
 	public void boardClicked(MouseEvent e) {
@@ -131,11 +140,17 @@ public class GameController implements ActionListener, GameEventListener {
 	}
 
 	@Override
-	public void printInfo(String info) {
+	public void printEvaluationInfo(String info) {
 		System.out.println(info);
-		window.appendTextMessage(info);
+		if (showEvaluationInfo) {
+			window.appendTextMessage(info);
+		}
 	}
 
+	@Override
+	public void printGameInfo(String info) {
+		window.appendTextMessage(info);
+	}
 
 	public void printStats() {
 		var stats = game.getStats();
@@ -152,12 +167,12 @@ public class GameController implements ActionListener, GameEventListener {
 				var file = fc.getSelectedFile();
 				System.out.println("Saving games to file " + file.getAbsolutePath());
 				saveHistory(file);
-				printInfo("Saved games to file " + file.getName());
+				printEvaluationInfo("Saved games to file " + file.getName());
 			}
 
 		} catch (IOException ex) {
 			ex.printStackTrace();
-			printInfo("Error saving file history");
+			printEvaluationInfo("Error saving file history");
 		}
 	}
 

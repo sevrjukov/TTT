@@ -30,7 +30,7 @@ public class Game {
 		moveSearch.reset();
 		isFirstMove = true;
 		gameFinished = false;
-		gameEventListener.printInfo("New game");
+		gameEventListener.printEvaluationInfo("New game");
 		history.newGame();
 	}
 

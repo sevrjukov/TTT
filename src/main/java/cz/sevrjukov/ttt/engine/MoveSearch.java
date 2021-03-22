@@ -67,7 +67,7 @@ public class MoveSearch {
 	}
 
 	private void displayMoveFoundMessage(MoveEval move) {
-		gameEventListener.printInfo(String.format("Best move [%s] eval [%s]", move.sqNum, move.eval));
+		gameEventListener.printEvaluationInfo(String.format("Best move [%s] eval [%s]", move.sqNum, move.eval));
 	}
 
 	public MoveGenerator getMoveGenerator() {
@@ -94,7 +94,7 @@ public class MoveSearch {
 			// pre-evaluation and iterative deepening
 			if (depth == SEARCH_DEPTH) {
 				List<MoveEval> filteredMoves = new ArrayList<>();
-				gameEventListener.printInfo("Pre-evaluating moves...");
+				gameEventListener.printEvaluationInfo("Pre-evaluating moves...");
 				for (int moveSq : moves) {
 
 					board.makeMove(moveSq, COMPUTER);
@@ -154,7 +154,7 @@ public class MoveSearch {
 			int counter = 0;
 			for (int moveSquare : moves) {
 				if (depth >= SEARCH_DEPTH) {
-					gameEventListener.printInfo("Evaluating move " + (++counter) + "/" + moves.length + ", depth " + depth);
+					gameEventListener.printEvaluationInfo("Evaluating move " + (++counter) + "/" + moves.length + ", depth " + depth);
 				}
 				board.makeMove(moveSquare, COMPUTER);
 				MoveEval node = alphabetaBestMove(board, depth - 1, alpha, beta, false);
