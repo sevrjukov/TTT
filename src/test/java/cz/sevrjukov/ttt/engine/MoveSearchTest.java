@@ -106,7 +106,7 @@ public class MoveSearchTest {
 		moveSearch.setGameEventListener(new DummyGameEventListener());
 		var nextMove = moveSearch.findNextMove(board);
 
-		Assert.assertEquals("Found move must be a resign move", nextMove.sqNum, MOVE_RESIGN);
+		Assert.assertEquals("Found move must be a resign move", MOVE_RESIGN, nextMove.sqNum);
 	}
 
 

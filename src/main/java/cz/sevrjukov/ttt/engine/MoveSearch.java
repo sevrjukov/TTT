@@ -27,7 +27,6 @@ public class MoveSearch {
 	private PositionEvaluator positionEvaluator = new PositionEvaluator();
 	private GameEventListener gameEventListener;
 
-	public int moveNumber = 0;
 	private static final int SEARCH_DEPTH = 5;
 	private static final int PREEVAL_SEARCH_DEPTH = 3;
 	private static final int BAD_MOVE_CUTOFF = -OPENED_FOUR + 100;
@@ -38,7 +37,6 @@ public class MoveSearch {
 	boolean running = false;
 
 	public void reset() {
-		moveNumber = 0;
 		positionsEvaluated = 0;
 		moveGenerator.resetCache();
 		positionEvaluator.resetCache();
@@ -49,9 +47,9 @@ public class MoveSearch {
 	}
 
 	public MoveEval findNextMove(Board board) {
-		moveNumber++;
 
-		if (moveNumber == 1) {
+		if (board.getNumberOfMoves() == 1) {
+			// check equals to one because the first move is from the human
 			return randomFirstMove(board);
 		}
 

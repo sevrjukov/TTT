@@ -34,7 +34,6 @@ public class Board {
 		reset();
 	}
 
-
 	public void reset() {
 		position = new int[SIZE];
 		for (int i = 0; i < SIZE; i++) {
@@ -103,6 +102,10 @@ public class Board {
 
 	public int[] getActivatedLines() {
 		return activatedLines;
+	}
+
+	public int getNumberOfMoves() {
+		return movesHistory.size();
 	}
 
 	public void makeMove(int squareNum, int side) {
