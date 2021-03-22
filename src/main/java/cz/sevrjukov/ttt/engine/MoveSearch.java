@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 
 import static cz.sevrjukov.ttt.board.Board.COMPUTER;
 import static cz.sevrjukov.ttt.board.Board.HUMAN;
-import static cz.sevrjukov.ttt.engine.PositionEvaluator.DEFEAT;
 import static cz.sevrjukov.ttt.engine.PositionEvaluator.VICTORY;
 import static cz.sevrjukov.ttt.engine.SequenceEvaluator.OPENED_FOUR;
 
@@ -94,6 +93,7 @@ public class MoveSearch {
 			// pre-evaluation and iterative deepening
 			if (depth == SEARCH_DEPTH) {
 				List<MoveEval> filteredMoves = new ArrayList<>();
+				List<MoveEval> badMoves = new ArrayList<>();
 				gameEventListener.printEvaluationInfo("Pre-evaluating moves...");
 				for (int moveSq : moves) {
 
@@ -103,14 +103,16 @@ public class MoveSearch {
 					board.undoLastMove();
 
 					if (preEvaluatedMove.eval <= BAD_MOVE_CUTOFF) {
-						// this is a bad move, don't play it
-						continue;
+						// this is a bad move, don't play it unless there is no other option
+						badMoves.add(new MoveEval(moveSq, preEvaluatedMove.eval, preEvaluatedMove.depth));
+					} else {
+						filteredMoves.add(new MoveEval(moveSq, preEvaluatedMove.eval, preEvaluatedMove.depth));
 					}
-					filteredMoves.add(new MoveEval(moveSq, preEvaluatedMove.eval, preEvaluatedMove.depth));
 				}
-				// no moves to play - resign
+				// no good moves to play - play at least a bad move and hope the human makes a mistake
 				if (filteredMoves.isEmpty()) {
-					return new MoveEval(MOVE_RESIGN, DEFEAT);
+					Collections.shuffle(badMoves);
+					return badMoves.get(0);
 				}
 				// only one playable move - no need to evaluate it
 				if (filteredMoves.size() == 1) {

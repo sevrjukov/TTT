@@ -79,10 +79,9 @@ public class GameController implements ActionListener, GameEventListener {
 		int sqy = yCoord / GameBoardCanvas.FIELD_SIZE;
 		int sqNum = sqy * GameBoardCanvas.NUM_CELLS + sqX;
 
-		if (game.inputHumanMove(sqNum)) {
-			refreshBoard();
-			game.findComputerMove();
-		}
+		game.inputHumanMove(sqNum);
+
+
 	}
 
 	private void refreshBoardModel() {
@@ -93,6 +92,7 @@ public class GameController implements ActionListener, GameEventListener {
 
 		boardModel.setWinningPosition(board.isWinningPosition());
 		boardModel.setWinningSequence(board.getWinningSequence());
+		boardModel.setWinningPlayer(board.getWinningPlayer());
 	}
 
 	private void newGame() {
@@ -140,6 +140,12 @@ public class GameController implements ActionListener, GameEventListener {
 	}
 
 	@Override
+	public void announceDefeat() {
+		window.appendTextMessage("You win");
+		JOptionPane.showMessageDialog(window, "You win");
+	}
+
+	@Override
 	public void printEvaluationInfo(String info) {
 		System.out.println(info);
 		if (showEvaluationInfo) {
@@ -167,12 +173,12 @@ public class GameController implements ActionListener, GameEventListener {
 				var file = fc.getSelectedFile();
 				System.out.println("Saving games to file " + file.getAbsolutePath());
 				saveHistory(file);
-				printEvaluationInfo("Saved games to file " + file.getName());
+				printGameInfo("Saved games to file " + file.getName());
 			}
 
 		} catch (IOException ex) {
 			ex.printStackTrace();
-			printEvaluationInfo("Error saving file history");
+			printGameInfo("Error saving file history");
 		}
 	}
 

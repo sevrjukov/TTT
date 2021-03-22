@@ -28,4 +28,9 @@ public class DummyGameEventListener implements GameEventListener {
 	public void printGameInfo(String info) {
 
 	}
+
+	@Override
+	public void announceDefeat() {
+
+	}
 }

@@ -9,6 +9,6 @@ package cz.sevrjukov.ttt.util;
  */
 public class Versions {
 
-	public static final String PROGRAM_VERSION = "1.1";
-	public static final String ENGINE_VERSION = "1.1";
+	public static final String PROGRAM_VERSION = "1.2";
+	public static final String ENGINE_VERSION = "1.2";
 }

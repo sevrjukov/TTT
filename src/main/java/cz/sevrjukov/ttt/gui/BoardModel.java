@@ -11,6 +11,7 @@ public class BoardModel {
 
 	private List<Move> movesList = new ArrayList<>();
 	private boolean isWinningPosition;
-	private int [] winningSequence;
+	private int[] winningSequence;
+	private int winningPlayer;
 
 }

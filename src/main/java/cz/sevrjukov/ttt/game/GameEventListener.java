@@ -8,6 +8,8 @@ public interface GameEventListener {
 
 	void announceVictory();
 
+	void announceDefeat();
+
 	void printEvaluationInfo(String info);
 
 	void printGameInfo(String info);

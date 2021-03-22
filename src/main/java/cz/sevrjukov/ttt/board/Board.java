@@ -27,7 +27,8 @@ public class Board {
 	private int[] activatedLines = new int[BoardSequences.LINES.length];
 
 	private boolean isWinningPosition = false;
-	private int [] winningSequence = new int[2]; // start square, end square
+	private int[] winningSequence = new int[2]; // start square, end square
+	private int winningPlayer = -1;
 
 
 	public Board() {
@@ -46,6 +47,7 @@ public class Board {
 		Arrays.fill(activatedLines, 0);
 		isWinningPosition = false;
 		Arrays.fill(winningSequence, 0);
+		winningPlayer = -1;
 	}
 
 	public int[] getPosition() {
@@ -87,9 +89,10 @@ public class Board {
 		return lastMoveSquare;
 	}
 
-	public void recordWinningSequence(int [] seq) {
-		winningSequence  = seq;
+	public void recordWinningSequence(int[] seq, int winningPlayer) {
+		winningSequence = seq;
 		isWinningPosition = true;
+		this.winningPlayer = winningPlayer;
 	}
 
 	public boolean isWinningPosition() {
@@ -98,6 +101,10 @@ public class Board {
 
 	public int[] getWinningSequence() {
 		return winningSequence;
+	}
+
+	public int getWinningPlayer() {
+		return winningPlayer;
 	}
 
 	public int[] getActivatedLines() {

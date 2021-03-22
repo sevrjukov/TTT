@@ -11,6 +11,7 @@ import java.util.concurrent.CompletableFuture;
 import static cz.sevrjukov.ttt.board.Board.COMPUTER;
 import static cz.sevrjukov.ttt.board.Board.HUMAN;
 import static cz.sevrjukov.ttt.engine.MoveSearch.MOVE_RESIGN;
+import static cz.sevrjukov.ttt.engine.PositionEvaluator.DEFEAT;
 import static cz.sevrjukov.ttt.engine.PositionEvaluator.VICTORY;
 
 public class Game {
@@ -30,7 +31,7 @@ public class Game {
 		moveSearch.reset();
 		isFirstMove = true;
 		gameFinished = false;
-		gameEventListener.printEvaluationInfo("New game");
+		gameEventListener.printGameInfo("New game");
 		history.newGame();
 	}
 
@@ -47,19 +48,32 @@ public class Game {
 		moveSearch.setGameEventListener(gameEventListener);
 	}
 
-	public boolean inputHumanMove(int squareNum) {
+	public void inputHumanMove(int squareNum) {
 		isFirstMove = false;
 		if (calculating || gameFinished) {
-			return false;
+			return;
 		}
 		try {
 			board.makeMove(squareNum, HUMAN);
 			history.recordMove(squareNum, HUMAN);
-			return true;
+			int eval = positionEvaluator.evaluatePositionOrGetCached(board);
+
+			if (eval == DEFEAT) {
+				gameFinished = true;
+				var winningSequence = positionEvaluator.findWinningSequence(board);
+				board.recordWinningSequence(winningSequence, HUMAN);
+				history.recordVictory(COMPUTER);
+				gameEventListener.refreshBoard();
+				gameEventListener.announceDefeat();
+			}
+
+			if (!gameFinished) {
+				gameEventListener.refreshBoard();
+				findComputerMove();
+			}
 		} catch (Exception ex) {
 			//TODO this is ugly
 			ex.printStackTrace();
-			return false;
 		}
 	}
 
@@ -87,7 +101,7 @@ public class Game {
 			if (eval == VICTORY) {
 				gameFinished = true;
 				var winningSequence = positionEvaluator.findWinningSequence(board);
-				board.recordWinningSequence(winningSequence);
+				board.recordWinningSequence(winningSequence, COMPUTER);
 				history.recordVictory(COMPUTER);
 				gameEventListener.refreshBoard();
 				gameEventListener.announceVictory();

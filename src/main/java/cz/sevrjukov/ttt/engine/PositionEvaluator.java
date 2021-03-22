@@ -160,6 +160,8 @@ public class PositionEvaluator {
 	public void clearCacheIfNeeded() {
 		if (cache.size() > MAX_CACHE_SIZE) {
 			cache.clear();
+			// give a hint to JVM it's a good idea to cleanup
+			System.gc();
 		}
 	}
 }

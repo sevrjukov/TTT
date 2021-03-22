@@ -83,13 +83,14 @@ public class GameBoardCanvas extends Canvas {
 	private void paintWinningSequence(Graphics2D g) {
 		if (boardModel.isWinningPosition()) {
 			int[] line = boardModel.getWinningSequence();
-			paintWinningLine(g, line[0], line[1]);
+			var color = boardModel.getWinningPlayer() == COMPUTER ? ORANGE_CIRCLE_COLOR : BLUE_CIRCLE_COLOR;
+			paintWinningLine(g, line[0], line[1], color);
 		}
 	}
 
-	private void paintWinningLine(Graphics2D g, int startSqNum, int endSqNum) {
+	private void paintWinningLine(Graphics2D g, int startSqNum, int endSqNum, Color color) {
 
-		g.setColor(ORANGE_CIRCLE_COLOR);
+		g.setColor(color);
 
 		int startSqX = startSqNum % NUM_CELLS;
 		int startSqY = startSqNum / NUM_CELLS;
