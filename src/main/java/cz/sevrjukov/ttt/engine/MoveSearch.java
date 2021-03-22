@@ -3,6 +3,7 @@ package cz.sevrjukov.ttt.engine;
 import cz.sevrjukov.ttt.board.Board;
 import cz.sevrjukov.ttt.game.GameEventListener;
 import cz.sevrjukov.ttt.util.TextUtils;
+import cz.sevrjukov.ttt.util.Versions;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -29,6 +30,7 @@ public class MoveSearch {
 
 	public int moveNumber = 0;
 	private static final int SEARCH_DEPTH = 5;
+	private static final int PREEVAL_SEARCH_DEPTH = 3;
 	private static final int BAD_MOVE_CUTOFF = -OPENED_FOUR + 100;
 
 	// stats
@@ -93,7 +95,7 @@ public class MoveSearch {
 				for (int moveSq : moves) {
 
 					board.makeMove(moveSq, COMPUTER);
-					int moveValue = alphabetaEvaluate(board, 1, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
+					int moveValue = alphabetaEvaluate(board, PREEVAL_SEARCH_DEPTH, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
 					System.out.println("pre-evaluated move " + moveSq + " with value " + moveValue);
 					board.undoLastMove();
 
@@ -241,6 +243,11 @@ public class MoveSearch {
 	public String getStats() {
 		var EL = System.lineSeparator();
 		var builder = new StringBuilder();
+
+		builder.append("Engine version: ");
+		builder.append(Versions.ENGINE_VERSION);
+		builder.append(EL);
+
 		builder.append("Positions evaluated: ");
 		builder.append(TextUtils.numToHumanStr(positionsEvaluated));
 		builder.append(EL);

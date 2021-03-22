@@ -6,7 +6,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -86,7 +85,7 @@ public class MainGameWindow extends JFrame {
         leftSidePannel.add(infoTextPane);
 
         statsTextPane = new JTextPane();
-        statsTextPane.setPreferredSize(new Dimension(280, 100));
+        statsTextPane.setPreferredSize(new Dimension(280, 110));
         statsTextPane.setText("Engine statistics");
         statsTextPane.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
         Font smallFont = new Font("Monospaced", Font.PLAIN, 10);

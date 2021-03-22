@@ -10,5 +10,5 @@ package cz.sevrjukov.ttt.util;
 public class Versions {
 
 	public static final String PROGRAM_VERSION = "1.0";
-	public static final String ENGINE_VERSION = "1.0";
+	public static final String ENGINE_VERSION = "1.1";
 }
