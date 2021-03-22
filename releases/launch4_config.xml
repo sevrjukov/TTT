@@ -3,7 +3,7 @@
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
   <jar>D:\Bitbucket\TTT\target\TTT-1.0-SNAPSHOT-jar-with-dependencies.jar</jar>
-  <outfile>D:\Bitbucket\TTT\releases\gomoku_1.1.exe</outfile>
+  <outfile>D:\Bitbucket\TTT\releases\gomoku_1.2.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
   <chdir>.</chdir>
