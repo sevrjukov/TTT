@@ -28,7 +28,7 @@ public class MoveSearch {
 	private GameEventListener gameEventListener;
 
 	private static final int SEARCH_DEPTH = 5;
-	private static final int PREEVAL_SEARCH_DEPTH = 3;
+	private static final int PREEVAL_SEARCH_DEPTH = 2;
 	private static final int BAD_MOVE_CUTOFF = -OPENED_FOUR + 100;
 
 	// stats
